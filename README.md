@@ -1,4 +1,4 @@
-The term "brock" refers to a badger which signifies resilience, persistence, determination and strength.
+The term "brock" or badger signifies resilience, persistence, determination and strength.
 
 - 👋 Hi, I’m @brockai
 - 👀 I am interested building Huggingface open source NLP applications deployed in the browser or as secure APIs.
