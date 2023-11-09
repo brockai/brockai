@@ -8,7 +8,7 @@
   
 📫  Drop me a note, bclayton403@gmail.com
 
-🦡 "brock" or badger signifies resilience, persistence, determination and strength.
+`:badger:` "brock" or badger signifies resilience, persistence, determination and strength.
 
 <!---
 brockai/brockai is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
