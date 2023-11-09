@@ -4,7 +4,7 @@
 - 💞️ I’m looking to collaborate on projects that could benefit from the addition Huggingface NLP frontend and/or api application to enhance the user experience and enable powerful text-based functionalities.
 - 📫 Drop me a note, bclayton403@gmail.com
 
- The term "brock" or badger signifies resilience, persistence, determination and strength.
+"brock" or badger signifies resilience, persistence, determination and strength.
 
 <!---
 brockai/brockai is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
