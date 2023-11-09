@@ -1,4 +1,4 @@
-👋  Hi, I’m @brockai,
+👋Hi, I’m @brockai,
   
 👀  I am interested building Huggingface open source NLP applications deployed in the browser or as secure APIs.
 
