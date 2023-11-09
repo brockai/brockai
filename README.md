@@ -1,3 +1,5 @@
+-In old English literature, "brock" is a term that refers to a badger, used to signify resilience, persistence, or the characteristic traits associated with badgers, such as determination and strength.
+-
 - 👋 Hi, I’m @brockai
 - 👀 I am interested building Huggingface open source NLP applications deployed in the browser or as secure APIs to enhance the user experience and enable powerful text-based functionalities.
 - 🌱 I’m working to build an API and frontend search capability to analyze Bill of Material components to make predictions on compliancy for components that are not yet labeled.
