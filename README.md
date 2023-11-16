@@ -1,10 +1,10 @@
 👋 Hi, I’m @brockai,
   
-👀 I am interested building Huggingface open source NLP applications deployed in the browser or as secure APIs.
+👀 I am interested building Huggingface open source Natural Language Processing (NLP) applications deployed in the browser or as secure APIs.
 
 🌱 I’m working on building an API and frontend with search capability to analyze Bill of Material components to make predictions on compliancy.
   
-💞️ I’m looking to collaborate on projects that could benefit from the addition Huggingface NLP frontend and/or api application to enhance the user experience and enable powerful text-based functionalities.
+💞️ I’m looking to collaborate on projects that could benefit from the addition Huggingface NLP and/or api application to enhance the user experience and enable powerful text-based functionalities.
   
 📫  Drop me a note, bclayton403@gmail.com
 
