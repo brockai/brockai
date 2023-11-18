@@ -1,6 +1,6 @@
 👋 Hi, I’m @brockai,
   
-👀 I am interested building open source Natural Language Processing (NLP) applications deployed in the browser or as secure APIs.
+👀 I am interested in uilding open source Natural Language Processing (NLP) browser applications with secure APIs.
 
 🌱 I’m working on building an API and frontend with search capability to analyze Bill of Material components to make predictions on compliancy.
   
