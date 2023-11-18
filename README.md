@@ -4,7 +4,7 @@
 
 🌱 I’m working on building an API and frontend with search capability to analyze Bill of Material components to make predictions on compliancy.
   
-💞️ I’m looking to collaborate on projects that could benefit from the addition NLP browser and/or api applications to enhance the user experience and enable powerful text-based functionalities.
+💞️ I’m looking to collaborate on projects that could benefit from the addition NLP browser and/or api applications enabling powerful text-based functionalities to enhance the user experience.
   
 📫  Drop me a note, bclayton403@gmail.com
 
