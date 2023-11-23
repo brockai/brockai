@@ -1,0 +1,43 @@
+a:link,
+a:visited {
+  color: lightslategray;
+  background-color: transparent;
+}
+
+a:hover,
+a:active {
+  color: whitesmoke;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding-left: 9px;
+  padding-bottom: 9px;
+  width: auto;
+  background-color: transparent;
+  color: lightgray;
+  text-align: left;
+  display: block;
+}
+
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-left: 9px;
+  padding-top: 10px;
+  width: auto;
+  background-color: transparent;
+  color: lightgray;
+  text-align: left;
+  display: block;
+}
+
+.logo-label {
+  padding-left: 9px;
+  font-size: 18px;
+}

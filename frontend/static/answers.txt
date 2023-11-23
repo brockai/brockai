@@ -1,0 +1,114 @@
+[<Answer {'answer': '112995', 'type': 'extractive', 'score': 0.07265464216470718, 'context': 'M-O-LINK COMPANY ,complete,TXL WIRE ,
+    ,
+    "14GA_x000D_,14GA_x000D_",false..\n112995,
+    ,
+    ,
+    14GA GRY TXL (S),EU RoHS 2,EUROHS-1907 (10),under-threshold,
+    ,THERM-O-', 'offsets_in_document': [
+      {'start': 277, 'end': 283
+      }
+    ], 'offsets_in_context': [
+      {'start': 72, 'end': 78
+      }
+    ], 'document_ids': ['d96b6d8a4fb5cc6daa5afdc05803c696'
+    ], 'meta': {'_split_id': 0, '_split_overlap': [
+        {'range': [
+            2261,
+            2458
+          ], 'doc_id': '67c401678ecdc06bca153826d097efb1'
+        }
+      ]
+    }
+  }>, <Answer {'answer': '112678', 'type': 'extractive', 'score': 0.06203565374016762, 'context': 'RM-O-LINK COMPANY ,complete,TXL WIRE ,
+    ,
+    "16GA_x000D_,16GA_x000D_",false.\n112678,
+    ,
+    ,
+    18GA LGRN TXL (S),EU RoHS 2,EUROHS-1907 (10),under-threshold,
+    ,THERM-O', 'offsets_in_document': [
+      {'start': 1327, 'end': 1333
+      }
+    ], 'offsets_in_context': [
+      {'start': 72, 'end': 78
+      }
+    ], 'document_ids': ['d96b6d8a4fb5cc6daa5afdc05803c696'
+    ], 'meta': {'_split_id': 0, '_split_overlap': [
+        {'range': [
+            2261,
+            2458
+          ], 'doc_id': '67c401678ecdc06bca153826d097efb1'
+        }
+      ]
+    }
+  }>, <Answer {'answer': '115446', 'type': 'extractive', 'score': 0.05469305068254471, 'context': 'threshold,
+    ,SONAR PRECISION DIE CUTTING (BRODY) ,complete,
+    ,
+    ,
+    153195,false\n115446,
+    ,
+    ,HDP24-24-29PE   (E)   29 WAY CONN EXTRA THIN SEAL W/DUST CAP,REACH SV', 'offsets_in_document': [
+      {'start': 533, 'end': 539
+      }
+    ], 'offsets_in_context': [
+      {'start': 72, 'end': 78
+      }
+    ], 'document_ids': ['b58cf37631f68d1d425803af9dc7c4c2'
+    ], 'meta': {'_split_id': 1, '_split_overlap': []
+    }
+  }>, <Answer {'answer': '100010,
+    ,
+    ,
+    8GA RED 19/21BC SXL,REACH Annex XVII,Annex XVII Entry 67,not-applicable,
+    ,
+    "SOUTHWIRE COMPANY, LLC",complete,SXL WIRE ,
+    ,
+    "8GA_x000D_,8GA_x000D_",false.\n100357', 'type': 'extractive', 'score': 0.030563490465283394, 'context': '100010,
+    ,
+    ,
+    8GA RED 19/21BC SXL,REACH Annex XVII,Annex XVII Entry 67,not-applicable,
+    ,
+    "SOUTHWIRE COMPANY, LLC",complete,SXL WIRE ,
+    ,
+    "8GA_x000D_,8GA_x000D_",false.\n100357', 'offsets_in_document': [
+      {'start': 766, 'end': 930
+      }
+    ], 'offsets_in_context': [
+      {'start': 0, 'end': 164
+      }
+    ], 'document_ids': ['59b8601ff6878344a97816f50b2f4295'
+    ], 'meta': {'_split_id': 22, '_split_overlap': [
+        {'range': [
+            0,
+            305
+          ], 'doc_id': 'dcabc3ae4722b2789fb5455826aff620'
+        },
+        {'range': [
+            1998,
+            2304
+          ], 'doc_id': 'd26893f571b6de20d171736a3911e3'
+        }
+      ]
+    }
+  }>, <Answer {'answer': '112662', 'type': 'extractive', 'score': 0.02830113098025322, 'context': 'TTI INC. ,complete,AMPHENOL CORP ,
+    ,
+    "93-144820-16S,93-144820-16S",false.\n112662,
+    ,
+    ,
+    14GA LBLU TXL,EU RoHS 2,EUROHS-1907 (10),under-threshold,
+    ,THERM-O-LIN', 'offsets_in_document': [
+      {'start': 895, 'end': 901
+      }
+    ], 'offsets_in_context': [
+      {'start': 72, 'end': 78
+      }
+    ], 'document_ids': ['d96b6d8a4fb5cc6daa5afdc05803c696'
+    ], 'meta': {'_split_id': 0, '_split_overlap': [
+        {'range': [
+            2261,
+            2458
+          ], 'doc_id': '67c401678ecdc06bca153826d097efb1'
+        }
+      ]
+    }
+  }>
+]

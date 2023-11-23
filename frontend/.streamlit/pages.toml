@@ -1,0 +1,19 @@
+[[pages]]
+path = "app.py"
+name = "AI Business Analyst 🧪"
+icon = "🕵"
+
+[[pages]]
+path = "haystack_search.py"
+name = "deepset Search Pipeline 🧪"
+icon = "👑"
+
+[[pages]]
+path = "bomai.py"
+name = "BOM Component Compliancy 🧪"
+icon = "💯"
+
+[[pages]]
+path = "docs.py"
+name = "Docs"
+icon = "📚"
