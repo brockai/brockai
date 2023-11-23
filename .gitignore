@@ -1,5 +1,5 @@
 .DS_Store
-
+.txt
 # Ignore compiled Python files
 *.pyc
 
@@ -7,6 +7,7 @@
 .ipynb_checkpoints/
 
 # Ignore Anaconda environment directories
+.env
 env/
 .venv/
 
