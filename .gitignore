@@ -1,0 +1,16 @@
+.DS_Store
+
+# Ignore compiled Python files
+*.pyc
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore Anaconda environment directories
+env/
+.venv/
+
+# Ignore local data
+data/
+static/data
+haystack/data
