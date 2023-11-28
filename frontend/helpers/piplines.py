@@ -4,20 +4,14 @@ import os
 from haystack import Pipeline
 
 doc_dir = "../data"
-# from utils.config import document_store_configs, model_configs, model_keys
-
 
 from haystack.document_stores import ElasticsearchDocumentStore
 from haystack.nodes import TextConverter, PreProcessor, FARMReader, BM25Retriever
 
-document_store = ElasticsearchDocumentStore(host="localhost", port="9200", index="bom123")
-retriever = BM25Retriever(document_store=document_store)
-reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=True)
-
-print(os.listdir(doc_dir))
-
+document_store = ElasticsearchDocumentStore(host="localhost", port="9201", index="bom123")
+    
 @st.cache_resource(show_spinner=False)
-def cache_opensearch():
+def deepset_indexsearch():
     indexing_pipeline = Pipeline()
     text_converter = TextConverter()
     preprocessor = PreProcessor(
@@ -40,8 +34,10 @@ def cache_opensearch():
     return indexing_pipeline
 
 @st.cache_resource(show_spinner=True)
-def prediction_pipeline(question):
+def deepset_prediction_pipeline(question):
     query_pipeline = Pipeline()
+    retriever = BM25Retriever(document_store=document_store)
+    reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=True)
 
     query_pipeline.add_node(component=retriever, name="Retriever", inputs=["Query"])
     query_pipeline.add_node(component=reader, name="Reader", inputs=["Retriever"])

@@ -23,21 +23,16 @@ model_keys = {
 
 document_store_configs = {
 
-# ElasticSearch Config
-'ELASTICSEARCH_HOST': os.getenv("ELASTICSEARCH_HOST", "localhost"),
-'ELASTICSEARCH_PORT': os.getenv("ELASTICSEARCH_PORT", 9200),
+    # ElasticSearch Config
+    'ELASTICSEARCH_HOST': os.getenv("ELASTICSEARCH_HOST", "localhost"),
+    'ELASTICSEARCH_PORT': os.getenv("ELASTICSEARCH_PORT", 9201),
 
-# OpenSearch Config
-'OPENSEARCH_SCHEME': os.getenv("OPENSEARCH_SCHEME",  "https"),
-'OPENSEARCH_USERNAME': os.getenv("OPENSEARCH_USERNAME", "admin"), 
-'OPENSEARCH_PASSWORD': os.getenv("OPENSEARCH_PASSWORD", "admin"),
-'OPENSEARCH_HOST': os.getenv("OPENSEARCH_HOST", "localhost"),
-'OPENSEARCH_PORT': os.getenv("OPENSEARCH_PORT", 9200),
-'OPENSEARCH_INDEX':  os.getenv("OPENSEARCH_INDEX", "document"),
-'OPENSEARCH_EMBEDDING_DIM': os.getenv("OPENSEARCH_EMBEDDING_DIM", 768),
-
-# Milvus Config
-'MILVUS_URI': os.getenv("MILVUS_URI", "http://localhost:19530/default"),
-'MILVUS_INDEX':  os.getenv("MILVUS_INDEX", "document"),
-'MILVUS_EMBEDDING_DIM': os.getenv("MILVUS_EMBEDDING_DIM", 768),
+    # OpenSearch Config
+    'OPENSEARCH_SCHEME': os.getenv("OPENSEARCH_SCHEME",  "https"),
+    'OPENSEARCH_USERNAME': os.getenv("OPENSEARCH_USERNAME", "admin"), 
+    'OPENSEARCH_PASSWORD': os.getenv("OPENSEARCH_PASSWORD", "admin"),
+    'OPENSEARCH_HOST': os.getenv("OPENSEARCH_HOST", "localhost"),
+    'OPENSEARCH_PORT': os.getenv("OPENSEARCH_PORT", 9200),
+    'OPENSEARCH_INDEX':  os.getenv("OPENSEARCH_INDEX", "document"),
+    'OPENSEARCH_EMBEDDING_DIM': os.getenv("OPENSEARCH_EMBEDDING_DIM", 768),
 }

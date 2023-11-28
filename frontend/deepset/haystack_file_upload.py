@@ -10,7 +10,7 @@ import pandas as pd
 from helpers.markdown import sidebar_footer_logo, app_header
 from helpers.errorcheck import elasticsearch_health
 
-st.title("💯 BOM Component Compliancy 🚀")
+st.title("👑 deepset File Upload & Search 🧪")
 
 with open('styles.css') as f:
     st.sidebar.markdown(
@@ -23,7 +23,7 @@ from helpers.piplines import deepset_indexsearch
 pipelineIndex = deepset_indexsearch()
 
 isHealthy = elasticsearch_health()
-print(isHealthy)
+
 # if isHealthy:
 #     from helpers.piplines import deepset_indexsearch
 #     pipelineIndex = deepset_indexsearch()

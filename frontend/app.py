@@ -5,12 +5,11 @@ import os
 from openai import OpenAI
 st.set_page_config(layout="wide") 
 
-from utils.ui import set_initial_state
-
+from helpers.ui_state import set_initial_state
 from helpers.markdown import sidebar_footer_logo, app_header
 
 show_pages_from_config()
-
+    
 set_initial_state()
 
 with open('styles.css') as f:
@@ -20,13 +19,9 @@ with open('styles.css') as f:
         +sidebar_footer_logo
         , unsafe_allow_html=True
     )
-    
-    # url =  "http://127.0.0.1:8000/docs"
-    # link = f'<a href="{url}" target="_blank">{url}</a>'
-    # st.sidebar.markdown(link, unsafe_allow_html=True)
         
-st.title("🕵 AI Bussiness Analyst")
-st.caption("🚀 Powered by OpenAI LLM")
+st.title("🕵 AI Assistant 🚀")
+st.text("🚀 Powered by OpenAI LLM")
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "Hi I'm Blaire, please tell me about your use case?"}]

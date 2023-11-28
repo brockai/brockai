@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.config import model_configs
+from config import model_configs
 
 def set_state_if_absent(key, value):
     if key not in st.session_state:

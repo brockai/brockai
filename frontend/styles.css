@@ -41,3 +41,15 @@ a:active {
   padding-left: 9px;
   font-size: 18px;
 }
+
+.top-space {
+  padding-top: 15px;
+}
+
+.top-left-space {
+  padding-top: 5px;
+}
+
+.left-space {
+  padding-left: 15px;
+}

@@ -6,9 +6,9 @@ import os
 from annotated_text import annotation
 from json import JSONDecodeError
 from markdown import markdown
-from utils.config import parser, model_configs, document_store_choices
-from utils.haystack import start_document_store, start_all_document_stores, start_haystack_extractive, start_haystack_rag, query
-from utils.ui import reset_results, set_initial_state, set_model, set_store
+from config import parser, model_configs, document_store_choices
+from deepset.haystack import start_document_store, start_all_document_stores, start_haystack_extractive, start_haystack_rag, query
+from helpers.ui_state import reset_results, set_initial_state, set_model, set_store
 from helpers.markdown import sidebar_footer_logo, haystack_header
 
 try:
@@ -23,7 +23,6 @@ try:
     selected_option = st.sidebar.selectbox('Choose a model',list(options.keys()), disabled=True)
     
     if selected_option:
-        print(selected_option)
         set_model(selected_option)
         selected_option_label = selected_option.replace("_", " ")
         
@@ -31,8 +30,6 @@ try:
             pipeline = start_haystack_extractive(document_store)
         else:
             pipeline = start_haystack_rag(document_store)
-
-    st.sidebar.caption(f"**{st.session_state['model']}**", unsafe_allow_html=True)
     
     selected_store = st.sidebar.selectbox('Choose a data store', document_store_choices, disabled=True)
         
@@ -45,8 +42,7 @@ try:
         )
         
     # main container
-    
-    st.title("👑 Haystack Search Pipeline 🧪")
+    st.title("👑 deepset Search Pipeline")
     
     st.header(selected_option_label)
     st.subheader(f"**{st.session_state['model']}**")
