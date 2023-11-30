@@ -20,4 +20,5 @@ matplotlib
 scikit-learn
 torchvision
 scipy
+tiktoken
 watchdog

@@ -16,3 +16,5 @@ env/
 data/
 static/data
 haystack/data
+openai/ingest
+openai/processed
