@@ -15,6 +15,5 @@ env/
 # Ignore local data
 data/
 static/data
-examples/haystack/data
 examples/openai/ingest
 examples/openai/processed
