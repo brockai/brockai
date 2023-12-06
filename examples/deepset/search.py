@@ -7,7 +7,7 @@ from annotated_text import annotation
 from json import JSONDecodeError
 from markdown import markdown
 from config import parser, model_configs, document_store_choices
-from deepset.haystack import start_document_store, start_all_document_stores, start_haystack_extractive, start_haystack_rag, query
+from helpers.haystack import start_document_store, start_all_document_stores, start_haystack_extractive, start_haystack_rag, query
 from helpers.ui_state import reset_results, set_initial_state, set_model, set_store
 from helpers.markdown import sidebar_footer_logo, haystack_header
 

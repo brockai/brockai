@@ -1,23 +1,17 @@
-import subprocess
+import requests
 
-def elasticsearch_health():
-    curl_command = ["curl", "-X", "GET", "http://localhost:9201/_cat/healthm"]
-    
+def check_opensearch_health():
+    url = 'http://localhost:9200/_cluster/health'
+
     try:
-        process = subprocess.Popen(curl_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        # stdout, stderr = process.communicate()
-
-        if process.returncode == 0:
-            # print(stdout.decode("utf-8"))
-            return True
+        response = requests.get(url)
+        if response.status_code == 200:
+            health_info = response.json()
+            print(f"Cluster status: {health_info['status']}")
         else:
-            # print(f"Error: {stderr.decode('utf-8')}")
-            return False
+            print(f"Failed to fetch cluster health. Status code: {response.status_code}")
+    except requests.RequestException as e:
+        print(f"Error: {e}")
 
-    except FileNotFoundError:
-        print("cURL command not found or subprocess module not available.")
-        return False
-      
-    except subprocess.CalledProcessError as e:
-        print(f"Command '{e.cmd}' returned non-zero exit status {e.returncode}.")
-        return False
+# Call the function to check the OpenSearch cluster health
+# check_opensearch_health()

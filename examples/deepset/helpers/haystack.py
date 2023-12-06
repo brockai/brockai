@@ -1,6 +1,6 @@
 import streamlit as st
 
-from config import document_store_configs, model_configs, model_keys
+from examples.deepset.config import document_store_configs, model_configs, model_keys
 from haystack import Pipeline
 from haystack.schema import Answer
 from haystack.document_stores import BaseDocumentStore

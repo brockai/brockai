@@ -1,21 +1,14 @@
 [[pages]]
 path = "app.py"
-name = "AI Assistant 🚀"
+name = "Assistant"
 icon = "🕵"
 
 [[pages]]
-path = "bomai.py"
-name = "BOM Component Compliancy 🚀"
+path = "pages/bomai.py"
+name = "BOM Compliancy"
 icon = "💯"
 
 [[pages]]
-path = "./deepset/haystack_search.py"
-name = "deepset Search 🧪"
-icon = "👑"
-
-[[pages]]
-path = "./deepset/haystack_file_upload.py"
-name = "deepset File Upload 🧪"
-icon = "👑"
-
-
+path = "pages/contact.py"
+name = "Contact Us"
+icon = "✉️"

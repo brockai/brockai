@@ -19,7 +19,7 @@ with open('styles.css') as f:
         +sidebar_footer_logo
         , unsafe_allow_html=True
     )
-from helpers.piplines import deepset_indexsearch
+from deepset.piplines import deepset_indexsearch
 pipelineIndex = deepset_indexsearch()
 
 isHealthy = elasticsearch_health()
@@ -44,7 +44,7 @@ question = st.text_input(
 run_pressed = st.button("Run", disabled=not uploaded_files)
 
 if run_pressed and isHealthy:
-    from helpers.piplines import deepset_prediction_pipeline
+    from deepset.piplines import deepset_prediction_pipeline
     pipelineQuery = deepset_prediction_pipeline(question)
     answer_df = pd.DataFrame(pipelineQuery["answers"])
     answer_df
