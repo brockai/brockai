@@ -19,7 +19,7 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
             rm -rf brockai
-            sudo git clone https://github.com/brockai/brockai.git
+            git clone https://github.com/brockai/brockai.git
             echo 'Deployment to digital ocean finished'
       
       # - name: Build container image
