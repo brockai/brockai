@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # - name: Checkout code
+      #   uses: actions/checkout@v3
+
       - name: Deploy to DigitalOcean Droplet
+      
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.DROPLET_IP}}
@@ -21,7 +23,6 @@ jobs:
           script: |
             rm -rf test
             mkdir test
-            cd test
             git clone https://github.com/brockai/brockai.git
             echo 'Deployment to digital ocean finished'
       # - name: Set up SSH
