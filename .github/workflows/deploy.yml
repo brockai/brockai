@@ -19,7 +19,8 @@ jobs:
           token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
 
       - name: Build container image
-        run: docker build -t registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7) .
+        run: docker compose up
+        # run: docker build -t registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7) .
       
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 1200
