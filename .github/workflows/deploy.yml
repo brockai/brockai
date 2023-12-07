@@ -19,8 +19,6 @@ jobs:
           username: root
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
             rm -rf test
             mkdir test
             cd test
