@@ -79,7 +79,6 @@ if st.button("Run", disabled=not uploaded_files):
     
     answer_question(df, question="What is the best price for coffee?", debug=True)
  
-# st.header("🕵 Blaire")
 for msg in st.session_state.messages_bom:
     st.chat_message(msg["role"]).write(msg["content"])
     
