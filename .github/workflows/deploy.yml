@@ -1,0 +1,36 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to DigitalOcean Container Registry
+        run: docker login registry.digitalocean.com -u ${{ secrets.DIGITAL_OCEAN_CONTAINER_TOKEN }} -p ${{ secrets.DIGITAL_OCEAN_CONTAINER_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t registry.digitalocean.com/your-namespace/your-image-name .
+          docker push registry.digitalocean.com/your-namespace/your-image-name
+
+      - name: SSH into Droplet and restart container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull registry.digitalocean.com/brockai-image
+            docker compose down
+            docker compose up
+            # docker stop your-container-name || true
+            # docker rm your-container-name || true
+            # docker run -d --name your-container-name -p 80:80 registry.digitalocean.com/your-namespace/your-image-name

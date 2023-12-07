@@ -33,7 +33,7 @@ with open('styles.css') as f:
         , unsafe_allow_html=True
     )
     
-st.sidebar.link_button(":abacus: Platform Signin", scheme+domain_platform, use_container_width=True)
+st.sidebar.link_button(":abacus:&nbsp;&nbsp;Platform Signin", scheme+domain_platform, use_container_width=True)
 
 st.header(":email: Contact Us")
 

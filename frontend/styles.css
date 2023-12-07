@@ -53,3 +53,13 @@ a:active {
 .left-space {
   padding-left: 15px;
 }
+
+.rounded-box {
+  width: 180px;
+  height: 34px;
+  text-align: center;
+  border: 1px solid grey;
+  border-radius: 5px;
+  align-items: center; 
+  padding: 2px;
+}

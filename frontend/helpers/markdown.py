@@ -17,7 +17,8 @@ sidebar_app_header = """
 </div>
 """
 powered_by_openai = """
-<div>Powered by&nbsp;
-<img src="app/static/openai-white-lockup.png" alt="OpenAI" height="24">
+<div class="rounded-box">
+Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI" height="18"></div>
 </div>
+<br>
 """

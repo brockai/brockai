@@ -1,7 +1,7 @@
 [[pages]]
 path = "app.py"
-name = "Assistant"
-icon = "🕵"
+name = "brockBot"
+icon = "🤖"
 
 [[pages]]
 path = "pages/bomai.py"

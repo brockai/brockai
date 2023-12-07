@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import tiktoken
+from openai import OpenAI
 st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_icon="./static/brockai.png")  
 
 # import logging
@@ -10,12 +11,25 @@ st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_ic
 
 import pandas as pd
 
-from helpers.config import domain_platform, scheme
+from helpers.config import domain_platform, scheme, openaikey
 from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai
 from helpers.utils import embedding_model, embedding_encoding, max_tokens, get_embedding, answer_question
 
+client = OpenAI(api_key=openaikey)   
+
+if "messages_bom" not in st.session_state:
+    st.session_state["messages_bom"] = [{"role": "assistant", "content": "Would you like to learn more about how to check your BOM for compliancy?"}]
+    
+if "openai_model" not in st.session_state:
+    st.session_state["openai_model"] = "gpt-3.5-turbo"
+    
 st.header("💯 BOM Component Compliancy")
-st.markdown(powered_by_openai, unsafe_allow_html=True)
+with open('styles.css') as f:
+    st.markdown(
+        f'<style>{f.read()}</style>'
+        +powered_by_openai
+        , unsafe_allow_html=True
+    )
 
 with open('styles.css') as f:
     st.sidebar.markdown(
@@ -64,4 +78,21 @@ if st.button("Run", disabled=not uploaded_files):
     # st.dataframe(df.head(1000))
     
     answer_question(df, question="What is the best price for coffee?", debug=True)
+ 
+# st.header("🕵 Blaire")
+for msg in st.session_state.messages_bom:
+    st.chat_message(msg["role"]).write(msg["content"])
     
+if prompt := st.chat_input():
+    if not openaikey:
+        st.info("Please add your OpenAI API key to continue.")
+        st.stop()
+
+    st.session_state.messages_bom.append({"role": "user", "content": prompt})
+    st.chat_message("user").write(prompt)
+    
+    response = client.chat.completions.create(model=st.session_state.openai_model, messages=st.session_state.messages_bom)
+    msg = response.choices[0].message.content
+    
+    st.session_state.messages_bom.append({"role": "assistant", "content": msg})
+    st.chat_message("assistant",avatar="🤖").write(msg)
