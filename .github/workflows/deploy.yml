@@ -21,8 +21,7 @@ jobs:
           username: root
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            rm -rf test
-            mkdir test
+            rm -rf brockai
             sudo git clone https://github.com/brockai/brockai.git
             echo 'Deployment to digital ocean finished'
       # - name: Set up SSH
