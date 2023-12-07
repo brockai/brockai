@@ -21,7 +21,6 @@ jobs:
       - name: Copy repository to DigitalOcean
         run: scp -r ./* root@${{ secrets.DROPLET_IP }}:/home
 
-        
       # - name: Install doctl
       #   uses: digitalocean/action-doctl@v2
       #   with:
