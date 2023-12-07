@@ -13,31 +13,39 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.4
         with:
-          token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Build container image
-        run: docker compose up
-        # run: docker build -t registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7) .
-      
-      - name: Log in to DigitalOcean Container Registry with short-lived credentials
-        run: doctl registry login --expiry-seconds 1200
-      
-      - name: Push image to DigitalOcean Container Registry
-        run: docker push registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7)
+      - name: Copy repository to DigitalOcean
+        run: scp -r ./* root@${{ secrets.DROPLET_IP }}:/home
 
-      - name: SSH into Droplet and restart container
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DROPLET_IP }}
-          username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            docker pull registry.digitalocean.com/brockai-image
-            docker compose down
-            docker compose up
-            # docker stop your-container-name || true
-            # docker rm your-container-name || true
-            # docker run -d --name your-container-name -p 80:80 registry.digitalocean.com/your-namespace/your-image-name
+      # - name: Install doctl
+      #   uses: digitalocean/action-doctl@v2
+      #   with:
+      #     token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+
+      # - name: Build container image
+      #   run: docker compose up
+      #   # run: docker build -t registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7) .
+      
+      # - name: Log in to DigitalOcean Container Registry with short-lived credentials
+      #   run: doctl registry login --expiry-seconds 1200
+      
+      # - name: Push image to DigitalOcean Container Registry
+      #   run: docker push registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7)
+
+      # - name: SSH into Droplet and restart container
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.DROPLET_IP }}
+      #     username: ${{ secrets.DROPLET_USERNAME }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       docker pull registry.digitalocean.com/brockai-image
+      #       docker compose down
+      #       docker compose up
+      #       # docker stop your-container-name || true
+      #       # docker rm your-container-name || true
+      #       # docker run -d --name your-container-name -p 80:80 registry.digitalocean.com/your-namespace/your-image-name
