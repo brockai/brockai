@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v3
-
       - name: Deploy to DigitalOcean Droplet
       
         uses: appleboy/ssh-action@master
@@ -24,19 +21,7 @@ jobs:
             rm -rf brockai
             sudo git clone https://github.com/brockai/brockai.git
             echo 'Deployment to digital ocean finished'
-      # - name: Set up SSH
-      #   uses: webfactory/ssh-agent@v0.5.4
-      #   with:
-      #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      # - name: Copy repository to DigitalOcean
-      #   run: scp -r ./* root@${{ secrets.DROPLET_IP }}:/home
-
-      # - name: Install doctl
-      #   uses: digitalocean/action-doctl@v2
-      #   with:
-      #     token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
-
+      
       # - name: Build container image
       #   run: docker compose up
       #   # run: docker build -t registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7) .
