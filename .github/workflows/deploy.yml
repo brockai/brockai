@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Login to DigitalOcean Container Registry
-        run: docker login registry.digitalocean.com -u ${{ secrets.DIGITAL_OCEAN_CONTAINER_TOKEN }} -p ${{ secrets.DIGITAL_OCEAN_CONTAINER_TOKEN }}
+        run: docker login registry.digitalocean.com -u ${{ secrets.DIGITAL_OCEAN_CONTAINER_TOKEN }}
 
       - name: Build and push Docker image
         run: |
