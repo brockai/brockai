@@ -36,5 +36,5 @@ jobs:
             docker stop opensearch-dashboards || true
             docker compose down
             docker compose up opensearch-node1
-            docker compose up opensearch-node2
-            docker compose up opensearch-dashboards
+            # docker compose up opensearch-node2
+            # docker compose up opensearch-dashboards
