@@ -61,8 +61,7 @@ services:
     #   - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
    
   streamlit:
-    build:
-      context: .
+    build: .
     ports:
       - "80:8501"
 
