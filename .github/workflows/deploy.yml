@@ -22,26 +22,19 @@ jobs:
             git clone https://github.com/brockai/brockai.git
             echo 'Deployment to digital ocean finished'
       
-      # - name: Build container image
-      #   run: docker compose up
-      #   # run: docker build -t registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7) .
-      
-      # - name: Log in to DigitalOcean Container Registry with short-lived credentials
-      #   run: doctl registry login --expiry-seconds 1200
-      
-      # - name: Push image to DigitalOcean Container Registry
-      #   run: docker push registry.digitalocean.com/brocki-image/registry.digitalocean.com/brockai-image:$(echo $GITHUB_SHA | head -c7)
-
-      # - name: SSH into Droplet and restart container
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.DROPLET_IP }}
-      #     username: ${{ secrets.DROPLET_USERNAME }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     script: |
-      #       docker pull registry.digitalocean.com/brockai-image
-      #       docker compose down
-      #       docker compose up
-      #       # docker stop your-container-name || true
-      #       # docker rm your-container-name || true
-      #       # docker run -d --name your-container-name -p 80:80 registry.digitalocean.com/your-namespace/your-image-name
+      - name: Build Services
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+          script: |
+            cd frontend
+            docker stop opensearch-node1 || true
+            docker stop opensearch-node2 || true
+            docker stop opensearch-dashboards || true
+            docker compose down
+            doocker coompose up opensearch-node1
+            doocker coompose up opensearch-node2
+            doocker coompose up opensearch-dashboards
