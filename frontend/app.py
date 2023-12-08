@@ -5,13 +5,11 @@ st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./
 show_pages_from_config()
 
 import re
-import random
 from openai import OpenAI
 
 from helpers.config import domain_platform, scheme, openaikey
 from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai
 
-from captcha.image import ImageCaptcha 
 client = OpenAI(api_key=openaikey)   
 
 if "messages_bot" not in st.session_state:
