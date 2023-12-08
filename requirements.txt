@@ -1,0 +1,27 @@
+# safetensors==0.3.3.post1
+# farm-haystack[inference,weaviate,opensearch]==1.20.0
+streamlit==1.28
+markdown
+# st-annotated-text
+datasets
+transformers
+torch
+ipykernel
+# langchain>=0.0.217
+openai>=1.2
+# duckduckgo-search
+# anthropic>=0.3.0
+trubrics>=1.4.3
+streamlit-feedback
+streamlit-extras
+extra-streamlit-components
+streamlit-antd-components
+st_pages
+plotly
+matplotlib
+scikit-learn
+torchvision
+scipy
+tiktoken
+python-dotenv
+watchdog

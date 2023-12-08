@@ -1,5 +1,10 @@
 FROM python:3.11.5
 
+WORKDIR /
+
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-CMD ["streamlit", "run", "app.py"]
+# COPY ./frontend .
+
+# CMD ["streamlit", "run", "app.py"]
