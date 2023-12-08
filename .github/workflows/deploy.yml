@@ -30,7 +30,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           
           script: |
-            cd frontend
             docker stop opensearch-node1 || true
             docker stop opensearch-node2 || true
             docker stop opensearch-dashboards || true
