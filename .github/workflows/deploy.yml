@@ -20,7 +20,6 @@ jobs:
           script: |
             rm -rf ./brockai
             git clone https://github.com/brockai/brockai.git
-            echo 'Deployment to digital ocean finished'
       
       # - name: Build Services
       #   uses: appleboy/ssh-action@master
