@@ -36,5 +36,5 @@ jobs:
             docker stop opensearch-node2 || true
             docker stop opensearch-dashboards || true
             docker compose down || true
-            docker compose up -d --build || true
+            docker compose up || true
             
