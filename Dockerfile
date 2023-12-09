@@ -1,5 +1,7 @@
 FROM python:3.11.5
 
+RUN mkdir /app
+
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
