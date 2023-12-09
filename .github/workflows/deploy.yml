@@ -28,13 +28,13 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd brockai
-            pip install --upgrade pip setuptools wheel \
-            && pip install -r requirements.txt \
-            && rm -rf /root/.cache/pip
-            docker stop opensearch-node1 || true
-            docker stop opensearch-node2 || true
-            docker stop opensearch-dashboards || true
-            docker compose down || true
-            docker compose up -d || true
+            # cd brockai
+            # pip install --upgrade pip setuptools wheel \
+            # && pip install -r requirements.txt \
+            # && rm -rf /root/.cache/pip
+            # docker stop opensearch-node1 || true
+            # docker stop opensearch-node2 || true
+            # docker stop opensearch-dashboards || true
+            # docker compose down || true
+            # docker compose up -d || true
             
