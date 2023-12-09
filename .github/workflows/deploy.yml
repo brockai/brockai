@@ -28,7 +28,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # cd brockai
+            cd brockai
             # pip install --upgrade pip setuptools wheel \
             # && pip install -r requirements.txt \
             # && rm -rf /root/.cache/pip
