@@ -120,12 +120,11 @@ jobs:
     steps:
       - name: Run Streamlit app
         run: |
-          cd /var/www/streamlit
           sudo apt-get -y install python3.11-venv
           sudo python3 -m venv brockai
           source brockai/bin/activate
           pip install -r requirements.txt
-          streamlit run app.py
+          streamlit run /var/www/streamlit/app.py
 
   #     - name: Build Services
   #       uses: appleboy/ssh-action@master
