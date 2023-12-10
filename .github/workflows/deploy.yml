@@ -22,8 +22,8 @@ jobs:
             sudo apt install python3
             python3 --version
             sudo apt-get -y install nginx
-            sudo systemctl start nginx
-            sudo systemctl enable nginx
+            # sudo systemctl start nginx
+            # sudo systemctl enable nginx
 
       - name: Clone to DigitalOcean Droplet
       
