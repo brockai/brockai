@@ -62,7 +62,7 @@ services:
 
 
   streamlit:
-    # build: ./
+    build: ./
     command: streamlit run app.py --server.port 8502
     volumes: 
       - ./:var/www/streamlit
