@@ -17,10 +17,21 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            sudo apt purge nginx nginx-common
             sudo apt update
             sudo apt-get -y install nginx
             sudo systemctl start nginx
             sudo systemctl enable nginx
+
+      - name: Clone to DigitalOcean Droplet
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.DROPLET_IP}}
+          username: root
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          script: |
+            rm -rf ./brockai
+            git clone https://github.com/brockai/brockai.git
 
       # - name: Install Python & Nginx
       #   uses: appleboy/ssh-action@master
@@ -39,19 +50,6 @@ jobs:
       #       source brockai/bin/activate
       #       pip install -r requirements.txt
       #       rm -r /root/brockai
-
-     
-
-      # - name: Clone to DigitalOcean Droplet
-      
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{secrets.DROPLET_IP}}
-      #     username: root
-      #     key: ${{secrets.SSH_PRIVATE_KEY}}
-      #     script: |
-      #       rm -rf ./brockai
-      #       git clone https://github.com/brockai/brockai.git
 
       # - name: Build Services
       #   uses: appleboy/ssh-action@master
