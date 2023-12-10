@@ -60,7 +60,6 @@ services:
     # volumes:
     #   - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 
-
   streamlit:
     build: ./
     command: streamlit run app.py --server.port 8502
@@ -70,7 +69,6 @@ services:
       - "80:8502"
     networks:
       - opensearch-net
-
 
 volumes:
   opensearch-data1:
