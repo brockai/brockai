@@ -20,8 +20,8 @@ jobs:
             sudo apt purge nginx nginx-common
             sudo apt update
             sudo apt-get -y install nginx
-            sudo systemctl start nginx
-            sudo systemctl enable nginx
+            # sudo systemctl start nginx
+            # sudo systemctl enable nginx
 
       - name: Clone brockai repo
         uses: appleboy/ssh-action@master
