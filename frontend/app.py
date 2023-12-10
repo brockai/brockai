@@ -36,7 +36,7 @@ with open('styles.css') as f:
     
 st.sidebar.link_button(":abacus:&nbsp;&nbsp;&nbsp;Platform Signin", scheme+domain_platform, use_container_width=True)
 
-st.header("🤖 brockBot")
+st.header("🤖 Blaire")
 
 st.markdown(powered_by_openai, unsafe_allow_html=True)
 print(st.session_state.messages_bot)

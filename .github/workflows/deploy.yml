@@ -124,6 +124,6 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            source brockai/bin/activate
+            sudo source brockai/bin/activate
             cd /var/www/streamlit
             streamlit run app.py || true                                         
