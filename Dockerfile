@@ -4,7 +4,7 @@ FROM python:3.11.6
 
 WORKDIR /var/www/streamlit
 
-COPY . /var/www/streamlit/
+COPY ./frontend /var/www/streamlit
 
 RUN pip install -r requirements.txt
 
