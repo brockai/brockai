@@ -58,6 +58,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            cd /root/brockai
             docker system prune --all --force --volumes
             docker stop opensearch-node1 || true
             docker stop opensearch-node2 || true
