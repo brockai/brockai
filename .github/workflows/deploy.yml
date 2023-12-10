@@ -23,7 +23,7 @@ jobs:
             sudo systemctl start nginx
             sudo systemctl enable nginx
 
-      - name: Clone to DigitalOcean Droplet
+      - name: Clone brockai repo
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.DROPLET_IP}}
@@ -33,22 +33,26 @@ jobs:
             rm -rf ./brockai
             git clone https://github.com/brockai/brockai.git
 
-      # - name: Install Python & Nginx
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.DROPLET_IP }}
-      #     username: ${{ secrets.DROPLET_USERNAME }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     script: |
-      #       sudo apt update
-      #       sudo apt install python3
+      - name: Install Python Environment
+        uses: appleboy/ssh-action@master
+        with:
+           host: ${{ secrets.DROPLET_IP }}
+           username: ${{ secrets.DROPLET_USERNAME }}
+           key: ${{ secrets.SSH_PRIVATE_KEY }}
+           script: |
+             sudo apt update
+             sudo apt install python3
+             cd brockai/frontend
+             sudo apt-get -y install python3.11-venv
+             sudo python3 -m venv brockai
+             source brockai/bin/activate
+             pip install -r requirements.txt
       #       mkdir /var/www/streamlit
       #       cp -r ./brockai/* /var/www/streamlit
       #       cd /var/www/streamlit
       #       sudo apt-get -y install python3.11-venv
       #       sudo python3 -m venv brockai
       #       source brockai/bin/activate
-      #       pip install -r requirements.txt
       #       rm -r /root/brockai
 
       # - name: Build Services
