@@ -62,11 +62,11 @@ services:
 
   streamlit:
     build: ./
-    command: streamlit run app.py --server.port 8502
+    command: streamlit run app.py --server.port 8501
     volumes: 
-      - ./:var/www/streamlit
+      - ./:./var/www/streamlit
     ports:
-      - "8502:8502"
+      - "8501:8501"
     networks:
       - opensearch-net
 
