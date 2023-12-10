@@ -9,8 +9,6 @@ st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_ic
 # logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
 # logging.getLogger("haystack").setLevel(logging.INFO)
 
-import pandas as pd
-
 from helpers.config import domain_platform, scheme, openaikey
 from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai
 from helpers.utils import embedding_model, embedding_encoding, max_tokens, get_embedding, answer_question
