@@ -60,14 +60,14 @@ services:
     # volumes:
     #   - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
    
-  # streamlit:
-  #   build: ./
-  #   command: streamlit run app.py --server.port 8501
-  #   volumes: 
-  #     - ./:usr/src/app
-  #   ports:
-  #     - "80:8501"
-  #   image: brockaiapp:latest
+  streamlit:
+    build: ./
+    command: streamlit run app.py --server.port 8501
+    volumes: 
+      - ./:var/www/streamlit
+    ports:
+      - "80:8501"
+    image: brockaiapp:latest
 
 
 volumes:
