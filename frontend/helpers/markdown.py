@@ -2,7 +2,7 @@ sidebar_footer_logo = """
 <div class="top-space">Docs & Jupter Notebooks</div>
 <div class="left-space top-left-space">🤗&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/🤗-Huggingface" target="_blank">Huggingface</a></div>
 <div class="left-space top-left-space"><img src="app/static/openai.png" alt="openai" width="18">&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/OpenAI" target="_blank">OpenAI</a></div>
-<div class="left-space top-left-space">👑&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/Haystack" target="_blank">Haystack (deepset)</a></div>
+<div class="left-space top-left-space">👑&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/deepset-(Haystack)" target="_blank">Haystack (deepset)</a></div>
 <div><br></div>
 <div class="footer">
 <a href="https://github.com/brockai" target="_blank">
