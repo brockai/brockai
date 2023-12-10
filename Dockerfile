@@ -1,22 +1,33 @@
-FROM python:3.11.5
+FROM python:3
 
-RUN mkdir /app
+WORKDIR /usr/src/app
 
-WORKDIR /app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+COPY . .
 
-RUN git clone https://github.com/brockai/brockai.git .
+# CMD [ "python", "./your-daemon-or-script.py" ]
 
-RUN pip3 install -r requirements.txt
+#FROM python:3.11.5
 
-EXPOSE 8501
+# RUN mkdir /app
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+# WORKDIR /app
 
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# RUN apt-get update && apt-get install -y \
+#     build-essential \
+#     curl \
+#     software-properties-common \
+#     git \
+#     && rm -rf /var/lib/apt/lists/*
+
+# RUN git clone https://github.com/brockai/brockai.git .
+
+# RUN pip3 install -r requirements.txt
+
+# EXPOSE 8501
+
+# HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+
+# ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
