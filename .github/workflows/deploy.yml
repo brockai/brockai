@@ -66,6 +66,4 @@ jobs:
             docker stop opensearch-dashboards || true
             docker compose down || true
             docker compose up || true
-            cd /var/www/streamlit
-            streamlit run app.py
             
