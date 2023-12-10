@@ -67,7 +67,7 @@ services:
     volumes: 
       - ./:var/www/streamlit
     ports:
-      - "8502:8502"
+      - "80:8502"
     networks:
       - opensearch-net
 
