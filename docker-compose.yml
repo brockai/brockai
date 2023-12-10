@@ -59,15 +59,15 @@ services:
       - opensearch-net
     # volumes:
     #   - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
- 
-   
-  # streamlit:
-  #   build: ./
-  #   command: streamlit run app.py --server.port 8501
-  #   volumes: 
-  #     - ./:var/www/streamlit
-  #   ports:
-  #     - "80:8501"
+
+
+  streamlit:
+    # build: ./
+    command: streamlit run app.py --server.port 8502
+    volumes: 
+      - ./:var/www/streamlit
+    ports:
+      - "8502:8502"
 
 
 volumes:
