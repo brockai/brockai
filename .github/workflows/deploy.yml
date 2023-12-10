@@ -126,4 +126,4 @@ jobs:
           script: |
             sudo source brockai/bin/activate
             cd /var/www/streamlit
-            streamlit run app.py || true                                         
+            CMD ["python", "streamlit run app.py"]                                        
