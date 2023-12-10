@@ -20,37 +20,37 @@ jobs:
           script: |
             sudo apt update
             sudo apt install python3
-            python3 --version
+            sudo apt update
             sudo apt-get -y install nginx
-            # sudo systemctl start nginx
-            # sudo systemctl enable nginx
+            sudo systemctl start nginx
+            sudo systemctl enable nginx
 
-      - name: Clone to DigitalOcean Droplet
+      # - name: Clone to DigitalOcean Droplet
       
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{secrets.DROPLET_IP}}
-          username: root
-          key: ${{secrets.SSH_PRIVATE_KEY}}
-          script: |
-            rm -rf ./brockai
-            git clone https://github.com/brockai/brockai.git
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{secrets.DROPLET_IP}}
+      #     username: root
+      #     key: ${{secrets.SSH_PRIVATE_KEY}}
+      #     script: |
+      #       rm -rf ./brockai
+      #       git clone https://github.com/brockai/brockai.git
 
-      - name: Build Services
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DROPLET_IP }}
-          username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd brockai
-            # pip install --upgrade pip setuptools wheel \
-            # && pip install -r requirements.txt \
-            # && rm -rf /root/.cache/pip
-            # docker system prune --all --force --volumes
-            docker stop opensearch-node1 || true
-            docker stop opensearch-node2 || true
-            docker stop opensearch-dashboards || true
-            docker compose down || true
-            docker compose up || true
+      # - name: Build Services
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.DROPLET_IP }}
+      #     username: ${{ secrets.DROPLET_USERNAME }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd brockai
+      #       # pip install --upgrade pip setuptools wheel \
+      #       # && pip install -r requirements.txt \
+      #       # && rm -rf /root/.cache/pip
+      #       # docker system prune --all --force --volumes
+      #       docker stop opensearch-node1 || true
+      #       docker stop opensearch-node2 || true
+      #       docker stop opensearch-dashboards || true
+      #       docker compose down || true
+      #       docker compose up || true
             
