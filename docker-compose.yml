@@ -59,6 +59,7 @@ services:
       - opensearch-net
     # volumes:
     #   - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
+ 
    
   # streamlit:
   #   build: ./

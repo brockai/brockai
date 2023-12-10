@@ -78,7 +78,10 @@ if st.button("Run", disabled=not uploaded_files):
     answer_question(df, question="What is the best price for coffee?", debug=True)
  
 for msg in st.session_state.messages_bom:
-    st.chat_message(msg["role"]).write(msg["content"])
+    if msg["role"] == 'assistant':
+      st.chat_message(msg["role"],avatar="🤖").write(msg["content"])
+    else:
+      st.chat_message(msg["role"]).write(msg["content"])
     
 if prompt := st.chat_input():
     if not openaikey:

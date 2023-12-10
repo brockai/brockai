@@ -42,7 +42,10 @@ st.markdown(powered_by_openai, unsafe_allow_html=True)
 print(st.session_state.messages_bot)
 
 for msg in st.session_state.messages_bot:
-    st.chat_message(msg["role"]).write(msg["content"])
+    if msg["role"] == 'assistant':
+      st.chat_message(msg["role"],avatar="🤖").write(msg["content"])
+    else:
+      st.chat_message(msg["role"]).write(msg["content"])
     
 if prompt := st.chat_input():
     if not openaikey:
