@@ -51,21 +51,17 @@ jobs:
              source brockai/bin/activate
              pip install -r requirements.txt
 
-      # - name: Build Services
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.DROPLET_IP }}
-      #     username: ${{ secrets.DROPLET_USERNAME }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     script: |
-      #       cd brockai
-      #       # pip install --upgrade pip setuptools wheel \
-      #       # && pip install -r requirements.txt \
-      #       # && rm -rf /root/.cache/pip
-      #       # docker system prune --all --force --volumes
-      #       docker stop opensearch-node1 || true
-      #       docker stop opensearch-node2 || true
-      #       docker stop opensearch-dashboards || true
-      #       docker compose down || true
-      #       docker compose up || true
+      - name: Build Services
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker system prune --all --force --volumes
+            docker stop opensearch-node1 || true
+            docker stop opensearch-node2 || true
+            docker stop opensearch-dashboards || true
+            docker compose down || true
+            docker compose up || true
             
