@@ -126,8 +126,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/streamlit
-            sudo apt-get -y install python3.11-venv
-            sudo python3 -m venv brockai
-            source brockai/bin/activate
-            pip install -r requirements.txt 
-            nohup streamlit run app.py &                                  
+            docker build -t brockai-streamlit . || true 
+            docker run --rm -p 8502:8502 brockai-streamlit || true 
+
+# sudo apt-get -y install python3.11-venv
+            # sudo python3 -m venv brockai
+            # source brockai/bin/activate
+            # pip install -r requirements.txt 
+            # nohup streamlit run app.py &                                              
