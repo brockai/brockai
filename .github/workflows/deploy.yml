@@ -19,6 +19,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            sudo systemctl stop nginx
             cd /root/brockai
             sudo systemctl stop nginx
             sudo apt purge nginx nginx-common
