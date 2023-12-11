@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=root
 WorkingDirectory=/var/www/streamlit
-ExecStart=/var/www/streamlit run app.py
+ExecStart=streamlit run app.py
 Restart=always
 RestartSec=3
 
