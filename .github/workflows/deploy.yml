@@ -128,5 +128,6 @@ jobs:
             sudo python3 -m venv brockai
             source brockai/bin/activate
             pip install -r requirements.txt
+            sudo systemctl stop streamlit.service || true
             sudo systemctl start streamlit.service || true
 
