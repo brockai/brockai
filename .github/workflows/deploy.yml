@@ -120,12 +120,12 @@ jobs:
     needs: Start-OpenSearch-Dashboards
     steps:
       - name: Run Streamlit app
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.DROPLET_IP }}
-        username: root
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          source brockai/bin/activate
-          sudo pip install -r /var/www/streamlit/requirements.txt
-          streamlit run /var/www/streamlit/app.py
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            source brockai/bin/activate
+            sudo pip install -r /var/www/streamlit/requirements.txt
+            streamlit run /var/www/streamlit/app.py
