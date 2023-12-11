@@ -161,6 +161,9 @@ jobs:
             sudo ufw allow 'Nginx Full'
             sudo ufw enable
 
+            sudo systemctl stop streamlit.service || true
+            sudo systemctl start streamlit.service || true
+
 
 
 
