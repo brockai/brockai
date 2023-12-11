@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=root
 WorkingDirectory=/var/www/streamlit
-ExecStart=streamlit run app.py
+ExecStart=/var/www/streamlit/brockai/bin/streamlit  run --server.port 8501 app.py
 Restart=always
 RestartSec=3
 
