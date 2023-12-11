@@ -12,25 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install nginx
+      - name: Install nginx & reverse-proxy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo systemctl stop nginx
-            cd /root/brockai
-            sudo systemctl stop nginx
-            sudo apt purge nginx nginx-common
+            sudo apt-get -y purge nginx nginx-common
             sudo apt update
             sudo apt-get -y install nginx
-            # sudo rm /etc/nginx/sites-available/streamlit
-            # sudo rm /etc/nginx/sites-enabled/streamlit
-            # sudo cp -f ./nginx.conf /etc/nginx/sites-available/streamlit
-            # sudo ln -s /etc/nginx/sites-available/streamlit /etc/nginx/sites-enabled/
-            # sudo systemctl start nginx || true
-            # sudo systemctl enable nginx
+            sudo cp -f /root/brockai/reverse-proxy.conf /etc/nginx/sites-available/
+            sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/
+            sudo nginx -t
+            sudo systemctl restart nginx
+            sudo systemctl enable nginx
 
       - name: Clone brockai repo
         uses: appleboy/ssh-action@master
@@ -123,14 +119,19 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # turn off streamlit service, copy service config, reload daemon
             sudo systemctl stop streamlit.service || true
             cp ./brockai/streamlit.service /etc/systemd/system/streamlit.service
             sudo systemctl daemon-reload
+
+            # remove existing app, copy over cloned app
             rm /var/www/streamlit -r || true
             mkdir /var/www/streamlit || true
             cp .env /var/www/streamlit
             cp ./brockai/frontend/. -r /var/www/streamlit
             cd /var/www/streamlit
+
+            # create python env, install requirements, restart streamlit service
             sudo python3 -m venv brockai
             source brockai/bin/activate
             pip install -r requirements.txt
