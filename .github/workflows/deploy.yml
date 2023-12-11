@@ -24,8 +24,10 @@ jobs:
             sudo apt purge nginx nginx-common
             sudo apt update
             sudo apt-get -y install nginx
+            rm /etc/nginx/sites-available/streamlit
+            rm /etc/nginx/sites-enabled/streamlit
             cp -f ./nginx.conf /etc/nginx/sites-available/streamlit
-            sudo ln -s /etc/nginx/sites-available/streamlit /etc/nginx/sites-enabled/ || true
+            sudo ln -s /etc/nginx/sites-available/streamlit /etc/nginx/sites-enabled/
             sudo systemctl start nginx
             # sudo systemctl enable nginx
 
