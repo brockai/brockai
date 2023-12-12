@@ -95,4 +95,4 @@ if prompt := st.chat_input():
     msg = response.choices[0].message.content
     
     st.session_state.messages_bom.append({"role": "assistant", "content": msg})
-    st.chat_message("assistant",avatar="🤖").write(msg)
+    st.chat_message("assistant",avatar="🕵️‍♀️").write(msg)
