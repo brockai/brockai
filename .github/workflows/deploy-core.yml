@@ -136,7 +136,7 @@ jobs:
 
   Install-Firewall:
     runs-on: ubuntu-latest
-    needs: Start-OpenSearch-Dashboards
+    needs: Nginx-Reverse-Proxy
     steps:
       - name: Install firewall
         uses: appleboy/ssh-action@master
