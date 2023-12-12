@@ -44,7 +44,7 @@ jobs:
             cp ./brockai/frontend/. -r /var/www/streamlit
             cd /var/www/streamlit
 
-            # create python env, install requirements, restart streamlit service
+            # create python env & install requirements
             sudo python3 -m venv brockai
             source brockai/bin/activate
             pip install -r requirements.txt
