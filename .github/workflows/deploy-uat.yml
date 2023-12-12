@@ -1,9 +1,10 @@
-name: Deploy User Acceeptance Testing
+name: Deploy User Acceptance Testing
 
 on:
   push:
     branches:
       - uat
+      - core
 
 jobs:
 
@@ -14,7 +15,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.DROPLET_IP}}
-          username: root
+          username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
             rm -rf ./brockai
