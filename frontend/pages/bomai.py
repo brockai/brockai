@@ -10,6 +10,7 @@ st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_ic
 # logging.getLogger("haystack").setLevel(logging.INFO)
 
 from helpers.config import domain_platform, scheme, openaikey
+from services.opensearch import create_index
 from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai
 from helpers.utils import embedding_model, embedding_encoding, max_tokens, get_embedding, answer_question
 
@@ -45,7 +46,9 @@ for uploaded_file in uploaded_files:
     st.write("filename:", uploaded_file.name)
     # st.write(bytes_data)
 
-if st.button("Run", disabled=not uploaded_files):
+if st.button("🚀 Upload & Process", disabled=not uploaded_files):
+  
+    # st.session_state["messages_bom"].append({"role": "assistant", "content": "Thanks for uploading your data"})
     
     input_datapath = "data/Reviews.csv"  # to save space, we provide a pre-filtered dataset
     df = pd.read_csv(input_datapath, index_col=0)
@@ -73,13 +76,15 @@ if st.button("Run", disabled=not uploaded_files):
     df["embedding"] = df.combined.apply(lambda x: get_embedding(x, embedding_model))
     df.to_csv("data/processed/fine_food_reviews_with_embeddings_1k.csv")
 
-    # st.dataframe(df.head(1000))
+    st.dataframe(df.head(10))
     
-    answer_question(df, question="What is the best price for coffee?", debug=True)
+    create_index("bclayton403@gmail.com", df)
+    
+    # answer_question(df, question="What is the best price for coffee?", debug=True)
  
 for msg in st.session_state.messages_bom:
     if msg["role"] == 'assistant':
-      st.chat_message(msg["role"],avatar="🤖").write(msg["content"])
+      st.chat_message(msg["role"],avatar="🕵️‍♀️").write(msg["content"])
     else:
       st.chat_message(msg["role"]).write(msg["content"])
     
