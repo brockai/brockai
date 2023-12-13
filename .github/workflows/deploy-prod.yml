@@ -59,7 +59,8 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo systemctl start streamlit.service            
+            sudo systemctl restart streamlit.service 
+            sudo systemctl restart streamlit-uat.service           
 
 
 
