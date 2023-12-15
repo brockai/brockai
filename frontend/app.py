@@ -7,7 +7,7 @@ show_pages_from_config()
 import re
 from openai import OpenAI
 
-from helpers.config import domain_platform, scheme, openaikey
+from helpers.config import opensearch_platform, scheme, openaikey
 from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai
 
 client = OpenAI(api_key=openaikey)   
@@ -25,6 +25,13 @@ def is_valid_email(email):
         return True
     else:
         return False
+      
+st.markdown(
+    """
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    """,
+    unsafe_allow_html=True
+)      
   
 with open('styles.css') as f:
     st.sidebar.markdown(
@@ -34,8 +41,6 @@ with open('styles.css') as f:
         , unsafe_allow_html=True
     )
     
-st.sidebar.link_button(":abacus:&nbsp;&nbsp;&nbsp;Platform Signin", scheme+domain_platform, use_container_width=True)
-
 st.header("🕵️‍♀️ Blaire")
 
 st.markdown(powered_by_openai, unsafe_allow_html=True)

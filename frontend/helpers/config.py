@@ -5,7 +5,9 @@ load_dotenv()
 
 openaikey = os.getenv("OPENAI_KEY")
 domain = os.getenv("DOMAIN")
-domain_platform = os.getenv("DOMAIN_PLATFORM")
+domain_api = os.getenv("DOMAIN_API")
+openseearch_api = os.getenv("OPENSEARCH_API")
+opensearch_platform = os.getenv("OPENSEARCH_PLATFORM")
 scheme = os.getenv("SCHEME")
 
 mailgun = { 

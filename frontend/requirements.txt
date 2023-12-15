@@ -6,3 +6,4 @@ tiktoken
 captcha
 python-dotenv
 IPython
+streamlit-antd-components

@@ -9,10 +9,9 @@ st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_ic
 # logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
 # logging.getLogger("haystack").setLevel(logging.INFO)
 
-from helpers.config import domain_platform, scheme, openaikey
-from services.opensearch import create_index
+from helpers.config import opensearch_platform, scheme, openaikey
 from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai
-from helpers.utils import embedding_model, embedding_encoding, max_tokens, get_embedding, answer_question
+from services.api import create_embeddings
 
 client = OpenAI(api_key=openaikey)   
 
@@ -38,7 +37,7 @@ with open('styles.css') as f:
         , unsafe_allow_html=True
     )
     
-st.sidebar.link_button(":abacus:&nbsp;&nbsp;&nbsp;Platform Signin", scheme+domain_platform, use_container_width=True)
+st.sidebar.link_button(":abacus:&nbsp;&nbsp;&nbsp;Platform Signin", scheme+opensearch_platform, use_container_width=True)
 
 uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
 for uploaded_file in uploaded_files:
@@ -47,40 +46,8 @@ for uploaded_file in uploaded_files:
     # st.write(bytes_data)
 
 if st.button("🚀 Upload & Process", disabled=not uploaded_files):
-  
-    # st.session_state["messages_bom"].append({"role": "assistant", "content": "Thanks for uploading your data"})
+  create_embeddings()
     
-    input_datapath = "data/Reviews.csv"  # to save space, we provide a pre-filtered dataset
-    df = pd.read_csv(input_datapath, index_col=0)
-    df = df[["Time", "ProductId", "UserId", "Score", "Summary", "Text"]]
-
-    df = df.dropna()
-
-    df["combined"] = (
-        "Title: " + df.Summary.str.strip() + "; Content: " + df.Text.str.strip()
-    )
-
-    top_n = 1000
-    df = df.sort_values("Time").tail(top_n * 2)  # first cut to first 2k entries, assuming less than half will be filtered out
-    df.drop("Time", axis=1, inplace=True)
-
-    encoding = tiktoken.get_encoding(embedding_encoding)
-
-    # omit reviews that are too long to embed
-    df["n_tokens"] = df.combined.apply(lambda x: len(encoding.encode(x)))
-    df = df[df.n_tokens <= max_tokens].tail(top_n)
-    len(df)
-    
-    embedding_model = "text-embedding-ada-002"
-    # This may take a few minutes
-    df["embedding"] = df.combined.apply(lambda x: get_embedding(x, embedding_model))
-    df.to_csv("data/processed/fine_food_reviews_with_embeddings_1k.csv")
-
-    st.dataframe(df.head(10))
-    
-    create_index("bclayton403@gmail.com", df)
-    
-    # answer_question(df, question="What is the best price for coffee?", debug=True)
  
 for msg in st.session_state.messages_bom:
     if msg["role"] == 'assistant':

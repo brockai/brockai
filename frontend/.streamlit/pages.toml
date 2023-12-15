@@ -9,6 +9,11 @@ name = "BOM Compliancy"
 icon = "💯"
 
 [[pages]]
+path = "pages/platform.py"
+name = "Platform"
+icon = "🧮"
+
+[[pages]]
 path = "pages/contact.py"
 name = "Contact Us"
 icon = "✉️"

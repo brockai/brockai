@@ -7,7 +7,7 @@ import re
 import random
 import requests
 
-from helpers.config import domain_platform, scheme, mailgun
+from helpers.config import opensearch_platform, scheme, mailgun
 from helpers.markdown import sidebar_footer_logo, sidebar_app_header
 
 from captcha.image import ImageCaptcha    
@@ -33,7 +33,7 @@ with open('styles.css') as f:
         , unsafe_allow_html=True
     )
     
-st.sidebar.link_button(":abacus:&nbsp;&nbsp;Platform Signin", scheme+domain_platform, use_container_width=True)
+st.sidebar.link_button(":abacus:&nbsp;&nbsp;Platform Signin", scheme+opensearch_platform, use_container_width=True)
 
 st.header(":email: Contact Us")
 

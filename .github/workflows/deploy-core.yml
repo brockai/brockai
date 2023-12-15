@@ -126,9 +126,9 @@ jobs:
             sudo apt-get -y purge nginx nginx-common
             sudo apt update
             sudo apt-get -y install nginx
-            sudo cp -f /root/brockai/default.conf /etc/nginx/sites-available/default
-            sudo cp -f /root/brockai/reverse-proxy.conf /etc/nginx/sites-available/reverse-proxy.conf
-            sudo cp -f /root/brockai/reverse-proxy-uat.conf /etc/nginx/sites-available/reverse-proxy-uat.conf
+            sudo cp -f /root/brockai/config/default.conf /etc/nginx/sites-available/default
+            sudo cp -f /root/brockai/config/reverse-proxy.conf /etc/nginx/sites-available/reverse-proxy.conf
+            sudo cp -f /root/brockai/config/reverse-proxy-uat.conf /etc/nginx/sites-available/reverse-proxy-uat.conf
             sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/
             sudo ln -s /etc/nginx/sites-available/reverse-proxy-uat.conf /etc/nginx/sites-enabled/
             sudo nginx -t
@@ -150,6 +150,7 @@ jobs:
             sudo apt install ufw
             sudo ufw allow OpenSSH
             sudo ufw allow 'Nginx Full'
+            sudo ufw allow 9200
             sudo ufw enable
 
   Start-Nginx-Streamlit:

@@ -14,7 +14,7 @@ sidebar_footer_logo = """
 
 sidebar_app_header = """
 <div class="header logo-label">
-<img src="app/static/platform_logo_darkmode.png" alt="GitHub Icon" height="24"></a>
+<img src="app/static/platform_logo_darkmode.png" alt="Platform" height="24">
 </div>
 """
 powered_by_openai = """
@@ -23,3 +23,4 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 </div>
 <br>
 """
+

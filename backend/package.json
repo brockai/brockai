@@ -1,0 +1,26 @@
+{
+  "name": "brockai-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brockai/brockai.git"
+  },
+  "author": "brock clayton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brockai/brockai/issues"
+  },
+  "homepage": "https://github.com/brockai/brockai#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  }
+}

@@ -33,7 +33,7 @@ jobs:
           script: |
             # turn off streamlit service, copy service config, reload daemon
             sudo systemctl stop streamlit-uat.service || true
-            cp ./brockai/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
+            cp ./brockai/config/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
             sudo systemctl daemon-reload
 
             # remove existing app, copy over cloned app
