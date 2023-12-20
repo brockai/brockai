@@ -39,7 +39,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            rm -rf ./brockai
+            rm -rf /root/brockai
             git clone https://github.com/brockai/brockai.git
 
       - name: Install python
