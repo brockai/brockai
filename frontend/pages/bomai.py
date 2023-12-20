@@ -10,7 +10,7 @@ st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_ic
 # logging.getLogger("haystack").setLevel(logging.INFO)
 
 from helpers.config import opensearch_platform, scheme, openaikey
-from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai
+from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai, platform_link
 from services.api import create_embeddings
 
 client = OpenAI(api_key=openaikey)   
@@ -37,7 +37,7 @@ with open('styles.css') as f:
         , unsafe_allow_html=True
     )
     
-st.sidebar.link_button(":abacus:&nbsp;&nbsp;&nbsp;Platform Signin", scheme+opensearch_platform, use_container_width=True)
+st.sidebar.markdown(platform_link, unsafe_allow_html=True)
 
 uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
 for uploaded_file in uploaded_files:

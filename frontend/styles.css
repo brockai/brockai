@@ -63,3 +63,12 @@ a:active {
   align-items: center; 
   padding: 2px;
 }
+
+.red-text {
+  color: red;
+}
+
+.fullHeight {
+  height : 100vh;
+  width : 100%
+}

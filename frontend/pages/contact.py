@@ -1,4 +1,5 @@
 import streamlit as st
+from captcha.image import ImageCaptcha
 from st_pages import show_pages_from_config 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png")  
 show_pages_from_config()
@@ -7,8 +8,8 @@ import re
 import random
 import requests
 
-from helpers.config import opensearch_platform, scheme, mailgun
-from helpers.markdown import sidebar_footer_logo, sidebar_app_header
+from helpers.config import mailgun
+from helpers.markdown import sidebar_footer_logo, sidebar_app_header, platform_link
 
 from captcha.image import ImageCaptcha    
 
@@ -33,7 +34,7 @@ with open('styles.css') as f:
         , unsafe_allow_html=True
     )
     
-st.sidebar.link_button(":abacus:&nbsp;&nbsp;Platform Signin", scheme+opensearch_platform, use_container_width=True)
+st.sidebar.markdown(platform_link, unsafe_allow_html=True)
 
 st.header(":email: Contact Us")
 

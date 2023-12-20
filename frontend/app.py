@@ -7,8 +7,8 @@ show_pages_from_config()
 import re
 from openai import OpenAI
 
-from helpers.config import opensearch_platform, scheme, openaikey
-from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai
+from helpers.config import openaikey
+from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai, platform_link
 
 client = OpenAI(api_key=openaikey)   
 
@@ -17,22 +17,7 @@ if "messages_bot" not in st.session_state:
     
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
-
-def is_valid_email(email):
-    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    
-    if re.match(pattern, email):
-        return True
-    else:
-        return False
-      
-st.markdown(
-    """
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    """,
-    unsafe_allow_html=True
-)      
-  
+           
 with open('styles.css') as f:
     st.sidebar.markdown(
         f'<style>{f.read()}</style>'
@@ -40,7 +25,10 @@ with open('styles.css') as f:
         +sidebar_footer_logo
         , unsafe_allow_html=True
     )
-    
+
+st.sidebar.markdown(platform_link, unsafe_allow_html=True)
+# st.markdown("[Click here to visit OpenAI's website](https://openai.com)")
+
 st.header("🕵️‍♀️ Blaire")
 
 st.markdown(powered_by_openai, unsafe_allow_html=True)

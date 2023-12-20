@@ -1,3 +1,5 @@
+from helpers.config import domain_platform_signin
+
 sidebar_footer_logo = """
 <div class="top-space">Docs & Jupyter Notebooks</div>
 <div class="left-space top-left-space">☁️&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/Cloud-Deployment" target="_blank">Cloud Deployment</a></div>
@@ -14,9 +16,10 @@ sidebar_footer_logo = """
 
 sidebar_app_header = """
 <div class="header logo-label">
-<img src="app/static/platform_logo_darkmode.png" alt="Platform" height="24">
+<img src="app/static/platform_logo_darkmode.png" alt="Platform" height="18">
 </div>
 """
+
 powered_by_openai = """
 <div class="rounded-box">
 Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI" height="18"></div>
@@ -24,3 +27,8 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 <br>
 """
 
+platform_link = """
+<div class="rounded-box red-text">
+<img src="app/static/brockai.png" alt="Platform Sign In" height="24">&nbsp;&nbsp;&nbsp;<a href="""+domain_platform_signin+""" target="_blank" style="color: red;">Platform Sign In</a>
+</div>
+"""
