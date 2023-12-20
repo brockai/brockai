@@ -40,7 +40,7 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
             rm -rf /root/brockai
-            git clone https://github.com/brockai/brockai.git
+            git clone -b core https://github.com/brockai/brockai.git 
 
       - name: Install python
         uses: appleboy/ssh-action@master
