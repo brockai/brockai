@@ -7,21 +7,16 @@ import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Loader from './common/Loader';
 import routes from './routes';
-import Cookies from 'js-cookie';
-import httpService from './services/HttpService';
+// import httpService from './services/HttpService';
 
 const DefaultLayout = lazy(() => import('./layout/Layout'));
 
 function App() {
 
-  const setBearerTokenInCookie = (data: any) => {
-    Cookies.set('token', data, { secure: true, httpOnly: false, sameSite: 'strict' });
-  };
-
-  httpService.get('https://localhost:9200').then((data) => {
-    console.log(data)
-    // setBearerTokenInCookie(data);
-  });
+  // httpService.checkHealthOpenSearch().then((response) => {
+  //   console.log(response)
+    
+  // });
 
   const [loading, setLoading] = useState<boolean>(true);
 

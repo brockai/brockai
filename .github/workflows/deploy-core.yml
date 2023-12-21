@@ -10,7 +10,7 @@ jobs:
   Install-Docker: 
     runs-on: ubuntu-latest
     steps:
-      - name: Installl docker & doocker compose
+      - name: Install docker & docker compose
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.DROPLET_IP}}
@@ -74,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: Remove-OpenSearch
     steps:
-      - name: Build opensearch-node1
+      - name: Start opensearch-node1
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
@@ -88,7 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: Start-OpenSearch-Node1
     steps:
-      - name: Build opensearch-node2
+      - name: Start opensearch-node2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
@@ -102,7 +102,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: Start-OpenSearch-Node2
     steps:
-      - name: Build opensearch-dashboards
+      - name: Start opensearch-dashboards
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
@@ -110,11 +110,24 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /root/brockai
-            docker compose up -d opensearch-dashboards || true   
+            docker compose up -d opensearch-dashboards || true  
+            
+  Start-Keycloak:
+    runs-on: ubuntu-latest
+    needs: Start-OpenSearch-Dashboards
+    steps:
+      - name: Start Keycloak
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker compose up -d keycloak || true              
                     
   Nginx-Reverse-Proxy:
     runs-on: ubuntu-latest
-    needs: Start-OpenSearch-Dashboards
+    needs: Start-Keycloak
     steps:
       - name: Install nginx & reverse-proxy
         uses: appleboy/ssh-action@master
@@ -128,9 +141,7 @@ jobs:
             sudo apt-get -y install nginx
             sudo cp -f /root/brockai/config/default.conf /etc/nginx/sites-available/default
             sudo cp -f /root/brockai/config/reverse-proxy.conf /etc/nginx/sites-available/reverse-proxy.conf
-            sudo cp -f /root/brockai/config/reverse-proxy-uat.conf /etc/nginx/sites-available/reverse-proxy-uat.conf
             sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/
-            sudo ln -s /etc/nginx/sites-available/reverse-proxy-uat.conf /etc/nginx/sites-enabled/
             sudo nginx -t
             sudo systemctl enable nginx 
 
@@ -150,7 +161,9 @@ jobs:
             sudo apt install ufw
             sudo ufw allow OpenSSH
             sudo ufw allow 'Nginx Full'
-            sudo ufw allow 9200
+            sudo ufw allow 9200 
+            sudo ufw allow 5173
+            sudo ufw allow 8080
             sudo ufw enable
 
   Start-Nginx-Streamlit:

@@ -2,7 +2,7 @@ import axios, { InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:9000', // Replace with your API base URL
+  baseURL: 'https://opensearch.brockai.com', 
 });
 
 axiosInstance.interceptors.request.use(config => {

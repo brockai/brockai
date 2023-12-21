@@ -1,18 +1,3 @@
-const { exec } = require('child_process');
-const jwt = require('jsonwebtoken')
-require('dotenv').config();
-
-const BEARER_TOKEN_SECRET = process.env.BEARER_TOKEN_SECRET
-
-const bearerToken = async(req, res) => {
-  try {
-    let token = jwt.sign({ id: .369 }, BEARER_TOKEN_SECRET, {expiresIn: 3600})
-    res.status(200).json({ data: token })
-  } catch(e) {
-    res.sendStatus(500)
-  }
-}
-
 const embeddings = async(req, res) => {
   try{
     const pythonProcess = exec('python services/create_embeddings.py', (error, stdout, stderr) => {
@@ -36,6 +21,4 @@ const embeddings = async(req, res) => {
   }
 }
 
-module.exports = {
-  embeddings, bearerToken
-};
+export default embeddings;

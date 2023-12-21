@@ -1,11 +1,16 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '../interceptor/axiosInstance';
+interface OpenSearchData {
+  name: string;
+}
+
+const OPENSEARCH_URL = 'https://opensearch.brockai.com/';
 
 const httpService = {
-  get: async <T>(url: string): Promise<T> => {
+  checkHealthOpenSearch: async (): Promise<AxiosResponse<OpenSearchData[]>> => {
     try {
-      const response: AxiosResponse<T> = await axiosInstance.get<T>(url);
-      return response.data;
+      const response: AxiosResponse<OpenSearchData[]> = await axiosInstance.get(OPENSEARCH_URL);
+      return response;
     } catch (error:any) {
       throw new Error(error.message);
     }

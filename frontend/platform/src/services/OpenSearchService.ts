@@ -1,42 +1,62 @@
-export interface OpenSearchCredentials {
-  email: string;
-  password: string
+import axios, { AxiosResponse } from 'axios';
+import axiosInstance from '../interceptor/axiosInstance';
+
+const OPENSEARCH_URL = 'https://opensearch.brockai.com';
+
+interface OpenSearchCredentials {
+  name: string;
+  password: string;
 }
 
-const REACT_APP_OPENSEARCH_API:any = "https://localhost:9200/";
-// const REACT_APP_OPENSEARCH_API:any = process.env.REACT_APP_OPENSEARCH_API;
-// const REACT_APP_OPENSEARCH_USER:any = process.env.REACT_APP_OPENSEARCH_USER;
-// const REACT_APP_OPENSEARCH_PASSWORD:any = process.env.REACT_APP_OPENSEARCH_PASSWORD;
-// console.log(REACT_APP_OPENSEARCH_API)
-const encodedCredentials = btoa(`admin:admin`);
-
-// const encodedCredentials = btoa(`${REACT_APP_OPENSEARCH_USER}:${REACT_APP_OPENSEARCH_PASSWORD}`);
-
-export const loginUser = async (userData: OpenSearchCredentials): Promise<void> => {
-  console.log(userData, REACT_APP_OPENSEARCH_API+'_plugins/_security/api/internalusers/admin')
-  debugger
-  try {
-    const response = await fetch(REACT_APP_OPENSEARCH_API+'_plugins/_security/api/internalusers/admin', {
-      method: 'GET',
-      headers: {
-        Authorization: `Basic ${encodedCredentials}`,
-        'Content-Type': 'application/json',
-        
-      },
-    });
+const openSearchService = {
+  getUser: async (credentials:OpenSearchCredentials): Promise<AxiosResponse<OpenSearchCredentials[]>> => {
+    console.log(credentials)
+    try {
+      console.log(`OPENSEARCH_URL/_plugins/_security/api/internalusers/${credentials.name}`)
+      debugger
+      const response: AxiosResponse<OpenSearchCredentials[]> = await axiosInstance.get(`OPENSEARCH_URL/plugins/_security/api/internalusers/${credentials.name}`);
+      console.log(response)
+      debugger
+      return response;
+    } catch (error:any) {
+      console.log(error)
+      debugger
+      throw new Error(error.message);
+    }
     debugger
-    
-    
-    // if (!response.ok) {
-    //   throw new Error('Failed to create user');
-    // }
-    const usersData = await response.json();
-    return usersData;
+  },
 
-  } catch (error) {
-    debugger
-    console.error('Error creating user:', error);
-    throw new Error('Failed to create user');
-  }
+  // post: async <T, U>(url: string, data: T): Promise<U> => {
+  //   try {
+  //     const response: AxiosResponse<U> = await axiosInstance.post<U>(url, data);
+  //     return response.data;
+  //   } catch (error:any) {
+  //     throw new Error(error.message);
+  //   }
+  // },
+  
 };
 
+export default openSearchService;
+
+// export const checkHealth = async (): Promise<AxiosResponse<any>> => {
+//   try {
+//     const response = await axios.get(`${OPENSEARCH_URL}`);
+//     console.log(response)
+//     return response;
+//   } catch (error) {
+//     throw new Error(`Error fetching data from Elasticsearch: ${error}`);
+//   }
+// };
+
+// export const getUser = async (name:any): Promise<AxiosResponse<any>> => {
+//   try {
+//     const response = await .get(`${OPENSEARCH_URL}_plugins/_security/api/internalusers/${name}`);
+//     console.log(response)
+//     return response;
+//   } catch (error) {
+//     throw new Error(`Error fetching data from Elasticsearch: ${error}`);
+//   }
+// };
+
+// export default checkHealth;

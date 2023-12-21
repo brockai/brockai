@@ -1,25 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { loginUser, OpenSearchCredentials } from '../services/OpenSearchService';
+import openSearchService from '../services/OpenSearchService';
+
+interface OpenSearchCredentials {
+  name: string;
+  password: string;
+}
 
 const OpenSearchSignIn: React.FC = () => {
 
   const [isDisabled, setIsDisabled] = useState(true);
 
   const [credentials, setCredentials] = useState<OpenSearchCredentials>({
-    email: '',
+    name: '',
     password: '',
   });
 
   const handleLogin = () => {
-    const userData  = loginUser(credentials);
-    // useEffect(() => {
-    //   console.log(credentials)
-    //   debugger
-    //   loginUser(credentials);
-    // }, []);
-    console.log(userData)
+    console.log('got here')
     debugger
+    openSearchService.getUser(credentials).then((response) => {
+      console.log(response)
+      debugger
+    });
   }
   
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,10 +43,10 @@ const OpenSearchSignIn: React.FC = () => {
           </label>
           <div className="relative">
             <input
-              type="email"
-              name="email"
+              type="text"
+              name="name"
               placeholder="Enter your user name"
-              value={credentials.email}
+              value={credentials.name}
               onChange={handleInputChange}
               className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             />
