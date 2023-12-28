@@ -60,4 +60,3 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             sudo systemctl restart streamlit-uat.service
-            sudo systemctl restart streamlit-uat.service
