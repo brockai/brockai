@@ -33,14 +33,14 @@ jobs:
           script: |
             # turn off streamlit service, copy service config, reload daemon
             sudo systemctl stop streamlit-uat.service || true
-            cp ./brockai/config/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
+            cp /root/brockai/config/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
             sudo systemctl daemon-reload
 
             # remove existing app, copy over cloned app
             rm /var/www/streamlit-uat -r || true
             mkdir /var/www/streamlit-uat || true
-            cp .env /var/www/streamlit-uat
-            cp ./brockai/frontend/. -r /var/www/streamlit-uat
+            cp /root/.env /var/www/streamlit-uat
+            cp /root/brockai/frontend/. -r /var/www/streamlit-uat
             cd /var/www/streamlit-uat
 
             # create python env & install requirements
