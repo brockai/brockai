@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import openSearchService from '../services/OpenSearchService';
+import { authService } from '../services/AuthService';
 
 interface OpenSearchCredentials {
   name: string;
@@ -19,7 +19,7 @@ const OpenSearchSignIn: React.FC = () => {
   const handleLogin = () => {
     console.log('got here')
     debugger
-    openSearchService.getUser(credentials).then((response) => {
+    authService.login(credentials).then((response) => {
       console.log(response)
       debugger
     });

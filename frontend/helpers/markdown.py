@@ -29,6 +29,20 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 
 platform_link = """
 <div class="rounded-box red-text">
-<img src="app/static/brockai.png" alt="Platform Sign In" height="24">&nbsp;&nbsp;&nbsp;<a href="""+domain_platform_signin+""" target="_blank" style="color: red;">Platform Sign In</a>
+✨&nbsp;&nbsp;<a href="""+domain_platform_signin+""" target="_blank" style="text-decoration: none;">Platform Sign In</a>
+</div>
+"""
+
+platform_intro = """
+<div>
+<p>
+Platform's purpose is to assist integrating AI functionality into new or existing systems.
+</p>
+<p>
+Our approach is to build prototypes, with your data, that can be taken to production. Prototypes typically run 30 - 90 days.
+</p>
+<p>
+brockai is an open source project that can be hosted anywhere or you can run it here for free.
+</p>
 </div>
 """

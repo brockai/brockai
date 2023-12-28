@@ -66,12 +66,12 @@ services:
   keycloak:
     image: jboss/keycloak
     ports:
-      - "8080:8080"
+      - "8443:8443"
     networks:
       - opensearch-net
     environment:
-      - KEYcloak_USER=admin
-      - KEYcloak_PASSWORD=admin
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
     volumes:
       - keycloak_data:/opt/jboss/keycloak/standalone/data
 
