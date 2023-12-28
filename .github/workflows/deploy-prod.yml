@@ -18,7 +18,7 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
             rm -rf ./brockai
-            git clone https://github.com/brockai/brockai.git
+            git clone -b main https://github.com/brockai/brockai.git
 
   Setup-Streamlit-Python:
     runs-on: ubuntu-latest

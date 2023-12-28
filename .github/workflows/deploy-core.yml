@@ -112,25 +112,6 @@ jobs:
           script: |
             cd /root/brockai
             docker compose up -d opensearch-dashboards || true  
-  
-  # This should only run the first time in  order to set admin password on host
-
-  # Start-Keycloak:
-  #   runs-on: ubuntu-latest
-  #   needs: Start-OpenSearch-Dashboards
-  #   steps:
-  #     - name: Start keycloak
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.DROPLET_IP }}
-  #         username: ${{ secrets.DROPLET_USERNAME }}
-  #         key: ${{ secrets.SSH_PRIVATE_KEY }}
-  #         script: |
-  #           docker compose up -d keycloak || true          
-  
-
-  
-  # This will run once the set admin password on host
 
   Start-Keycloak:
     runs-on: ubuntu-latest
@@ -143,9 +124,9 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker start keycloak || true        
-                    
-  Nginx-Reverse-Proxy:
+            docker compose up -d keycloak || true          
+                                  
+  Nginx-Install:
     runs-on: ubuntu-latest
     needs: Start-Keycloak
     steps:
@@ -156,12 +137,35 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            sudo apt remove certbot -y
+            sudo apt purge certbot -y
+            sudo apt autoremove
             sudo apt-get -y purge nginx nginx-common
             sudo apt update
-            sudo apt-get -y install nginx
+            sudo apt-get -y install nginx          
+            sudo nginx -t
+            sudo systemctl enable nginx 
+
+  Nginx-Reverse-Proxy:
+    runs-on: ubuntu-latest
+    needs: Nginx-Install
+    steps:
+      - name: Install ssl certs & reverse-proxy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            
+            sudo apt update
+            sudo apt install python3-certbot-nginx
+            sudo certbot --nginx -d brockai.com -d uat.brockai.com -d api.brockai.com -d opensearch.brockai.com -d platform.brockai.com -d keycloak.brockai.com -d dashboard.brockai.com
+            
             sudo cp -f /root/brockai/config/default.conf /etc/nginx/sites-available/default
             sudo cp -f /root/brockai/config/reverse-proxy.conf /etc/nginx/sites-available/reverse-proxy.conf
             sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/
+            
             sudo nginx -t
             sudo systemctl enable nginx 
 
