@@ -17,6 +17,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
+            rm -rf /root/brockai
             git clone -b uat https://github.com/brockai/brockai.git
 
   Setup-Streamlit-Python:
@@ -40,12 +41,11 @@ jobs:
             mkdir /var/www/streamlit-uat || true
             cp /root/.env /var/www/streamlit-uat
             cp /root/brockai/frontend/. -r /var/www/streamlit-uat
-            cd /var/www/streamlit-uat
 
             # create python env & install requirements
-            sudo python3 -m venv brockai-uat
-            source brockai-uat/bin/activate
-            pip install -r requirements.txt
+            sudo python3 -m venv /var/www/streamlit-uat/brockai-uat
+            source /var/www/streamlit-uat/brockai-uat/bin/activate
+            pip install -r /root/brockai/frontend/requirements.txt
             
   Start-Streamlit:
     runs-on: ubuntu-latest
@@ -58,5 +58,5 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # rm -rf /root/brockai
             sudo systemctl restart streamlit-uat.service
+            sudo systemctl daemon-reload

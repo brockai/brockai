@@ -60,7 +60,8 @@ jobs:
           script: |
             rm -rf /root/brockai
             sudo systemctl restart streamlit.service 
-            sudo systemctl restart streamlit-uat.service           
+            sudo systemctl restart streamlit-uat.service    
+            sudo systemctl daemon-reload       
 
 
 
