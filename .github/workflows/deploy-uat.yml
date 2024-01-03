@@ -48,5 +48,6 @@ jobs:
 
             pip install -r /var/www/streamlit-uat/requirements.txt
 
-            sudo systemctl restart streamlit-uat.service
+            sudo systemctl start streamlit-uat.service
             sudo systemctl daemon-reload
+            sudo systemctl restart streamlit-uat.service
