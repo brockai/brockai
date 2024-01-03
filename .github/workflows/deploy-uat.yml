@@ -47,7 +47,8 @@ jobs:
             source /var/www/streamlit-uat/brockai-uat/bin/activate
             pip install -r /var/www/streamlit-uat/requirements.txt
             cd /var/www/streamlit-uat
-            streamlit run app.py --server.port 8502  
+            sudo systemctl restart streamlit-uat.service
+            # streamlit run app.py --server.port 8502  
             
   # Start-Streamlit:
   #   runs-on: ubuntu-latest
