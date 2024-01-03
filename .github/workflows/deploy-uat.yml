@@ -45,7 +45,7 @@ jobs:
             # create python env & install requirements
             sudo python3 -m venv /var/www/streamlit-uat/brockai-uat
             source /var/www/streamlit-uat/brockai-uat/bin/activate
-            pip install -r /root/brockai/frontend/requirements.txt
+            pip install -r /var/www/streamlit-uat/requirements.txt
             
   Start-Streamlit:
     runs-on: ubuntu-latest

@@ -40,12 +40,11 @@ jobs:
             mkdir /var/www/streamlit || true
             cp .env /var/www/streamlit
             cp ./brockai/frontend/. -r /var/www/streamlit
-            cd /var/www/streamlit
 
             # create python env & install requirements
-            sudo python3 -m venv brockai
-            source brockai/bin/activate
-            pip install -r requirements.txt
+            sudo python3 -m venv /var/www/streamlit-uat/brockai
+            source /var/www/streamlit/brockai/bin/activate
+            pip install -r /var/www/streamlit/requirements.txt
 
   Start-Streamlit:
     runs-on: ubuntu-latest
