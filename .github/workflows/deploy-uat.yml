@@ -32,9 +32,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # turn off streamlit service, copy service config, reload daemon
-            sudo systemctl stop streamlit-uat.service || true
-            cp /root/brockai/config/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
-            sudo systemctl daemon-reload
+            # sudo systemctl stop streamlit-uat.service || true
+            # cp /root/brockai/config/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
+            # sudo systemctl daemon-reload
 
             # remove existing app, copy over cloned app
             rm /var/www/streamlit-uat -r || true
@@ -48,7 +48,7 @@ jobs:
 
             pip install -r /var/www/streamlit-uat/requirements.txt
 
-            lsof -ti :8502 | xargs kill -9
+            sudo lsof -ti :8502 | xargs kill -9
             cd /var/www/streamlit-uat
             streamlit run app.py --server.port 8502  
             
