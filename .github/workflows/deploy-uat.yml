@@ -38,7 +38,7 @@ jobs:
 
             # remove existing app, copy over cloned app
             rm /var/www/streamlit-uat -r || true
-            mkdir /var/www/streamlit-uat || true
+            mkdir /var/www/streamlit-uat || true--port
             cp /root/.env /var/www/streamlit-uat
             cp /root/brockai/frontend/. -r /var/www/streamlit-uat
 
@@ -58,5 +58,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo systemctl restart streamlit-uat.service
-            sudo systemctl daemon-reload
+            cd /var/www/streamlit-uat
+            streamlit run app.py --server.port 8502  
+            # sudo systemctl restart streamlit-uat.service
+            # sudo systemctl daemon-reload
