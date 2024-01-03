@@ -42,13 +42,14 @@ jobs:
             cp /root/.env /var/www/streamlit-uat
             cp /root/brockai/frontend/. -r /var/www/streamlit-uat
 
-            # create python env & install requirements
+            # create python env, install requirements, start streamlit
             sudo python3 -m venv /var/www/streamlit-uat/brockai-uat
             source /var/www/streamlit-uat/brockai-uat/bin/activate
+
             pip install -r /var/www/streamlit-uat/requirements.txt
+
             cd /var/www/streamlit-uat
-            sudo systemctl restart streamlit-uat.service
-            # streamlit run app.py --server.port 8502  
+            streamlit run app.py --server.port 8502  
             
   # Start-Streamlit:
   #   runs-on: ubuntu-latest
