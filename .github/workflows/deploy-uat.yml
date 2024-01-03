@@ -34,7 +34,6 @@ jobs:
             # turn off streamlit service, copy service config, reload daemon
             sudo systemctl stop streamlit-uat.service || true
             cp /root/brockai/config/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
-            sudo systemctl daemon-reload
 
             # remove existing app, copy over cloned app
             rm /var/www/streamlit-uat -r || true
@@ -50,4 +49,3 @@ jobs:
 
             sudo systemctl start streamlit-uat.service
             sudo systemctl daemon-reload
-            sudo systemctl restart streamlit-uat.service
