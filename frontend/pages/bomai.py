@@ -13,22 +13,6 @@ from helpers.config import opensearch_platform, scheme, openaikey
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, powered_by_openai, platform_link
 from services.api import upload
 
-# js_code = """
-# function getLocalStorageItem(key) {
-#     return localStorage.getItem(key);
-# }
-
-# // Example: Get the value for a specific key in localStorage
-# var value = getLocalStorageItem('myKey');
-# value;
-# """
-
-
-
-# Run the JavaScript code and get the result
-
-
-
 client = OpenAI(api_key=openaikey)   
 
 if "messages_bom" not in st.session_state:
