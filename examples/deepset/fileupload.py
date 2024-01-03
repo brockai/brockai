@@ -7,7 +7,7 @@ st.set_page_config(layout="wide")
 
 import pandas as pd
 
-from helpers.markdown import sidebar_footer_logo, app_header
+from helpers.markdown import sidebar_links_footer, app_header
 from helpers.errorcheck import elasticsearch_health
 
 st.title("👑 deepset File Upload & Search 🧪")
@@ -16,7 +16,7 @@ with open('styles.css') as f:
     st.sidebar.markdown(
         f'<style>{f.read()}</style>'
         +app_header
-        +sidebar_footer_logo
+        +sidebar_links_footer
         , unsafe_allow_html=True
     )
 from deepset.piplines import deepset_indexsearch

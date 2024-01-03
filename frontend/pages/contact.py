@@ -9,7 +9,7 @@ import random
 import requests
 
 from helpers.config import mailgun
-from helpers.markdown import sidebar_footer_logo, sidebar_app_header, platform_link
+from helpers.markdown import sidebar_links_footer, sidebar_app_header, platform_link
 
 from captcha.image import ImageCaptcha    
 
@@ -30,7 +30,7 @@ with open('styles.css') as f:
     st.sidebar.markdown(
         f'<style>{f.read()}</style>'
         +sidebar_app_header
-        +sidebar_footer_logo
+        +sidebar_links_footer
         , unsafe_allow_html=True
     )
     

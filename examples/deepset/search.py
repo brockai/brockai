@@ -9,7 +9,7 @@ from markdown import markdown
 from config import parser, model_configs, document_store_choices
 from helpers.haystack import start_document_store, start_all_document_stores, start_haystack_extractive, start_haystack_rag, query
 from helpers.ui_state import reset_results, set_initial_state, set_model, set_store
-from helpers.markdown import sidebar_footer_logo, haystack_header
+from helpers.markdown import sidebar_links_footer, haystack_header
 
 try:
     document_store = start_document_store(type = "In Memory")
@@ -37,7 +37,7 @@ try:
         st.sidebar.markdown(
             f'<style>{f.read()}</style>'
             +haystack_header
-            +sidebar_footer_logo
+            +sidebar_links_footer
             , unsafe_allow_html=True
         )
         

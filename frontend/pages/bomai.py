@@ -1,7 +1,7 @@
 
 import streamlit as st
 import pandas as pd
-import tiktoken
+
 from openai import OpenAI
 st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_icon="./static/brockai.png")  
 
@@ -10,8 +10,24 @@ st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_ic
 # logging.getLogger("haystack").setLevel(logging.INFO)
 
 from helpers.config import opensearch_platform, scheme, openaikey
-from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai, platform_link
-from services.api import create_embeddings
+from helpers.markdown import sidebar_links_footer, sidebar_app_header, powered_by_openai, platform_link
+from services.api import upload
+
+# js_code = """
+# function getLocalStorageItem(key) {
+#     return localStorage.getItem(key);
+# }
+
+# // Example: Get the value for a specific key in localStorage
+# var value = getLocalStorageItem('myKey');
+# value;
+# """
+
+
+
+# Run the JavaScript code and get the result
+
+
 
 client = OpenAI(api_key=openaikey)   
 
@@ -33,7 +49,7 @@ with open('styles.css') as f:
     st.sidebar.markdown(
         f'<style>{f.read()}</style>'
         +sidebar_app_header
-        +sidebar_footer_logo
+        +sidebar_links_footer
         , unsafe_allow_html=True
     )
     
@@ -46,7 +62,8 @@ for uploaded_file in uploaded_files:
     # st.write(bytes_data)
 
 if st.button("🚀 Upload & Process", disabled=not uploaded_files):
-  create_embeddings()
+  const 
+  upload()
     
  
 for msg in st.session_state.messages_bom:

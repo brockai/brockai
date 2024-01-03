@@ -1,6 +1,11 @@
-from helpers.config import domain_platform_signin
+from helpers.config import auth0_domain, auth0_client_id, auth0_client_secret, auth0_redirect_uri
+from authlib.integrations.requests_client import OAuth2Session
 
-sidebar_footer_logo = """
+auth = OAuth2Session(auth0_client_id, auth0_client_secret, scope='openid profile email', redirect_uri=auth0_redirect_uri)
+
+authorization_url, state = auth.create_authorization_url(f'https://{auth0_domain}/authorize')
+
+sidebar_links_footer = """
 <div class="top-space">Docs & Jupyter Notebooks</div>
 <div class="left-space top-left-space">☁️&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/Cloud-Deployment" target="_blank">Cloud Deployment</a></div>
 <div class="left-space top-left-space">🤗&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/🤗-Huggingface" target="_blank">Huggingface</a></div>
@@ -10,6 +15,9 @@ sidebar_footer_logo = """
 <div class="footer">
 <a href="https://github.com/brockai" target="_blank">
 <img src="app/static/github-mark-white.png" alt="GitHub Icon" width="32" height="32">
+</a>&nbsp;&nbsp;&nbsp;
+<a href="https://discord.gg/c3py8dTG" target="_blank">
+<img src="app/static/discordlogo.png" alt="Discord" height="32">
 </a>
 </div>
 """
@@ -29,7 +37,7 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 
 platform_link = """
 <div class="rounded-box red-text">
-✨&nbsp;&nbsp;<a href="""+domain_platform_signin+""" target="_blank" style="text-decoration: none;">Platform Sign In</a>
+✨&nbsp;&nbsp;<a href="""+authorization_url+""" target="_blank" style="text-decoration: none;">Platform Sign In</a>
 </div>
 """
 

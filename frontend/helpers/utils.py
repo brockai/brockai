@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-
+import execjs
 import os
 from typing import List
 from scipy import spatial
@@ -16,6 +16,15 @@ client = OpenAI(
 embedding_model = "text-embedding-ada-002"
 embedding_encoding = "cl100k_base"  # this the encoding for text-embedding-ada-002
 max_tokens = 8000  # the maximum for text-embedding-ada-002 is 8191
+
+def get_token():
+  ctx = execjs.compile("""
+    function getLocalStorageItem(key) {
+        return localStorage.getItem(key);
+    }
+    """)
+  token = ctx.call("get_token", "accessToken")
+  return token
 
 @st.cache_data(show_spinner=True)
 def cosine_similarity(a, b):

@@ -8,7 +8,7 @@ import re
 from openai import OpenAI
 
 from helpers.config import openaikey
-from helpers.markdown import sidebar_footer_logo, sidebar_app_header, powered_by_openai, platform_link
+from helpers.markdown import sidebar_links_footer, sidebar_app_header, powered_by_openai, platform_link
 
 client = OpenAI(api_key=openaikey)   
 
@@ -22,12 +22,11 @@ with open('styles.css') as f:
     st.sidebar.markdown(
         f'<style>{f.read()}</style>'
         +sidebar_app_header
-        +sidebar_footer_logo
+        +sidebar_links_footer
         , unsafe_allow_html=True
     )
 
 st.sidebar.markdown(platform_link, unsafe_allow_html=True)
-# st.markdown("[Click here to visit OpenAI's website](https://openai.com)")
 
 st.header("🕵️‍♀️ Blaire")
 
