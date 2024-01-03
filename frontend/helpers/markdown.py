@@ -1,9 +1,4 @@
-from helpers.config import auth0_domain, auth0_client_id, auth0_client_secret, auth0_redirect_uri
-from authlib.integrations.requests_client import OAuth2Session
-
-auth = OAuth2Session(auth0_client_id, auth0_client_secret, scope='openid profile email', redirect_uri=auth0_redirect_uri)
-
-authorization_url, state = auth.create_authorization_url(f'https://{auth0_domain}/authorize')
+from helpers.config import authorization_url
 
 sidebar_links_footer = """
 <div class="top-space">Docs & Jupyter Notebooks</div>
