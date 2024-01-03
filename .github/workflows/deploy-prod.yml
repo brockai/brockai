@@ -17,7 +17,6 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            rm -rf ./brockai
             git clone -b main https://github.com/brockai/brockai.git
 
   Setup-Streamlit-Python:
@@ -59,6 +58,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            rm -rf /root/brockai
             sudo systemctl restart streamlit.service 
             sudo systemctl restart streamlit-uat.service           
 

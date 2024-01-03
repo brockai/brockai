@@ -58,5 +58,5 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            rm -rf /root/brockai
+            # rm -rf /root/brockai
             sudo systemctl restart streamlit-uat.service
