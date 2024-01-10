@@ -29,4 +29,4 @@ mailgun = {
 }
 
 auth = OAuth2Session(auth0_client_id, auth0_client_secret, scope='openid profile email', redirect_uri=domain_platform)
-authorization_url, state = auth.create_authorization_url(f'https://{auth0_domain}/authorize')
+authorization_url, state = auth.create_authorization_url(f'{auth0_domain}/authorize')
