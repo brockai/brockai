@@ -62,8 +62,8 @@ jobs:
           script: |
             # build and deploy platform
             apt install npm || true
-            cp /root/.env.production -r /root/brockai/platformx
-            cd /root/brockai/platformx
+            cp /root/.env.production -r /root/brockai/frontend/platformx
+            cd /root/brockai/frontend/platformx
             npm run build:production
             mkdir /var/www/platform || true
             cp /root/brockai/frontend/platformx/build/. -r /var/www/platform
