@@ -19,7 +19,7 @@ sidebar_links_footer = """
 
 sidebar_app_header = """
 <div class="header logo-label">
-<img src="app/static/platform_logo_darkmode.png" alt="Platform" height="18">
+<img src="app/static/brockailogo32.png" alt="Platform">
 </div>
 """
 

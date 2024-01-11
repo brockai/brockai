@@ -17,6 +17,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
+            rm -rf /root/brockai
             git clone -b main https://github.com/brockai/brockai.git
 
   Setup-Streamlit-Python:
@@ -38,11 +39,11 @@ jobs:
             # remove existing app, copy over cloned app
             rm /var/www/streamlit -r || true
             mkdir /var/www/streamlit || true
-            cp .env /var/www/streamlit
+            cp /root/.env /var/www/streamlit
             cp ./brockai/frontend/. -r /var/www/streamlit
 
             # create python env, install requirements, start streamlit
-            sudo python3 -m venv /var/www/streamlit-uat/brockai
+            sudo python3 -m venv /var/www/streamlit/brockai
             source /var/www/streamlit/brockai/bin/activate
 
             pip install -r /var/www/streamlit/requirements.txt

@@ -1,15 +1,8 @@
 import express from 'express';
-// const VerifyToken = require('../../helper');
 
-// import { embeddings, bearerToken } from '../controllers/opensearch.mjs';
-const router = express.Router()
- 
-router.get('/', (req, res) => {
-  // Logic to handle GET request for products
-  res.send('Get all products');
-});
+import { fileUpload } from '../controllers/fileupload.mjs';
+const router = express.Router();
 
-// router.get('/embeddings', embeddings);
-// router.get('/token', bearerToken)
+app.post('/upload', fileUpload);
 
 export default router;
