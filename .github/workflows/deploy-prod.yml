@@ -39,7 +39,7 @@ jobs:
             # remove existing app, copy over cloned app
             rm /var/www/streamlit -r || true
             mkdir /var/www/streamlit || true
-            cp /root/.env /var/www/streamlit
+            cp ~/.env /var/www/streamlit
             cp ./brockai/frontend/. -r /var/www/streamlit
 
             # create python env, install requirements, start streamlit
@@ -63,14 +63,29 @@ jobs:
           script: |
             # build and deploy platform
             apt install npm || true
-            cp /root/.env.production -r /root/brockai/frontend/platformx
-            cd /root/brockai/frontend/platformx
+            cp ~/.env.production -r ~/brockai/frontend/platformx
+            cd ~/brockai/frontend/platformx
             npm install
             npm run build:production
             rm /var/www/platform -r || true
             mkdir /var/www/platform || true
-            cp /root/brockai/frontend/platformx/build/. -r /var/www/platform
+            cp ~/brockai/frontend/platformx/build/. -r /var/www/platform
 
+  Restart-Opensearch:
+    runs-on: ubuntu-latest
+    needs: Setup-Platform
+    steps:
+      - name: Restart Opensearch
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/brockai/
+            docker compose up -d opensearch-node1
+            docker compose up -d opensearch-node2
+            docker compose up -d opensearch-dashboards
 
 
 

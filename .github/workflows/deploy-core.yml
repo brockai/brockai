@@ -39,7 +39,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            rm -rf /root/brockai
+            rm -rf ~/brockai
             git clone -b core https://github.com/brockai/brockai.git 
 
       - name: Install python
@@ -81,7 +81,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /root/brockai
+            cd ~/brockai
             docker compose up -d opensearch-node1 || true            
           
   Start-OpenSearch-Node2:
@@ -95,7 +95,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /root/brockai
+            cd ~/brockai
             docker compose up -d opensearch-node2 || true                             
 
   Start-OpenSearch-Dashboards:
@@ -109,7 +109,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /root/brockai
+            cd ~/brockai
             docker compose up -d opensearch-dashboards || true         
                                   
   Nginx-Install:
@@ -148,8 +148,8 @@ jobs:
             sudo apt install python3-certbot-nginx
             sudo certbot --nginx -d brockai.com -d uat.brockai.com -d api.brockai.com -d opensearch.brockai.com -d platform.brockai.com -d keycloak.brockai.com -d dashboard.brockai.com
             
-            sudo cp -f /root/brockai/config/default.conf /etc/nginx/sites-available/default
-            sudo cp -f /root/brockai/config/reverse-proxy.conf /etc/nginx/sites-available/reverse-proxy.conf
+            sudo cp -f ~/brockai/config/default.conf /etc/nginx/sites-available/default
+            sudo cp -f ~/brockai/config/reverse-proxy.conf /etc/nginx/sites-available/reverse-proxy.conf
             sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/
             
             sudo nginx -t
