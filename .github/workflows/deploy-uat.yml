@@ -62,7 +62,7 @@ jobs:
           script: |
             # build and deploy platform
             apt install npm || true
-            npm install create-react-app
+            npm install
             cp /root/.env.production -r /root/brockai/frontend/platformx
             cd /root/brockai/frontend/platformx
             npm run build:production
