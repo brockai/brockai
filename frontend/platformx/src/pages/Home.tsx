@@ -27,9 +27,9 @@ const DefaultLayout = () => {
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
       <div className="flex h-screen overflow-hidden">
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-          <div className="container mx-auto p-4">
+          {/* <div className="container mx-auto p-4">
             <Tabs tabs={tabs} />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

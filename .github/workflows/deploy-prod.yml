@@ -50,6 +50,28 @@ jobs:
 
             sudo systemctl restart streamlit.service || true  
 
+  Setup-Platform:
+    runs-on: ubuntu-latest
+    needs: Setup-Streamlit-Python
+    steps:
+      - name: Setup platform
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # build and deploy platform
+            apt install npm || true
+            cp /root/.env.production -r /root/brockai/frontend/platformx
+            cd /root/brockai/frontend/platformx
+            npm install
+            npm run build:production
+            rm /var/www/platform -r || true
+            mkdir /var/www/platform || true
+            cp /root/brockai/frontend/platformx/build/. -r /var/www/platform
+
+
 
 
 
