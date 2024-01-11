@@ -39,7 +39,7 @@ jobs:
             # remove existing app, copy over cloned app
             rm /var/www/streamlit -r || true
             mkdir /var/www/streamlit || true
-            cp .env /var/www/streamlit
+            cp /root/.env /var/www/streamlit
             cp ./brockai/frontend/. -r /var/www/streamlit
 
             # create python env, install requirements, start streamlit
