@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import DropdownNotification from './DropdownNotification';
 import Logout from './Logout';
-import BrockaiLogo from '../images/logo/brockai.png';
 import DarkModeSwitcher from '../components/DarkModeSwitcher';
 
 const Header = (props: {

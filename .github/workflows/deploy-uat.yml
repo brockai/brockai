@@ -17,7 +17,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            rm -rf /root/brockai
+            rm -rf ~/brockai
             git clone -b uat https://github.com/brockai/brockai.git
 
   Setup-Streamlit-Python:
@@ -33,13 +33,13 @@ jobs:
           script: |
             # turn off streamlit service, copy service config, reload daemon
             sudo systemctl stop streamlit-uat.service || true
-            cp /root/brockai/config/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
+            cp ~/brockai/config/streamlit-uat.service /etc/systemd/system/streamlit-uat.service
 
             # remove existing app, copy over cloned app
             rm /var/www/streamlit-uat -r || true
             mkdir /var/www/streamlit-uat || true
-            cp /root/.env /var/www/streamlit-uat
-            cp /root/brockai/frontend/. -r /var/www/streamlit-uat
+            cp ~/.env /var/www/streamlit-uat
+            cp ~/brockai/frontend/. -r /var/www/streamlit-uat
 
             # create python env, install requirements, start streamlit
             sudo python3 -m venv /var/www/streamlit-uat/brockai-uat
@@ -62,13 +62,13 @@ jobs:
           script: |
             # build and deploy platform
             apt install npm || true
-            cp /root/.env.production -r /root/brockai/frontend/platformx
-            cd /root/brockai/frontend/platformx
+            cp ~/.env.production -r ~/brockai/frontend/platformx
+            cd ~/brockai/frontend/platformx
             npm install
             npm run build:production
             rm /var/www/platform -r || true
             mkdir /var/www/platform || true
-            cp /root/brockai/frontend/platformx/build/. -r /var/www/platform
+            cp ~/brockai/frontend/platformx/build/. -r /var/www/platform
 
   Restart-Opensearch:
     runs-on: ubuntu-latest
@@ -81,6 +81,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            cd ~/brockai/
             docker compose up -d opensearch-node1
             docker compose up -d opensearch-node2
             docker compose up -d opensearch-dashboards
