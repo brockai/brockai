@@ -1,20 +1,23 @@
 import { lazy } from 'react';
 
-const Home = lazy(() => import('../pages/Home'));
-const Account = lazy(() => import('../pages/Account'));
+const Landing = lazy(() => import('../pages/Landing'));
+const Datasets = lazy(() => import('../pages/Datasets'));
+
 
 const coreRoutes = [
   {
     path: '/',
-    title: 'Home',
-    component: Home,
+    title: 'Landing',
+    component: Landing,
   },
   {
-    path: '/account',
-    title: 'Account Settings',
-    component: Account,
+    path: '/datasets',
+    title: 'Datasets',
+    component: Datasets
   },
 ];
 
 const routes = [...coreRoutes];
+
+
 export default routes;

@@ -6,14 +6,17 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import './index.css';
 import './satoshi.css';
 
+const auth0Domain: any = process.env.REACT_APP_AUTH0_DOMAIN;
+const auth0ClientId: any = process.env.REACT_APP_AUTH0_CLIENT_ID;
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <Auth0Provider
-        domain="brockai.us.auth0.com"
-        clientId="p5GXjSiQzUtHgbQoA7c3R60SFtN4HQF4"
+        domain={auth0Domain}
+        clientId={auth0ClientId}
         authorizationParams={{
           redirect_uri: window.location.origin
         }}>
