@@ -62,9 +62,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # build and deploy platform
-            apt install npm || true
             cp ~/.env.production -r ~/brockai/frontend/platformx
             cd ~/brockai/frontend/platformx
+            rm -r node_modules
             npm install
             npm run build:production
             rm /var/www/platform -r || true
