@@ -64,6 +64,7 @@ jobs:
             # apt install npm || true
             cp ~/.env.production -r ~/brockai/frontend/platformx
             cd ~/brockai/frontend/platformx
+            rm -r node_modules
             npm install
             npm run build:production
             rm /var/www/platform -r || true
