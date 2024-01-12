@@ -69,8 +69,7 @@ const Sidebar = (
       <div className="flex items-center px-6 py-5.5 lg:py-6.5">
 
         <div className="flex items-center gap-3">
-          <img src={BrockaiLogo} style={{ height: '48px' }} alt="brockai" />
-          <h1 className="text-title-xl text-logotext">Platform</h1>
+          <h1 className="text-title-xl text-logotext">✨ Platform</h1>
         </div>
         {/* <NavLink to="/">
           <img src={BrockaiLogo} alt="Logo" />

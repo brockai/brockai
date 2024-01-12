@@ -1,4 +1,3 @@
-import Logout from './Logout';
 import DarkModeSwitcher from './DarkModeSwitcher';
 import BrockaiLogo from '../images/logo/brockai.png';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -12,8 +11,7 @@ const Login = () => {
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
         <div className="flex items-center gap-3">
-          <img src={BrockaiLogo} style={{ height: '48px' }} alt="brockai" />
-          <h1 className="text-title-xl text-logotext">Platform</h1>
+          <h1 className="text-title-xl text-logotext">✨ Platform</h1>
         </div>
         <div className="flex items-center gap-3">&nbsp;</div>
         <div className="flex items-center 2xsm:gap-7">

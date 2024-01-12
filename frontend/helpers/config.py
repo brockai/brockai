@@ -1,11 +1,11 @@
 import os
 from dotenv import load_dotenv
 
-from authlib.integrations.requests_client import OAuth2Session
+# from authlib.integrations.requests_client import OAuth2Session
 
-client_id = 'p5GXjSiQzUtHgbQoA7c3R60SFtN4HQF4'
-client_secret = 'y4Bc-4YDooZI-7Mbul8EXUFxxUlqi5QjNlmidPFjWisK6WJ9t2sifoewohg1kK2o'
-domain = 'brockai.us.auth0.com'
+# client_id = 'p5GXjSiQzUtHgbQoA7c3R60SFtN4HQF4'
+# client_secret = 'y4Bc-4YDooZI-7Mbul8EXUFxxUlqi5QjNlmidPFjWisK6WJ9t2sifoewohg1kK2o'
+# domain = 'brockai.us.auth0.com'
 
 load_dotenv()
 
@@ -28,5 +28,5 @@ mailgun = {
     'admin_email': os.getenv("ADMIN_EMAIL")
 }
 
-auth = OAuth2Session(auth0_client_id, auth0_client_secret, scope='openid profile email', redirect_uri=domain_platform)
-authorization_url, state = auth.create_authorization_url(f'{auth0_domain}/authorize')
+# auth = OAuth2Session(auth0_client_id, auth0_client_secret, scope='openid profile email', redirect_uri=domain_platform)
+# authorization_url, state = auth.create_authorization_url(f'{auth0_domain}/authorize')

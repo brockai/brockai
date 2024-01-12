@@ -1,4 +1,4 @@
-from helpers.config import authorization_url
+from helpers.config import domain_platform
 
 sidebar_links_footer = """
 <div class="top-space">Docs & Jupyter Notebooks</div>
@@ -32,7 +32,7 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 
 platform_link = """
 <div class="rounded-box red-text">
-✨&nbsp;&nbsp;<a href="""+authorization_url+""" target="_blank" style="text-decoration: none;">Platform Sign In</a>
+✨&nbsp;&nbsp;<a href="""+domain_platform+""" target="_blank" style="text-decoration: none;">Platform Sign In</a>
 </div>
 """
 
