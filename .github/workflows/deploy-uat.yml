@@ -28,7 +28,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
-          username: ${{ secrets.DROPLET_USERNAME }}
+          username: ${{ secrets.DROPLET_USERNAME }}stremal
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # turn off streamlit service, copy service config, reload daemon

@@ -1,8 +1,33 @@
-
+import os
+from dotenv import load_dotenv
+from authlib.integrations.requests_client import OAuth2Session
 import streamlit as st
 import pandas as pd
 
 from openai import OpenAI
+
+load_dotenv()
+
+auth0_domain = os.getenv("AUTH0_DOMAIN")
+auth0_client_id = os.getenv("AUTH0_CLIENT_ID")
+auth0_client_secret = os.getenv("AUTH0_CLIENT_SECRET")
+
+# Authlib configuration
+redirect_uri = "http://localhost:8501/BOM%20Compliancy"
+scope = "openid profile email"
+response_type = "code" 
+
+# Auth0 authorization endpoint
+authorization_url = f"{auth0_domain}/authorize"
+print(authorization_url)
+oauth = OAuth2Session(
+    client_id=auth0_client_id,
+    client_secret=auth0_client_secret,
+    redirect_uri=redirect_uri,
+    scope=scope,
+    response_type=response_type,
+)
+
 st.set_page_config(layout="wide", page_title="brockai - BOM Compliancy", page_icon="./static/brockai.png")  
 
 # import logging
@@ -46,26 +71,10 @@ for uploaded_file in uploaded_files:
     # st.write(bytes_data)
 
 if st.button("🚀 Upload & Process", disabled=not uploaded_files):
-  const 
-  upload()
-    
- 
-for msg in st.session_state.messages_bom:
-    if msg["role"] == 'assistant':
-      st.chat_message(msg["role"],avatar="🕵️‍♀️").write(msg["content"])
-    else:
-      st.chat_message(msg["role"]).write(msg["content"])
-    
-if prompt := st.chat_input():
-    if not openaikey:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
+    authorization_url, state = oauth.create_authorization_url(authorization_url)
+    st.session_state.auth_state = state
+    st.session_state.auth0_logged_in = True
+    st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)
 
-    st.session_state.messages_bom.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
-    
-    response = client.chat.completions.create(model=st.session_state.openai_model, messages=st.session_state.messages_bom)
-    msg = response.choices[0].message.content
-    
-    st.session_state.messages_bom.append({"role": "assistant", "content": msg})
-    st.chat_message("assistant",avatar="🕵️‍♀️").write(msg)
+    # st.redirect(authorization_url)
+#   upload()
