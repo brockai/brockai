@@ -5,7 +5,7 @@ icon = "🕵️‍♀️"
 
 [[pages]]
 path = "pages/bomai.py"
-name = "BOM Compliancy"
+name = "Compliancy"
 icon = "💯"
 
 [[pages]]
