@@ -8,3 +8,4 @@ python-dotenv
 IPython
 streamlit-antd-components
 Authlib
+boto3
