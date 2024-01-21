@@ -7,4 +7,4 @@ captcha
 python-dotenv
 IPython
 streamlit-antd-components
-authlib
+Authlib

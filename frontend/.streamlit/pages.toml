@@ -1,19 +1,20 @@
 [[pages]]
-path = "app.py"
-name = "Blaire"
-icon = "🕵️‍♀️"
+path = "pages/app.py"
+name = "Platform"
+icon = "✨"
 
 [[pages]]
-path = "pages/bomai.py"
+path = "pages/compliancy.py"
 name = "Compliancy"
 icon = "💯"
 
 [[pages]]
-path = "pages/platform.py"
-name = "Platform"
-icon = "✨"
+path = "pages/chat.py"
+name = "Chat"
+icon = "🕵️‍♀️"
 
 [[pages]]
 path = "pages/contact.py"
 name = "Contact Us"
 icon = "✉️"
+

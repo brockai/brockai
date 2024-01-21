@@ -1,9 +1,7 @@
 import streamlit as st
 from helpers.markdown import platform_intro
 from captcha.image import ImageCaptcha
-from st_pages import show_pages_from_config 
-st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png")  
-show_pages_from_config()
+st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png")
 
 import re
 import random
@@ -13,6 +11,9 @@ from helpers.config import mailgun
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, platform_link
 
 from captcha.image import ImageCaptcha    
+
+# Load the React app as an iframe
+# st.components.v1.iframe("http://localhost:3000", height=700)
 
 def is_valid_email(email):
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -37,7 +38,7 @@ with open('styles.css') as f:
     
 st.sidebar.markdown(platform_link, unsafe_allow_html=True)
 
-st.header("✨ Platform")
+st.header("✨ Platform Beta")
 
 if 'captcha_text' not in st.session_state:
     st.session_state.captcha_text = generate_captcha()

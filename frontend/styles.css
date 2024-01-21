@@ -68,6 +68,10 @@ a:active {
   color: red;
 }
 
+.page-title {
+  font-size: 36px;
+}
+
 .fullHeight {
   height : 100vh;
   width : 100%

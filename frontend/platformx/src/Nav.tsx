@@ -10,10 +10,11 @@ import Brockailogo from './images/logo/brockailogo.png'
 export function Nav() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0<{
+  const { isAuthenticated, user } = useAuth0<{
     name: string;
+    nickname: string;
   }>();
-  const { pathname } = useLocation();
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
      
@@ -25,7 +26,7 @@ export function Nav() {
               <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
               <main>
                 <div>
-                  <span id="hello">Hello, {user?.name}!</span>{' '}
+                  <span id="hello">Hello, {user?.name}, {user?.nickname}!</span>{' '}
                 </div>
                 <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
                   <Outlet />

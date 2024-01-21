@@ -11,7 +11,7 @@ sidebar_links_footer = """
 <a href="https://github.com/brockai" target="_blank">
 <img src="app/static/github-mark-white.png" alt="GitHub Icon" width="32" height="32">
 </a>&nbsp;&nbsp;&nbsp;
-<a href="https://discord.gg/c3py8dTG" target="_blank">
+<a href="https://discord.gg/4bvUEYHjEB" target="_blank">
 <img src="app/static/discordlogo.png" alt="Discord" height="32">
 </a>
 </div>
@@ -38,14 +38,6 @@ platform_link = """
 
 platform_intro = """
 <div>
-<p>
-Platform's purpose is to assist integrating AI functionality into new or existing systems.
-</p>
-<p>
-Our approach is to build prototypes, with your data, that can be taken to production. Prototypes typically run 30 - 90 days.
-</p>
-<p>
-brockai is an open source project that can be hosted anywhere or you can run it here for free.
-</p>
+30 - 90 day AI application Prototypes. Train your data to tailor and improve businesses processes.
 </div>
 """
