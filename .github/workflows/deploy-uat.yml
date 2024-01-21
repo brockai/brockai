@@ -28,7 +28,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
-          username: ${{ secrets.DROPLET_USERNAME }}stremal
+          username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # turn off streamlit service, copy service config, reload daemon
@@ -49,31 +49,31 @@ jobs:
 
             sudo systemctl start streamlit-uat.service || true
 
-  # Setup-Platform:
-  #   runs-on: ubuntu-latest
-  #   needs: Setup-Streamlit-Python
-  #   steps:
-  #     - name: Setup platform
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.DROPLET_IP }}
-  #         username: ${{ secrets.DROPLET_USERNAME }}
-  #         key: ${{ secrets.SSH_PRIVATE_KEY }}
-  #         script: |
-  #           # build and deploy platform
-  #           # apt install npm || true
-  #           cp ~/.env.production -r ~/brockai/frontend/platformx
-  #           cd ~/brockai/frontend/platformx
-  #           rm -r node_modules
-  #           npm install
-  #           npm run build:production
-  #           rm /var/www/platform -r || true
-  #           mkdir /var/www/platform || true
-  #           cp ~/brockai/frontend/platformx/build/. -r /var/www/platform
+  Setup-Platform:
+    runs-on: ubuntu-latest
+    needs: Setup-Streamlit-Python
+    steps:
+      - name: Setup platform
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # build and deploy platform
+            # apt install npm || true
+            cp ~/.env.production -r ~/brockai/frontend/platformx
+            cd ~/brockai/frontend/platformx
+            rm -r node_modules
+            npm install
+            npm run build:production
+            rm /var/www/platform -r || true
+            mkdir /var/www/platform || true
+            cp ~/brockai/frontend/platformx/build/. -r /var/www/platform
 
   Restart-Opensearch:
     runs-on: ubuntu-latest
-    needs: Setup-Streamlit-Python
+    needs: Setup-Platform
     steps:
       - name: Restart Opensearch
         uses: appleboy/ssh-action@master
