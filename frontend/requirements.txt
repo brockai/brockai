@@ -9,3 +9,4 @@ IPython
 streamlit-antd-components
 Authlib
 boto3
+opensearch-py

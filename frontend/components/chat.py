@@ -14,7 +14,6 @@ def chat():
     if "openai_model" not in st.session_state:
         st.session_state["openai_model"] = "gpt-3.5-turbo"
             
-    st.markdown('<div class="page-title red-text">🕵️‍♀️ Chat</div>', unsafe_allow_html=True)
     st.markdown(powered_by_openai, unsafe_allow_html=True)
 
     for msg in st.session_state.messages_bot:

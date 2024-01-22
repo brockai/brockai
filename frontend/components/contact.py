@@ -8,6 +8,7 @@ def contact():
 
     from helpers.config import mailgun
     from helpers.markdown import sidebar_links_footer, sidebar_app_header
+    from helpers.antd_utils import show_space
 
     from captcha.image import ImageCaptcha    
 
@@ -24,26 +25,19 @@ def contact():
         image = ImageCaptcha(width=400, height=100).generate(captcha_text)
         return captcha_text, image
     
-    with open('styles.css') as f:
-        st.sidebar.markdown(
-            f'<style>{f.read()}</style>'
-            +sidebar_app_header
-            +sidebar_links_footer
-            , unsafe_allow_html=True
-        )
-
-    st.header(":email: Contact Us")
 
     if 'captcha_text' not in st.session_state:
         st.session_state.captcha_text = generate_captcha()
 
-    col1, col2, col3, col4 =  st.columns([3, 0.25, 1, 0.25])
+    col1, col2, col3 =  st.columns([3, 0.25, 1])
 
     captcha_text, captcha_image = st.session_state.captcha_text
 
     captcha_input = None
 
+
     with col3:
+        show_space(1)
         st.markdown('<p style="text-align: justify; font-size: 12px;">CAPTCHAs are active to prevent automated submissions. <br> Thank you for your understanding.</p>', unsafe_allow_html=True)
         captcha_placeholder = st.empty()
         captcha_placeholder.image(captcha_image, use_column_width=True)
@@ -54,6 +48,7 @@ def contact():
             captcha_placeholder.image(captcha_image, use_column_width=True)
 
     with col1:
+        show_space(1)
         with st.form("contact_form", clear_on_submit=True):
             email = st.text_input("**Your email***")
             message = st.text_area("**Your message***")

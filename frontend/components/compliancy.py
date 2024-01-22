@@ -30,12 +30,13 @@ def compliancy():
             st.write("Full-cycle Bill of Materials (BOM) regulatory check using AI and machine learning to assist in ensuring compliance with regulatory requirements throughout the entire lifecycle of a product.")
             show_space(1)
 
-            if st.button("✨ Sign In"):
+            if st.button("Platform Sign In"):
                 oauth = set_oauth(auth0_redirect_uri)
                 authorization_url, state = oauth.create_authorization_url(authorization_url)
                 st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True) 
         show_space(1)
-        sac.steps(
+
+        step = sac.steps(
             items=[
                 sac.StepsItem(title='step 1', icon='cloud-arrow-up', subtitle='✨ Upload Files', description='File Library, Structured & Unstructured data'),
                 sac.StepsItem(title='step 2', icon='arrow-clockwise', subtitle='Processing', description='Data Extraction, Classification, Compliancy Check, AI-driven Risk Assessment'),
@@ -44,21 +45,29 @@ def compliancy():
             ], 
         )
 
-        files = st.file_uploader(
-            "Choose a CSV file", 
-            accept_multiple_files=True, 
-            type=["txt", "csv"],
-            key=st.session_state["file_uploader_key"],
-        )
+        st.write(step)
 
-        if files:
-            st.session_state["uploaded_files"] = files
-            if st.session_state.access_token != '':
-                if st.button("🚀 Upload & Process"):
-                    for file in files:
-                        file_name=file.name
-                        bytes_data = file.getvalue()
-                        isUpload = uploadFiles(bytes_data, file_name)
+        if step == 'step 1':
+            files = st.file_uploader(
+                "Choose a CSV file", 
+                accept_multiple_files=True, 
+                type=["txt", "csv"],
+                key=st.session_state["file_uploader_key"],
+            )
 
-                    st.session_state["file_uploader_key"] += 1
-                    st.rerun()
+            if files:
+                st.session_state["uploaded_files"] = files
+                if st.session_state.access_token != '':
+                    if st.button("🚀 Upload & Process"):
+                        for file in files:
+                            file_name=file.name
+                            bytes_data = file.getvalue()
+                            isUpload = uploadFiles(bytes_data, file_name)
+
+                        st.session_state["file_uploader_key"] += 1
+                        st.rerun()
+        if step == 'step 2':
+            st.write('got here 2')
+
+        if step == 'step 3':
+            st.write('got here 3')    

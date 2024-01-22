@@ -38,7 +38,7 @@ def navigation(title, authorization_url, icon, tag, signIn):
     if 'access_token' not in st.session_state:
         st.session_state['access_token'] = ''
     
-    col1, col2, col3 =  st.columns([2, 3, 1.25])
+    col1, col2, col3 =  st.columns([1, 0.25, 2])
     with col1:
 
         title = sac.menu(
@@ -46,23 +46,23 @@ def navigation(title, authorization_url, icon, tag, signIn):
                 sac.MenuItem(title, icon=icon, tag=tag),
                 ],
                 key=title,
-                size=20,
                 open_all=True, indent=20,
-                format_func='title',
+                format_func='title'
             )
 
     with col3:
         if st.session_state.access_token == '' and signIn:
-            if st.button("🚀&nbsp;Platform&nbsp;Sign&nbsp;In", use_container_width=True):
-                authorization_url, state = oauth.create_authorization_url(authorization_url)
-                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True) 
+            authorization_url, state = oauth.create_authorization_url(authorization_url)
+            sac.buttons([
+                sac.ButtonsItem(label='Platform Sign In', icon='rocket', href=authorization_url)
+            ], align='end', size='xs')
 
         if st.session_state.access_token != '':
-            if st.button("Platform Sign Out", use_container_width=True):
-                st.session_state['access_token'] = ''
-                st.session_state['given_name'] = ''
-                st.session_state['tenant_id'] = ''    
-                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
+        
+            sac.buttons([
+                sac.ButtonsItem(label='Platform Sign Out', icon='rocket', href=domain)
+            ], align='end', size='xs')
+        
 
 def get_tokens(authorization_code):
 

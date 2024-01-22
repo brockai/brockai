@@ -35,6 +35,7 @@ st.markdown(f'''
 
 if authorization_code != None:
     authMetadata = get_tokens(authorization_code)
+    st.write(authMetadata)
 
 with st.sidebar.container():
 
@@ -42,13 +43,14 @@ with st.sidebar.container():
     modified = sac.Tag('Modified', color='blue', bordered=False)
     protoType = sac.Tag('Prototype', color='green', bordered=False)
     deprecated = sac.Tag('Deprecated', color='orange', bordered=False)
+    production = sac.Tag('Production', color='red', bordered=False)
     beta = sac.Tag('Beta', color='purple', bordered=False)
 
     menu = sac.menu(
         items=[
             sac.MenuItem('platform', icon='rocket', tag=beta),
             sac.MenuItem('regcheck', icon='shield-check', tag=protoType),
-            sac.MenuItem('chat', icon='chat',tag=protoType),
+            sac.MenuItem('chat', icon='chat-left-text',tag=protoType),
             sac.MenuItem('contact', icon='envelope',)
         ],
         key='menu',
@@ -70,8 +72,10 @@ with st.container():
         navigation('regcheck', authorization_url, 'shield-check', protoType, False)
         compliancy()
     elif menu == 'chat':
+        navigation('chat', authorization_url, 'chat-left-text', protoType, True)
         chat()
     elif menu == 'contact':
+        navigation('contact', authorization_url, 'envelope', None, True)
         contact()
     else:
         navigation('platform', authorization_url, 'rocket', beta, True)
