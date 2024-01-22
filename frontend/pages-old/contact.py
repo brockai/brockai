@@ -1,19 +1,15 @@
 import streamlit as st
-from helpers.markdown import platform_intro
 from captcha.image import ImageCaptcha
-st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png")
+st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png")  
 
 import re
 import random
 import requests
 
 from helpers.config import mailgun
-from helpers.markdown import sidebar_links_footer, sidebar_app_header, platform_link
+from helpers.markdown import sidebar_links_footer, sidebar_app_header
 
 from captcha.image import ImageCaptcha    
-
-# Load the React app as an iframe
-# st.components.v1.iframe("http://localhost:3000", height=700)
 
 def is_valid_email(email):
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -35,10 +31,8 @@ with open('styles.css') as f:
         +sidebar_links_footer
         , unsafe_allow_html=True
     )
-    
-st.sidebar.markdown(platform_link, unsafe_allow_html=True)
 
-st.header("✨ Platform Beta")
+st.header(":email: Contact Us")
 
 if 'captcha_text' not in st.session_state:
     st.session_state.captcha_text = generate_captcha()
@@ -60,9 +54,6 @@ with col3:
         captcha_placeholder.image(captcha_image, use_column_width=True)
 
 with col1:
-    st.markdown(platform_intro, unsafe_allow_html=True)
-    st.markdown('<h3>Beta Signup</h3>', unsafe_allow_html=True)
-    st.markdown('<p>Please let us know your idea and we will get back to you.</p>', unsafe_allow_html=True)
     with st.form("contact_form", clear_on_submit=True):
         email = st.text_input("**Your email***")
         message = st.text_area("**Your message***")
@@ -86,7 +77,7 @@ with col1:
                 captcha_text, captcha_image = st.session_state.captcha_text
                 captcha_placeholder.image(captcha_image, use_column_width=True)
                   
-                subject = "Beta Sign Up"
+                subject = "Note from brockai"
                 body = f"Email: {email}\nMessage: {message}"
                     
                 data = {

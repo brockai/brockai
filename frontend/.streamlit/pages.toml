@@ -1,20 +1,19 @@
-[[pages]]
-path = "pages/app.py"
-name = "Platform"
-icon = "✨"
+# [[pages]]
+# path = "pages/app.py"
+# name = "Platform"
+# icon = "✨"
 
-[[pages]]
-path = "pages/compliancy.py"
-name = "Compliancy"
-icon = "💯"
+# [[pages]]
+# path = "pages/compliancy.py"
+# name = "Compliancy"
+# icon = "💯"
 
-[[pages]]
-path = "pages/chat.py"
-name = "Chat"
-icon = "🕵️‍♀️"
+# [[pages]]
+# path = "pages/chat.py"
+# name = "Chat"
+# icon = "🕵️‍♀️"
 
-[[pages]]
-path = "pages/contact.py"
-name = "Contact Us"
-icon = "✉️"
-
+# [[pages]]
+# path = "pages/contact.py"
+# name = "Contact Us"
+# icon = "✉️"

@@ -1,7 +1,6 @@
 from helpers.config import domain_platform
 
 sidebar_links_footer = """
-<div class="top-space">Docs & Jupyter Notebooks</div>
 <div class="left-space top-left-space">☁️&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/Cloud-Deployment" target="_blank">Cloud Deployment</a></div>
 <div class="left-space top-left-space">🤗&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/🤗-Huggingface" target="_blank">Huggingface</a></div>
 <div class="left-space top-left-space"><img src="app/static/openai.png" alt="openai" width="18">&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/OpenAI" target="_blank">OpenAI</a></div>
@@ -19,7 +18,7 @@ sidebar_links_footer = """
 
 sidebar_app_header = """
 <div class="header logo-label">
-<img src="app/static/brockailogo32.png" alt="Platform">
+<img src="app/static/brockailogo32.png" height="28" alt="Platform">
 </div>
 """
 
@@ -29,12 +28,12 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 </div>
 <br>
 """
-
-platform_link = """
-<div class="rounded-box red-text">
-✨&nbsp;&nbsp;<a href="""+domain_platform+""" target="_blank" style="text-decoration: none;">Platform Sign In</a>
-</div>
-"""
+# react platform app
+# platform_link = """
+# <div class="rounded-box red-text">
+# ✨&nbsp;&nbsp;<a href="""+domain_platform+""" target="_blank" style="text-decoration: none;">Platform Sign In</a>
+# </div>
+# """
 
 platform_intro = """
 <div>
