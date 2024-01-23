@@ -41,10 +41,8 @@ if 'access_token' not in st.session_state:
 
 with st.sidebar.container():
 
-    if st.session_state['access_token'] != '':
-        show_space(1)
-        st.markdown(opensearch_platform_button, unsafe_allow_html=True)
-        show_space(1)
+    st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+    show_space(1)
 
     modified = sac.Tag('Modified', color='blue', bordered=False)
     protoType = sac.Tag('Prototype', color='green', bordered=False)
@@ -69,7 +67,6 @@ with st.sidebar.container():
     with open('styles.css') as f:
         st.sidebar.markdown(
             f'<style>{f.read()}</style>'
-            +sidebar_app_header
             +sidebar_links_footer
             , unsafe_allow_html=True
         ) 

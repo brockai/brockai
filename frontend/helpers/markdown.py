@@ -42,9 +42,9 @@ platform_intro = """
 """
 
 opensearch_platform_button = """
-<div class="rounded-box-230">
+<div class="rounded-box-230" style="text-align:center">
 <a href="https://dashboard.brockai.com" target="_blank">
-<img src="app/static/platform_logo_darkmode.png" alt="brockaiopensearch" height="22">
+<img src="app/static/platform_logo_darkmode.png" alt="brockaiopensearch" height="20">
 </a>
 </div>
 """
