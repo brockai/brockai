@@ -64,6 +64,16 @@ a:active {
   padding: 2px;
 }
 
+.rounded-box-230 {
+  width: 230px;
+  height: 34px;
+  text-align: center;
+  border: 1px solid grey;
+  border-radius: 5px;
+  align-items: center; 
+  padding: 2px;
+}
+
 .red-text {
   color: red;
 }

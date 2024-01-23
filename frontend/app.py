@@ -2,14 +2,14 @@ import streamlit as st
 import streamlit_antd_components as sac 
 
 from st_pages import Page, hide_pages
-
 from components.auth import get_tokens, navigation
 from components.platform_beta import beta_email_request
 from components.compliancy import compliancy
 from components.contact import contact
 from components.chat import chat
+from helpers.antd_utils import show_space
 from helpers.config import authorization_url, auth0_redirect_uri
-from helpers.markdown import sidebar_links_footer, sidebar_app_header
+from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
@@ -35,20 +35,27 @@ st.markdown(f'''
 
 if authorization_code != None:
     authMetadata = get_tokens(authorization_code)
-    st.write(authMetadata)
+
+if 'access_token' not in st.session_state:
+    st.session_state['access_token'] = ''
 
 with st.sidebar.container():
 
-    # tag
+    if st.session_state['access_token'] != '':
+        show_space(1)
+        st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+        show_space(1)
+
     modified = sac.Tag('Modified', color='blue', bordered=False)
     protoType = sac.Tag('Prototype', color='green', bordered=False)
     deprecated = sac.Tag('Deprecated', color='orange', bordered=False)
     production = sac.Tag('Production', color='red', bordered=False)
     beta = sac.Tag('Beta', color='purple', bordered=False)
+    alpha = sac.Tag('Alpha', color='purple', bordered=False)
 
     menu = sac.menu(
         items=[
-            sac.MenuItem('platform', icon='rocket', tag=beta),
+            sac.MenuItem('platform', icon='rocket', tag=alpha),
             sac.MenuItem('regcheck', icon='shield-check', tag=protoType),
             sac.MenuItem('chat', icon='chat-left-text',tag=protoType),
             sac.MenuItem('contact', icon='envelope',)
@@ -57,6 +64,7 @@ with st.sidebar.container():
         open_all=True, indent=10,
         format_func='title',
     )
+
     sac.divider('Docs & Jupyter Notebooks', color='gray')
     with open('styles.css') as f:
         st.sidebar.markdown(
@@ -67,7 +75,6 @@ with st.sidebar.container():
         ) 
 
 with st.container():
-    
     if menu == 'regcheck':
         navigation('regcheck', authorization_url, 'shield-check', protoType, False)
         compliancy()
@@ -78,5 +85,5 @@ with st.container():
         navigation('contact', authorization_url, 'envelope', None, True)
         contact()
     else:
-        navigation('platform', authorization_url, 'rocket', beta, True)
+        navigation('platform', authorization_url, 'rocket', alpha, True)
         beta_email_request()

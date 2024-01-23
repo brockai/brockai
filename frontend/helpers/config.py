@@ -6,8 +6,6 @@ load_dotenv()
 
 openaikey = os.getenv("OPENAI_KEY")
 domain = os.getenv("DOMAIN")
-domain_api = os.getenv("DOMAIN_API")
-domain_platform = os.getenv("DOMAIN_PLATFORM")
 s3_key = os.getenv("S3_KEY")
 s3_secret = os.getenv("S3_SECRET")
 s3_bucket = os.getenv("S3_BUCKET")
@@ -18,6 +16,8 @@ auth0_client_id = os.getenv("AUTH0_CLIENT_ID")
 auth0_client_secret = os.getenv("AUTH0_CLIENT_SECRET")
 auth0_client_audience = os.getenv("AUTH0_CLIENT_AUDIENCE")
 auth0_redirect_uri = os.getenv("AUTH0_REDIRECT_URI")
+opensearch_api = os.getenv("OPENSEARCH_API")
+opensearch_platform = os.getenv("OPENSEARCH_PLATFORM")
 
 scope = "openid profile email"
 response_type = "code" 
@@ -26,8 +26,6 @@ userinfo_url = auth0_domain+"/userinfo"
 
 authorization_url = f"{auth0_domain}/authorize"
 
-opensearch_api = os.getenv("OPENSEARCH_API")
-opensearch_platform = os.getenv("OPENSEARCH_PLATFORM")
 scheme = os.getenv("SCHEME")
 
 mailgun = { 
@@ -36,3 +34,7 @@ mailgun = {
     'domain': os.getenv("MAILGUN_DOMAIN"),
     'admin_email': os.getenv("ADMIN_EMAIL")
 }
+
+
+domain_api = os.getenv("DOMAIN_API")
+domain_platform = os.getenv("DOMAIN_PLATFORM")

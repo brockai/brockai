@@ -40,3 +40,12 @@ platform_intro = """
 30 - 90 day AI application Prototypes. Train your data to tailor and improve businesses processes.
 </div>
 """
+
+opensearch_platform_button = """
+<div class="rounded-box-230">
+<a href="https://dashboard.brockai.com" target="_blank">
+<img src="app/static/platform_logo_darkmode.png" alt="brockaiopensearch" height="22">
+</a>
+</div>
+"""
+
