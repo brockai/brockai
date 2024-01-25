@@ -3,7 +3,6 @@ import requests
 import boto3
 import streamlit as st
 from helpers.config import domain_api, s3_key, s3_secret, s3_region, s3_endpoint
-from st_files_connection import FilesConnection
 
 @st.cache_data(show_spinner=True)
 def create_embeddings():
