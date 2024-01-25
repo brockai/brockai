@@ -51,13 +51,6 @@ with st.sidebar.container():
     beta = sac.Tag('Beta', color='purple', bordered=False)
     alpha = sac.Tag('Alpha', color='purple', bordered=False)
 
-    sac.divider('Docs & Jupyter Notebooks', color='gray')
-    with open('styles.css') as f:
-        st.sidebar.markdown(
-            f'<style>{f.read()}</style>'
-            +sidebar_links_footer
-            , unsafe_allow_html=True
-        ) 
     menu = sac.menu(
         items=[
             sac.MenuItem('platform', icon='rocket', tag=alpha),
@@ -70,8 +63,16 @@ with st.sidebar.container():
         format_func='title',
     )
 
+    sac.divider('Docs & Jupyter Notebooks', color='gray')
+    with open('styles.css') as f:
+        st.sidebar.markdown(
+            f'<style>{f.read()}</style>'
+            +sidebar_links_footer
+            , unsafe_allow_html=True
+        ) 
+
 with st.container():
-    # False on navigation call (signIn) = nosignin button on header of component
+    # False (signIn) = nosignin button on header of component
     if menu == 'regcheck':
         navigation('regcheck', 'shield-check', protoType, False)
         compliancy()
