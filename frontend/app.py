@@ -3,12 +3,12 @@ import streamlit_antd_components as sac
 
 from st_pages import Page, hide_pages
 from components.auth import get_tokens, navigation
-from components.platform_beta import beta_email_request
+from components.platform_signup import beta_email_request
 from components.compliancy import compliancy
 from components.contact import contact
 from components.chat import chat
 from helpers.antd_utils import show_space
-from helpers.config import authorization_url, auth0_redirect_uri
+# from helpers.config import authorization_url, auth0_redirect_uri
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button
 
 params = st.experimental_get_query_params()
@@ -72,15 +72,16 @@ with st.sidebar.container():
         ) 
 
 with st.container():
+    # False (signIn) = nosignin button on header of component
     if menu == 'regcheck':
-        navigation('regcheck', authorization_url, 'shield-check', protoType, False)
+        navigation('regcheck', 'shield-check', protoType, False)
         compliancy()
     elif menu == 'chat':
-        navigation('chat', authorization_url, 'chat-left-text', protoType, True)
+        navigation('chat', 'chat-left-text', protoType, True)
         chat()
     elif menu == 'contact':
-        navigation('contact', authorization_url, 'envelope', None, True)
+        navigation('contact', 'envelope', None, True)
         contact()
     else:
-        navigation('platform', authorization_url, 'rocket', alpha, True)
+        navigation('platform', 'rocket', alpha, True)
         beta_email_request()

@@ -34,13 +34,12 @@ jobs:
             # turn off streamlit service, copy service config, reload daemon
             sudo systemctl stop streamlit.service || true
             cp ./brockai/config/streamlit.service /etc/systemd/system/streamlit.service
-            sudo systemctl daemon-reload
 
             # remove existing app, copy over cloned app
             rm /var/www/streamlit -r || true
             mkdir /var/www/streamlit || true
             cp ~/.env /var/www/streamlit
-            cp ./brockai/frontend/. -r /var/www/streamlit
+            cp ~/brockai/frontend/. -r /var/www/streamlit
 
             # create python env, install requirements, start streamlit
             sudo python3 -m venv /var/www/streamlit/brockai
@@ -50,30 +49,9 @@ jobs:
 
             sudo systemctl restart streamlit.service || true  
 
-  Setup-Platform:
-    runs-on: ubuntu-latest
-    needs: Setup-Streamlit-Python
-    steps:
-      - name: Setup platform
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DROPLET_IP }}
-          username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # build and deploy platform
-            cp ~/.env.production -r ~/brockai/frontend/platformx
-            cd ~/brockai/frontend/platformx
-            rm -r node_modules
-            npm install
-            npm run build:production
-            rm /var/www/platform -r || true
-            mkdir /var/www/platform || true
-            cp ~/brockai/frontend/platformx/build/. -r /var/www/platform
-
   Restart-Opensearch:
     runs-on: ubuntu-latest
-    needs: Setup-Platform
+    needs: Setup-Streamlit-Python
     steps:
       - name: Restart Opensearch
         uses: appleboy/ssh-action@master

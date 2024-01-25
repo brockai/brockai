@@ -4,16 +4,11 @@ def compliancy():
     import pandas as pd
     import streamlit_antd_components as sac
 
-    from helpers.config import authorization_url, auth0_redirect_uri
-    from services.api import uploadFiles
-    from st_pages import hide_pages
-    from components.auth import navigation, set_oauth, get_tokens
+    from services.s3api import uploadFiles, getFiles
+    from services.opensearch import opensearch_welcome, check_opensearch_health
+    from components.auth import navigation, set_oauth, get_tokens, signin_button
 
     from helpers.antd_utils import show_space
-
-    params = st.experimental_get_query_params()
-    authorization_code = params.get("code", [None])[0]
-    authorization_state = params.get("state", [None])[0]
 
     if "file_uploader_key" not in st.session_state:
         st.session_state["file_uploader_key"] = 0
@@ -25,17 +20,13 @@ def compliancy():
 
     with col2: 
         if st.session_state.access_token == '':
-            show_space(1)
+
+            # health = st.write(check_opensearch_health())
 
             st.write("Full-cycle Bill of Materials (BOM) regulatory check using AI and machine learning to assist in ensuring compliance with regulatory requirements throughout the entire lifecycle of a product.")
-            show_space(1)
-
-            if st.button("Platform Sign In"):
-                oauth = set_oauth(auth0_redirect_uri)
-                authorization_url, state = oauth.create_authorization_url(authorization_url)
-                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True) 
+            signin_button()
+        
         show_space(1)
-
         step = sac.steps(
             items=[
                 sac.StepsItem(title='step 1', icon='cloud-arrow-up', subtitle='✨ Upload Files', description='File Library, Structured & Unstructured data'),
@@ -48,6 +39,10 @@ def compliancy():
         st.write(step)
 
         if step == 'step 1':
+
+            # if st.session_state.access_token != '':
+            #     getFiles()
+
             files = st.file_uploader(
                 "Choose a CSV file", 
                 accept_multiple_files=True, 
@@ -65,7 +60,10 @@ def compliancy():
                             isUpload = uploadFiles(bytes_data, file_name)
 
                         st.session_state["file_uploader_key"] += 1
+                        # create_index(st.session_state.tenant_id)
                         st.rerun()
+
+
         if step == 'step 2':
             st.write('got here 2')
 

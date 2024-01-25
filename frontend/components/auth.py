@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit_antd_components as sac
 from services.auth import fetchUser
 from authlib.integrations.requests_client import OAuth2Session
-from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, token_url, domain, scope, response_type, opensearch_platform
+from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url , token_url, domain, scope, response_type, opensearch_platform
 from helpers.markdown import opensearch_platform_button
 
 params = st.experimental_get_query_params()
@@ -21,19 +21,19 @@ def set_redirect(authorization_code, redirect_uri):
     }
     return data
 
-def set_oauth(redirect_uri):
+def set_oauth():
     oauth = OAuth2Session(
         client_id=auth0_client_id,
         client_secret=auth0_client_secret,
-        redirect_uri=redirect_uri,
+        redirect_uri=auth0_redirect_uri,
         scope=scope,
         response_type=response_type,
     )
     return oauth
 
-def navigation(title, authorization_url, icon, tag, signIn): 
+def navigation(title, icon, tag, signIn): 
 
-    oauth = set_oauth(auth0_redirect_uri)
+    oauth = set_oauth()
     
     col1, col2, col3 =  st.columns([0.75, 0.25, 2])
     with col1:
@@ -49,16 +49,25 @@ def navigation(title, authorization_url, icon, tag, signIn):
 
     with col3:
         if st.session_state.access_token == '' and signIn:
-            authorization_url, state = oauth.create_authorization_url(authorization_url)
+            authorization_url, state = oauth.create_authorization_url(auth0_authorization_url )
             sac.buttons([
                 sac.ButtonsItem(label='Platform Sign In', icon='rocket', href=authorization_url)
-            ], align='end', size='xs')
+            ], align='end', size='sm')
 
         if st.session_state.access_token != '':
             sac.buttons([
                 sac.ButtonsItem(label='Platform Sign Out', icon='rocket', href=domain)
-            ], align='end', size='xs')
+            ], align='end', size='sm')
         
+def signin_button():
+
+    oauth = set_oauth()
+
+    if st.session_state.access_token == '':
+        authorization_url, state = oauth.create_authorization_url(auth0_authorization_url )
+        sac.buttons([
+            sac.ButtonsItem(label='Platform Sign In', icon='rocket', href=authorization_url)
+        ], size='sm')        
 
 def get_tokens(authorization_code):
 

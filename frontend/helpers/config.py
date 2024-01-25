@@ -8,7 +8,7 @@ openaikey = os.getenv("OPENAI_KEY")
 domain = os.getenv("DOMAIN")
 s3_key = os.getenv("S3_KEY")
 s3_secret = os.getenv("S3_SECRET")
-s3_bucket = os.getenv("S3_BUCKET")
+# s3_bucket = os.getenv("S3_BUCKET")
 s3_region = os.getenv("S3_REGION")
 s3_endpoint = os.getenv("S3_ENDPOINT")
 auth0_domain = os.getenv("AUTH0_DOMAIN")
@@ -16,6 +16,7 @@ auth0_client_id = os.getenv("AUTH0_CLIENT_ID")
 auth0_client_secret = os.getenv("AUTH0_CLIENT_SECRET")
 auth0_client_audience = os.getenv("AUTH0_CLIENT_AUDIENCE")
 auth0_redirect_uri = os.getenv("AUTH0_REDIRECT_URI")
+auth0_authorization_url = f"{auth0_domain}/authorize"
 opensearch_api = os.getenv("OPENSEARCH_API")
 opensearch_platform = os.getenv("OPENSEARCH_PLATFORM")
 
@@ -23,8 +24,6 @@ scope = "openid profile email"
 response_type = "code" 
 token_url = auth0_domain+"/oauth/token"
 userinfo_url = auth0_domain+"/userinfo"
-
-authorization_url = f"{auth0_domain}/authorize"
 
 scheme = os.getenv("SCHEME")
 

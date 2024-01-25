@@ -40,7 +40,7 @@ def beta_email_request():
 
     with col1:
         st.markdown(platform_intro, unsafe_allow_html=True)
-        st.markdown('<h3>Beta Signup</h3>', unsafe_allow_html=True)
+        st.markdown('<h3>Alpha Signup</h3>', unsafe_allow_html=True)
         st.markdown('<p>Please let us know what you would like to prototype.</p>', unsafe_allow_html=True)
         with st.form("contact_form", clear_on_submit=True):
             email = st.text_input("**Your email***")
