@@ -3,12 +3,12 @@ import streamlit_antd_components as sac
 
 from st_pages import Page, hide_pages
 from components.auth import get_tokens, navigation
+from services.opensearch import check_opensearch_health
 from components.platform_signup import beta_email_request
 from components.compliancy import compliancy
 from components.contact import contact
 from components.chat import chat
 from helpers.antd_utils import show_space
-# from helpers.config import authorization_url, auth0_redirect_uri
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button
 
 params = st.experimental_get_query_params()
@@ -43,6 +43,8 @@ with st.sidebar.container():
 
     st.markdown(opensearch_platform_button, unsafe_allow_html=True)
     show_space(1)
+    health = check_opensearch_health()
+    
 
     modified = sac.Tag('Modified', color='blue', bordered=False)
     protoType = sac.Tag('Prototype', color='green', bordered=False)
@@ -63,6 +65,12 @@ with st.sidebar.container():
         format_func='title',
     )
 
+    sac.divider('Platform Status', color='gray')
+    sac.chip(
+        items=[
+            sac.ChipItem(label=health),
+        ], variant='outline', size='xs', radius="md")
+    
     sac.divider('Docs & Jupyter Notebooks', color='gray')
     with open('styles.css') as f:
         st.sidebar.markdown(

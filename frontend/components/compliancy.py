@@ -4,9 +4,9 @@ def compliancy():
     import pandas as pd
     import streamlit_antd_components as sac
 
-    from services.s3api import uploadFiles, getFiles
-    from services.opensearch import opensearch_welcome, check_opensearch_health
-    from components.auth import navigation, set_oauth, get_tokens, signin_button
+    from services.s3api import uploadFiles
+    from services.opensearch import create_index
+    from components.auth import signin_button
 
     from helpers.antd_utils import show_space
 
@@ -20,8 +20,6 @@ def compliancy():
 
     with col2: 
         if st.session_state.access_token == '':
-
-            # health = st.write(check_opensearch_health())
 
             st.write("Full-cycle Bill of Materials (BOM) regulatory check using AI and machine learning to assist in ensuring compliance with regulatory requirements throughout the entire lifecycle of a product.")
             signin_button()
@@ -60,7 +58,7 @@ def compliancy():
                             isUpload = uploadFiles(bytes_data, file_name)
 
                         st.session_state["file_uploader_key"] += 1
-                        # create_index(st.session_state.tenant_id)
+                        create_index(st.session_state.tenant_id)
                         st.rerun()
 
 

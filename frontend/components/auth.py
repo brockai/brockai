@@ -4,8 +4,7 @@ import pandas as pd
 import streamlit_antd_components as sac
 from services.auth import fetchUser
 from authlib.integrations.requests_client import OAuth2Session
-from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url , token_url, domain, scope, response_type, opensearch_platform
-from helpers.markdown import opensearch_platform_button
+from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url , token_url, scope, response_type
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
@@ -40,23 +39,26 @@ def navigation(title, icon, tag, signIn):
 
         title = sac.menu(
             items=[
-                sac.MenuItem(title, icon=icon, tag=tag),
+                sac.MenuItem(title, icon=icon, tag=tag)
                 ],
                 key=title,
                 open_all=True, indent=20,
                 format_func='title'
             )
-
+    
     with col3:
-        if st.session_state.access_token == '' and signIn:
-            authorization_url, state = oauth.create_authorization_url(auth0_authorization_url )
-            sac.buttons([
-                sac.ButtonsItem(label='Platform Sign In', icon='rocket', href=authorization_url)
-            ], align='end', size='sm')
+
+        label_current='Platform Sign In'
+        label_signout='Platform Sign Out'
+
+        authorization_url, state = oauth.create_authorization_url(auth0_authorization_url )
 
         if st.session_state.access_token != '':
+            label_current=label_signout
+
+        if signIn:
             sac.buttons([
-                sac.ButtonsItem(label='Platform Sign Out', icon='rocket', href=domain)
+                sac.ButtonsItem(label=label_current, icon='rocket', href=authorization_url)
             ], align='end', size='sm')
         
 def signin_button():
