@@ -37,7 +37,7 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 
 platform_intro = """
 <div>
-30 - 90 day AI application Prototypes. Train your data to tailor and improve businesses processes.
+30 - 90 day AI application Prototypes. Train your data to improve business processes and human interaction outcomes.
 </div>
 """
 
