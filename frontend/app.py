@@ -40,9 +40,7 @@ if 'access_token' not in st.session_state:
     st.session_state['access_token'] = ''
 
 with st.sidebar.container():
-
-    st.markdown(opensearch_platform_button, unsafe_allow_html=True)
-    show_space(1)
+    
     health = check_opensearch_health()
     
 
@@ -64,8 +62,8 @@ with st.sidebar.container():
         open_all=True, indent=10,
         format_func='title',
     )
-
-    sac.divider('Platform Status', color='gray')
+    st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+    sac.divider('OpenSearch Status', color='gray')
     sac.chip(
         items=[
             sac.ChipItem(label=health),
@@ -75,6 +73,7 @@ with st.sidebar.container():
     with open('styles.css') as f:
         st.sidebar.markdown(
             f'<style>{f.read()}</style>'
+            +sidebar_app_header
             +sidebar_links_footer
             , unsafe_allow_html=True
         ) 

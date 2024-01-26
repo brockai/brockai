@@ -18,7 +18,7 @@ sidebar_links_footer = """
 
 sidebar_app_header = """
 <div class="header logo-label">
-<img src="app/static/brockailogo32.png" height="28" alt="Platform">
+<img src="app/static/brockailogo32.png" height="24" alt="Platform">
 </div>
 """
 
