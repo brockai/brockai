@@ -13,7 +13,7 @@ client = OpenSearch(
 )
 
 def check_opensearch_health():
-    st.write(client)
+    
     try:
         info = client.info()
         
