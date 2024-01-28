@@ -40,9 +40,8 @@ authorization_url, state = oauth.create_authorization_url(auth0_authorization_ur
 
 def navigation(title, icon, tag, show_sigin_button): 
 
-    col1, col2 =  st.columns([11, 2])
+    col1, col2 = st.columns([12, 2])
     with col1:
-
         title = sac.menu(
             items=[
                 sac.MenuItem(title, icon=icon, tag=tag)
@@ -67,12 +66,10 @@ def navigation(title, icon, tag, show_sigin_button):
                 st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
         
 def signin_button():
-
     if st.button('Platform Sign In', type="primary"):
         st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)
 
 def get_tokens(authorization_code):
-
     data = set_redirect(authorization_code, auth0_redirect_uri)
     response = requests.post(token_url, data=data)
         

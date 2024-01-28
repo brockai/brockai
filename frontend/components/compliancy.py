@@ -4,7 +4,6 @@ def compliancy():
     import pandas as pd
     import streamlit_antd_components as sac
     
-
     from services.s3api import uploadFiles
     from services.opensearch import create_index
     from components.auth import signin_button

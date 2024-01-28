@@ -3,11 +3,13 @@ import streamlit_antd_components as sac
 
 from st_pages import Page, hide_pages
 from components.auth import get_tokens, navigation
-from services.opensearch import check_opensearch_health
 from components.platform_signup import beta_email_request
 from components.compliancy import compliancy
 from components.contact import contact
 from components.chat import chat
+
+from services.opensearch import check_opensearch_health
+
 from helpers.antd_utils import show_space
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button
 
