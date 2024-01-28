@@ -2,13 +2,18 @@ import requests
 import streamlit as st
 import pandas as pd
 import streamlit_antd_components as sac
-from services.auth import fetchUser
+from services.opensearch import create_index
 from authlib.integrations.requests_client import OAuth2Session
-from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url , token_url, scope, response_type
+from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url , token_url, scope, response_type, domain, userinfo_url
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]
+
+def fetchUser(access_token):
+    oauth = OAuth2Session(client_id=auth0_client_id, token={"access_token": access_token})
+    user_info = oauth.get(userinfo_url).json()
+    return user_info
 
 def set_redirect(authorization_code, redirect_uri):
     data = {
@@ -30,11 +35,12 @@ def set_oauth():
     )
     return oauth
 
-def navigation(title, icon, tag, signIn): 
+oauth = set_oauth()
+authorization_url, state = oauth.create_authorization_url(auth0_authorization_url) 
 
-    oauth = set_oauth()
-    
-    col1, col2, col3 =  st.columns([0.75, 0.25, 2])
+def navigation(title, icon, tag, show_sigin_button): 
+
+    col1, col2 =  st.columns([11, 2])
     with col1:
 
         title = sac.menu(
@@ -46,30 +52,24 @@ def navigation(title, icon, tag, signIn):
                 format_func='title'
             )
     
-    with col3:
+    with col2:
+        access_token = st.session_state.get("access_token")
 
-        label_current='Platform Sign In'
-        label_signout='Platform Sign Out'
+        if show_sigin_button and not access_token:
+            signin_button()
 
-        authorization_url, state = oauth.create_authorization_url(auth0_authorization_url )
+        elif access_token:
 
-        if st.session_state.access_token != '':
-            label_current=label_signout
-
-        if signIn:
-            sac.buttons([
-                sac.ButtonsItem(label=label_current, icon='rocket', href=authorization_url)
-            ], align='end', size='sm')
+            if st.button('Platform Sign out', type="primary"):
+                st.session_state['access_token'] = ''
+                st.session_state['given_name'] = ''
+                st.session_state['tenant_id'] = '' 
+                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
         
 def signin_button():
 
-    oauth = set_oauth()
-
-    if st.session_state.access_token == '':
-        authorization_url, state = oauth.create_authorization_url(auth0_authorization_url )
-        sac.buttons([
-            sac.ButtonsItem(label='Platform Sign In', icon='rocket', href=authorization_url)
-        ], size='sm')        
+    if st.button('Platform Sign In', type="primary"):
+        st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)
 
 def get_tokens(authorization_code):
 
@@ -82,7 +82,6 @@ def get_tokens(authorization_code):
         user_info = fetchUser(access_token)
         st.session_state.given_name = user_info['given_name']
         st.session_state.tenant_id = user_info['nickname']
-            
+        st.write(st.session_state)
     return st.session_state
  
-   

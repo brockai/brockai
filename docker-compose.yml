@@ -63,23 +63,9 @@ services:
     volumes:
       - ./opensearch_dashboards.yml:/root/brockai/config/opensearch_dashboards.yml
 
-  keycloak:
-    image: jboss/keycloak
-    ports:
-      - "8443:8443"
-    networks:
-      - opensearch-net
-    environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
-    volumes:
-      - keycloak_data:/opt/jboss/keycloak/standalone/data
-
 volumes:
   opensearch-data1:
   opensearch-data2:
   keycloak_data:
-    driver: local
-
 networks:
   opensearch-net:

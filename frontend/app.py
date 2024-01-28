@@ -16,6 +16,7 @@ authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]
 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
+
 st.markdown(f'''
     <style>
     .stApp .main .block-container{{
@@ -39,10 +40,9 @@ if authorization_code != None:
 if 'access_token' not in st.session_state:
     st.session_state['access_token'] = ''
 
+health, version = check_opensearch_health()
+
 with st.sidebar.container():
-    
-    health = check_opensearch_health()
-    
 
     modified = sac.Tag('Modified', color='blue', bordered=False)
     protoType = sac.Tag('Prototype', color='green', bordered=False)
@@ -62,11 +62,14 @@ with st.sidebar.container():
         open_all=True, indent=10,
         format_func='title',
     )
+    
     st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+    show_space(1)
     sac.divider('OpenSearch Status', color='gray')
     sac.chip(
         items=[
             sac.ChipItem(label=health),
+            sac.ChipItem(label=version),
         ], variant='outline', size='xs', radius="md")
     
     sac.divider('Docs & Jupyter Notebooks', color='gray')
@@ -79,7 +82,6 @@ with st.sidebar.container():
         ) 
 
 with st.container():
-    # False (signIn) = nosignin button on header of component
     if menu == 'regcheck':
         navigation('regcheck', 'shield-check', protoType, False)
         compliancy()

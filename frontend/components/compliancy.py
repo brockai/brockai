@@ -3,6 +3,7 @@ def compliancy():
     import streamlit as st
     import pandas as pd
     import streamlit_antd_components as sac
+    
 
     from services.s3api import uploadFiles
     from services.opensearch import create_index
@@ -19,11 +20,11 @@ def compliancy():
     col1, col2, col3 =  st.columns([0.25, 10, 0.25])
 
     with col2: 
-        if st.session_state.access_token == '':
+        if st.session_state['access_token'] == '':
 
             st.write("Full-cycle Bill of Materials (BOM) regulatory check using AI and machine learning to assist in ensuring compliance with regulatory requirements throughout the entire lifecycle of a product.")
             signin_button()
-        
+
         show_space(1)
         step = sac.steps(
             items=[
@@ -40,7 +41,7 @@ def compliancy():
 
             # if st.session_state.access_token != '':
             #     getFiles()
-
+            
             files = st.file_uploader(
                 "Choose a CSV file", 
                 accept_multiple_files=True, 
@@ -51,6 +52,9 @@ def compliancy():
             if files:
                 st.session_state["uploaded_files"] = files
                 if st.session_state.access_token != '':
+                    if st.button('Create Tenant'):
+                            create_index()
+
                     if st.button("🚀 Upload & Process"):
                         for file in files:
                             file_name=file.name
@@ -58,7 +62,7 @@ def compliancy():
                             isUpload = uploadFiles(bytes_data, file_name)
 
                         st.session_state["file_uploader_key"] += 1
-                        create_index(st.session_state.tenant_id)
+                        
                         st.rerun()
 
 
