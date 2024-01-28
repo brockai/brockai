@@ -40,7 +40,7 @@ authorization_url, state = oauth.create_authorization_url(auth0_authorization_ur
 
 def navigation(title, icon, tag, show_sigin_button): 
 
-    col1, col2 = st.columns([12, 2])
+    col1, col2 = st.columns([10.25, 1.75])
     with col1:
         title = sac.menu(
             items=[
