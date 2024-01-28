@@ -38,7 +38,7 @@ jobs:
             # remove existing app, copy over cloned app
             rm /var/www/streamlit-uat -r || true
             mkdir /var/www/streamlit-uat || true
-            cp ~/.env.uat /var/www/streamlit-uat
+            cp ~/.env.uat /var/www/streamlit-uat/.env
             cp ~/brockai/frontend/. -r /var/www/streamlit-uat
 
             # create python env, install requirements, start streamlit
