@@ -1,5 +1,6 @@
 import requests
 import streamlit as st
+import re
 import random
 from captcha.image import ImageCaptcha
 from helpers.markdown import platform_intro, discord

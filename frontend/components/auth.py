@@ -42,37 +42,42 @@ def set_oauth():
     )
     return oauth
 
+def get_title(title, icon, tag):
+    title = sac.menu(
+        items=[
+            sac.MenuItem(title, icon=icon, tag=tag)
+            ],
+            key=title,
+            open_all=True, indent=20,
+            format_func='title'
+    )
+    return title
+
 oauth = set_oauth()
 authorization_url, state = oauth.create_authorization_url(auth0_authorization_url) 
 
 def navigation(title, icon, tag, show_sigin_button): 
 
-    col1, col3 = st.columns([10.50, 1.50])
-    with col1:
-        title = sac.menu(
-            items=[
-                sac.MenuItem(title, icon=icon, tag=tag)
-                ],
-                key=title,
-                open_all=True, indent=20,
-                format_func='title'
-            )
-    
-    with col3:
-        access_token = st.session_state.get("access_token")
+    access_token = st.session_state.get("access_token")
 
-        if show_sigin_button and not access_token:
-            signin_button()
-
-        elif access_token:
-            if st.button('Sign out', type="primary"):
-                cookie_manager.delete('brockai')
-                st.session_state['given_name'] = ''
-                st.session_state['tenant_id'] = '' 
-                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
-        
+    if not show_sigin_button and not access_token:
+        get_title(title, icon, tag)
+    else:
+        col1, col2 = st.columns([9, 3])
+        with col1:
+            get_title(title, icon, tag)
+        with col2:
+            if show_sigin_button and not access_token:
+                signin_button()
+            if access_token:
+                if st.button('Platform Sign out', use_container_width=True):
+                    cookie_manager.delete('brockai')
+                    st.session_state['given_name'] = ''
+                    st.session_state['tenant_id'] = '' 
+                    st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
+          
 def signin_button():
-    if st.button('Sign In', type="primary"):
+    if st.button('Platform Sign In', use_container_width=True):
         st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)
 
 def get_tokens(authorization_code):
