@@ -7,13 +7,14 @@ sidebar_links_footer = """
 <div class="left-space top-left-space">👑&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/deepset-(Haystack)" target="_blank">deepset (Haystack)</a></div>
 <div><br></div>
 <div class="footer">
+<div>
 <a href="https://github.com/brockai" target="_blank">
-<img src="app/static/github-mark-white.png" alt="GitHub Icon" width="32" height="32">
-</a>&nbsp;&nbsp;&nbsp;
-<a href="https://discord.gg/4bvUEYHjEB" target="_blank">
-<img src="app/static/discordlogo.png" alt="Discord" height="32">
-</a>
+<img src="app/static/github-mark-white.png" alt="GitHub Icon" height="32"></a>&nbsp;&nbsp;&nbsp;<a href="https://discord.gg/4bvUEYHjEB" target="_blank"><img src="app/static/discordlogo.png" alt="Discord" height="32"></a>
 </div>
+"""
+
+px2_space = """
+<img src="app/static/discordlogo.png" height="24">
 """
 
 discord = """

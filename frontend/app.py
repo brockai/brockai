@@ -37,16 +37,17 @@ st.markdown(f'''
     </style>
     ''', unsafe_allow_html=True)
 
-if authorization_code != None:
-    authMetadata = get_tokens(authorization_code)
-    cookie_manager.set('brockai', authMetadata['access_token'])
+cookie = cookie_manager.get('brockai')
+if cookie:
+    st.session_state['access_token'] = cookie
 
-if 'access_token' not in st.session_state:
-    cookies = cookie_manager.get_all()
-    if cookies:
-        st.session_state['access_token'] = cookies['brockai']
-    else:
-        st.session_state['access_token'] = ''
+elif authorization_code != None:
+    authMetadata = get_tokens(authorization_code)
+    if 'access_token' in authMetadata:
+        cookie_manager.set('brockai', authMetadata['access_token'], key='0')
+        st.session_state['access_token'] = authMetadata['access_token']
+else:
+    st.session_state['access_token'] = ''
 
 health, version = check_opensearch_health()
 

@@ -40,6 +40,7 @@ def beta_email_request():
             captcha_placeholder.image(captcha_image, use_column_width=True)
 
     with col1:
+        
         st.markdown(platform_intro, unsafe_allow_html=True)
         st.markdown('<h3>Alpha Signup</h3>', unsafe_allow_html=True)
         st.markdown('Send us a note or join us on discord to learn more '+discord, unsafe_allow_html=True)

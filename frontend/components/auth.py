@@ -11,7 +11,7 @@ params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]
 
-@st.cache_resource
+# @st.cache_resource
 def get_manager():
     return stx.CookieManager()
 
@@ -71,10 +71,11 @@ def navigation(title, icon, tag, show_sigin_button):
                 signin_button()
             if access_token:
                 if st.button('Platform Sign out', use_container_width=True):
-                    cookie_manager.delete('brockai')
+                    cookie_manager.delete('brockai', key='0')
+                    st.session_state['access_token'] = ''
                     st.session_state['given_name'] = ''
                     st.session_state['tenant_id'] = '' 
-                    st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
+                    # st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
           
 def signin_button():
     if st.button('Platform Sign In', use_container_width=True):
