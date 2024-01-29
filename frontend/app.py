@@ -1,8 +1,9 @@
 import streamlit as st
 import streamlit_antd_components as sac 
+import extra_streamlit_components as stx
 
 from st_pages import Page, hide_pages
-from components.auth import get_tokens, navigation
+from components.auth import get_tokens, navigation, cookie_manager
 from components.platform_signup import beta_email_request
 from components.compliancy import compliancy
 from components.contact import contact
@@ -38,8 +39,12 @@ st.markdown(f'''
 
 if authorization_code != None:
     authMetadata = get_tokens(authorization_code)
+    cookie_manager.set('brockai', authMetadata['access_token'])
 
-if 'access_token' not in st.session_state:
+cookies = cookie_manager.get_all()
+if cookies:
+    st.session_state['access_token'] = cookies['brockai']
+else:
     st.session_state['access_token'] = ''
 
 health, version = check_opensearch_health()

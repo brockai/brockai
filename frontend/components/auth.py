@@ -2,6 +2,7 @@ import requests
 import streamlit as st
 import pandas as pd
 import streamlit_antd_components as sac
+import extra_streamlit_components as stx
 from services.opensearch import create_index
 from authlib.integrations.requests_client import OAuth2Session
 from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url , token_url, scope, response_type, domain, userinfo_url
@@ -9,6 +10,12 @@ from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]
+
+@st.cache_resource
+def get_manager():
+    return stx.CookieManager()
+
+cookie_manager = get_manager()
 
 def fetchUser(access_token):
     oauth = OAuth2Session(client_id=auth0_client_id, token={"access_token": access_token})
@@ -40,7 +47,7 @@ authorization_url, state = oauth.create_authorization_url(auth0_authorization_ur
 
 def navigation(title, icon, tag, show_sigin_button): 
 
-    col1, col2 = st.columns([10.25, 1.75])
+    col1, col3 = st.columns([10.50, 1.50])
     with col1:
         title = sac.menu(
             items=[
@@ -51,22 +58,21 @@ def navigation(title, icon, tag, show_sigin_button):
                 format_func='title'
             )
     
-    with col2:
+    with col3:
         access_token = st.session_state.get("access_token")
 
         if show_sigin_button and not access_token:
             signin_button()
 
         elif access_token:
-
-            if st.button('Platform Sign out', type="primary"):
-                st.session_state['access_token'] = ''
+            if st.button('Sign out', type="primary"):
+                cookie_manager.delete('brockai')
                 st.session_state['given_name'] = ''
                 st.session_state['tenant_id'] = '' 
                 st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
         
 def signin_button():
-    if st.button('Platform Sign In', type="primary"):
+    if st.button('Sign In', type="primary"):
         st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)
 
 def get_tokens(authorization_code):
