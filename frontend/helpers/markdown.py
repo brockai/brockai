@@ -16,6 +16,12 @@ sidebar_links_footer = """
 </div>
 """
 
+discord = """
+<a href="https://discord.gg/4bvUEYHjEB" target="_blank">
+<img src="app/static/discordlogo.png" alt="Discord" height="32">
+</a>
+"""
+
 sidebar_app_header = """
 <div class="header logo-label">
 <img src="app/static/brockailogo32.png" height="24" alt="Platform">
@@ -37,7 +43,9 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 
 platform_intro = """
 <div>
-30 - 90 day AI application Prototypes. Train your data, add AI with a human-in-th-loop feedback loop to your app to grow and improve business processes and customer interactions.
+<h3>30 - 90 Day AI Prototypes</h3>
+Add AI with continuous human-in-the-loop feedback to your app<br>
+Grow and improve business processes and customer interactions intelligently
 </div>
 """
 

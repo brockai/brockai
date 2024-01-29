@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 import random
 from captcha.image import ImageCaptcha
-from helpers.markdown import platform_intro
+from helpers.markdown import platform_intro, discord
 from helpers.config import mailgun
 
 def is_valid_email(email):
@@ -41,7 +41,7 @@ def beta_email_request():
     with col1:
         st.markdown(platform_intro, unsafe_allow_html=True)
         st.markdown('<h3>Alpha Signup</h3>', unsafe_allow_html=True)
-        st.markdown('<p>Please let us know what you would like to prototype.</p>', unsafe_allow_html=True)
+        st.markdown('Send us a note or join us on discord to learn more '+discord, unsafe_allow_html=True)
         with st.form("contact_form", clear_on_submit=True):
             email = st.text_input("**Your email***")
             message = st.text_area("**Your message***")
