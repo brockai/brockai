@@ -41,11 +41,12 @@ if authorization_code != None:
     authMetadata = get_tokens(authorization_code)
     cookie_manager.set('brockai', authMetadata['access_token'])
 
-cookies = cookie_manager.get_all()
-if cookies:
-    st.session_state['access_token'] = cookies['brockai']
-else:
-    st.session_state['access_token'] = ''
+if 'access_token' not in st.session_state:
+    cookies = cookie_manager.get_all()
+    if cookies:
+        st.session_state['access_token'] = cookies['brockai']
+    else:
+        st.session_state['access_token'] = ''
 
 health, version = check_opensearch_health()
 

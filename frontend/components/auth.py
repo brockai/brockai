@@ -85,6 +85,6 @@ def get_tokens(authorization_code):
         user_info = fetchUser(access_token)
         st.session_state.given_name = user_info['given_name']
         st.session_state.tenant_id = user_info['nickname']
-        st.write(st.session_state)
+        
     return st.session_state
  
