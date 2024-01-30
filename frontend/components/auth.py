@@ -2,20 +2,12 @@ import requests
 import streamlit as st
 import pandas as pd
 import streamlit_antd_components as sac
-import extra_streamlit_components as stx
-from services.opensearch import create_index
 from authlib.integrations.requests_client import OAuth2Session
 from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url , token_url, scope, response_type, domain, userinfo_url
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]
-
-# @st.cache_resource
-def get_manager():
-    return stx.CookieManager()
-
-cookie_manager = get_manager()
 
 def fetchUser(access_token):
     oauth = OAuth2Session(client_id=auth0_client_id, token={"access_token": access_token})
@@ -69,14 +61,13 @@ def navigation(title, icon, tag, show_sigin_button):
         with col2:
             if show_sigin_button and not access_token:
                 signin_button()
-            if access_token:
+            elif access_token:
                 if st.button('Platform Sign out', use_container_width=True):
-                    cookie_manager.delete('brockai', key='0')
                     st.session_state['access_token'] = ''
                     st.session_state['given_name'] = ''
                     st.session_state['tenant_id'] = '' 
-                    # st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
-          
+                    st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
+            
 def signin_button():
     if st.button('Platform Sign In', use_container_width=True):
         st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)

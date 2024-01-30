@@ -3,11 +3,12 @@ import streamlit_antd_components as sac
 import extra_streamlit_components as stx
 
 from st_pages import Page, hide_pages
-from components.auth import get_tokens, navigation, cookie_manager
+from components.auth import get_tokens, navigation
 from components.platform_signup import beta_email_request
 from components.compliancy import compliancy
 from components.contact import contact
 from components.chat import chat
+from helpers.config import domain
 
 from services.opensearch import check_opensearch_health
 
@@ -37,17 +38,16 @@ st.markdown(f'''
     </style>
     ''', unsafe_allow_html=True)
 
-cookie = cookie_manager.get('brockai')
-if cookie:
-    st.session_state['access_token'] = cookie
+def get_manager():
+    return stx.CookieManager()
 
-elif authorization_code != None:
+if authorization_code != None:
+
     authMetadata = get_tokens(authorization_code)
+    cookie_manager = get_manager()
+
     if 'access_token' in authMetadata:
-        cookie_manager.set('brockai', authMetadata['access_token'], key='0')
-        st.session_state['access_token'] = authMetadata['access_token']
-else:
-    st.session_state['access_token'] = ''
+        cookie_manager.set('brockai', authMetadata['access_token'])
 
 health, version = check_opensearch_health()
 
