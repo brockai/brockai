@@ -10,16 +10,15 @@ def compliancy():
 
     from helpers.antd_utils import show_space
 
+    access_token = st.session_state.get("access_token")
+
     if "file_uploader_key" not in st.session_state:
         st.session_state["file_uploader_key"] = 0
 
     if "uploaded_files" not in st.session_state:
         st.session_state["uploaded_files"] = []
 
-    if "access_token" not in st.session_state:    
-        st.session_state['access_token'] == ''
-        
-    if st.session_state['access_token'] == '':
+    if not access_token:
         st.write("Full-cycle Bill of Materials (BOM) regulatory check using AI and machine learning to assist in ensuring compliance with regulatory requirements throughout the entire lifecycle of a product.")
     else:
         show_space(1)
@@ -33,7 +32,7 @@ def compliancy():
         ], 
     )
 
-    if st.session_state['access_token'] == '':
+    if not access_token:
         show_space(1)
         signin_button()
 
@@ -64,7 +63,7 @@ def compliancy():
                         isUpload = uploadFiles(bytes_data, file_name)
 
                     st.session_state["file_uploader_key"] += 1
-                        
+                    create_index()
                     st.rerun()
 
 
