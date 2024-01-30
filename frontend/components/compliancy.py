@@ -16,10 +16,14 @@ def compliancy():
     if "uploaded_files" not in st.session_state:
         st.session_state["uploaded_files"] = []
 
+    if "access_token" not in st.session_state:    
+        st.session_state['access_token'] == ''
+        
     if st.session_state['access_token'] == '':
         st.write("Full-cycle Bill of Materials (BOM) regulatory check using AI and machine learning to assist in ensuring compliance with regulatory requirements throughout the entire lifecycle of a product.")
     else:
         show_space(1)
+
     step = sac.steps(
         items=[
             sac.StepsItem(title='step 1', icon='cloud-arrow-up', subtitle='Upload Files', description='File Library, Structured & Unstructured data'),
