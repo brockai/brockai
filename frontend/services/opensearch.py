@@ -34,17 +34,37 @@ def create_index():
     }
 
     index_mappings = {
-        "mappings": {
-            "properties": {
-                "field1": {"type": "keyword"},
-                "field2": {"type": "text"}
-                # Add more field definitions as needed
+        'mappings': {
+            'properties': {
+                'name': {'type': 'text'},
+                'metadata': {
+                    'properties': {
+                        'created_date': {'type': 'date'},
+                        'file_size': {'type': 'integer'},
+                        'data_extraction': {'type': 'text'},
+                        'classification': {'type': 'text'},
+                        'compliancy_check': {'type': 'text'},
+                        'risk_assessment': {'type': 'text'},
+                        'similar_files': {'type': 'text'}
+                    }
+                },
+                'file': {
+                    'type': 'binary',
+                    'fields': {
+                        'content': {'type': 'text'}
+                    }
+                }
             }
         }
     }
+
+    request_body = {
+        **index_settings,
+        **index_mappings
+    }
     
     try:
-        response = client.indices.create(index=st.session_state.tenant_id, body=index_settings, ignore=400)
+        response = client.indices.create(index=st.session_state.tenant_id, body=request_body, ignore=400)
         st.write(response)
         if 'acknowledged' in response and response['acknowledged']:
             print(f"Index '{st.session_state.tenant_id}' created successfully")

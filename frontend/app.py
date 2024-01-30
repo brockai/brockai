@@ -10,7 +10,7 @@ from components.contact import contact
 from components.chat import chat
 from helpers.config import domain
 
-from services.opensearch import check_opensearch_health
+from services.opensearch import check_opensearch_health, create_index
 
 from helpers.antd_utils import show_space
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button
@@ -48,6 +48,7 @@ if authorization_code != None:
 
     if 'access_token' in authMetadata:
         cookie_manager.set('brockai', authMetadata['access_token'])
+        # create_index()
 
 health, version = check_opensearch_health()
 

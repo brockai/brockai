@@ -5,7 +5,7 @@ def compliancy():
     import streamlit_antd_components as sac
     
     from services.s3api import uploadFiles
-    from services.opensearch import create_index
+    # from services.opensearch import create_index
     from components.auth import signin_button
 
     from helpers.antd_utils import show_space
@@ -28,7 +28,7 @@ def compliancy():
             sac.StepsItem(title='step 1', icon='cloud-arrow-up', subtitle='Upload Files', description='File Library, Structured & Unstructured data'),
             sac.StepsItem(title='step 2', icon='arrow-clockwise', subtitle='Processing', description='Data Extraction, Classification, Compliancy Check, AI-driven Risk Assessment'),
             # sac.StepsItem(title='step 3', subtitle='Reports', description='Compliancy & Risk Assessment'),
-            sac.StepsItem(title='step 3', icon='shield-check', subtitle='Regulatory Management', description='AI-driven Compliancy Checks, Continous Feedback Loop & Model Trianing, Real-time Data & Reports'),
+            sac.StepsItem(title='step 3', icon='shield-check', subtitle='Regulatory Management', description='AI-driven Similar Files Lookup, Continous Feedback Loop & Model Trianing, Real-time Data & Reports'),
         ], 
     )
 
@@ -52,10 +52,7 @@ def compliancy():
 
         if files:
             st.session_state["uploaded_files"] = files
-            if st.session_state.access_token != '':
-                if st.button('Create Tenant'):
-                    create_index()
-
+            if access_token:
                 if st.button("🚀 Upload & Process"):
                     for file in files:
                         file_name=file.name
@@ -63,8 +60,8 @@ def compliancy():
                         isUpload = uploadFiles(bytes_data, file_name)
 
                     st.session_state["file_uploader_key"] += 1
-                    create_index()
-                    st.rerun()
+                    # create_index()
+                    # st.rerun()
 
 
     if step == 'step 2':
