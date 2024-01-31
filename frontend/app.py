@@ -16,7 +16,6 @@ from helpers.antd_utils import show_space
 from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, token_url, scope, response_type, domain, userinfo_url
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button
 
-
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]

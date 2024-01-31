@@ -19,8 +19,8 @@ with open('styles.css') as f:
         +sidebar_links_footer
         , unsafe_allow_html=True
     )
-from deepset.piplines import deepset_indexsearch
-pipelineIndex = deepset_indexsearch()
+# from deepset.piplines import deepset_indexsearch
+# pipelineIndex = deepset_indexsearch()
 
 isHealthy = elasticsearch_health()
 
@@ -41,11 +41,11 @@ question = st.text_input(
     placeholder="Enter part no, supplier, manufacturer",
     max_chars=100, disabled=not uploaded_files)
 
-run_pressed = st.button("Run", disabled=not uploaded_files)
+# run_pressed = st.button("Run", disabled=not uploaded_files)
 
-if run_pressed and isHealthy:
-    from deepset.piplines import deepset_prediction_pipeline
-    pipelineQuery = deepset_prediction_pipeline(question)
-    answer_df = pd.DataFrame(pipelineQuery["answers"])
-    answer_df
+# if run_pressed and isHealthy:
+#     from deepset.piplines import deepset_prediction_pipeline
+#     pipelineQuery = deepset_prediction_pipeline(question)
+#     answer_df = pd.DataFrame(pipelineQuery["answers"])
+#     answer_df
 

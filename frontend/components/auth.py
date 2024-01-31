@@ -89,7 +89,6 @@ def get_tokens(authorization_code):
 
         if response.status_code == 200:
             access_token = response.json().get("access_token")
-            st.write('access',access_token)
             st.session_state.access_token = access_token
             user_info = fetchUser(access_token)
             st.session_state.given_name = user_info['given_name']
