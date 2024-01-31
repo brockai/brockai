@@ -5,6 +5,7 @@ import random
 from captcha.image import ImageCaptcha
 from helpers.markdown import platform_intro, discord
 from helpers.config import mailgun
+from helpers.antd_utils import show_space
 
 def is_valid_email(email):
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -22,6 +23,9 @@ def generate_captcha():
 def beta_email_request():
     if 'captcha_text' not in st.session_state:
         st.session_state.captcha_text = generate_captcha()
+    
+    st.markdown(platform_intro, unsafe_allow_html=True)
+    show_space(1)
 
     col1, col2, col3 =  st.columns([3, 0.25, 1])
 
@@ -30,6 +34,7 @@ def beta_email_request():
     captcha_input = None
 
     with col3:
+        show_space(3)
         st.markdown('<p style="text-align: justify; font-size: 12px;">CAPTCHAs are active to prevent automated submissions. <br> Thank you for your understanding.</p>', unsafe_allow_html=True)
         captcha_placeholder = st.empty()
         captcha_placeholder.image(captcha_image, use_column_width=True)
@@ -41,7 +46,6 @@ def beta_email_request():
 
     with col1:
         
-        st.markdown(platform_intro, unsafe_allow_html=True)
         st.markdown('<h3>Alpha Signup</h3>', unsafe_allow_html=True)
         st.markdown('Send us a note or join us on discord to learn more '+discord, unsafe_allow_html=True)
         with st.form("contact_form", clear_on_submit=True):

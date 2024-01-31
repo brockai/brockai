@@ -13,10 +13,6 @@ sidebar_links_footer = """
 </div>
 """
 
-px2_space = """
-<img src="app/static/discordlogo.png" height="24">
-"""
-
 discord = """
 <a href="https://discord.gg/4bvUEYHjEB" target="_blank">
 <img src="app/static/discordlogo.png" alt="Discord" height="32">
@@ -45,8 +41,8 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 platform_intro = """
 <div>
 <h3>30 - 90 Day AI Prototypes</h3>
-Add AI with continuous human-in-the-loop feedback to your app<br>
-Grow and improve business processes and customer interactions intelligently
+Add AI with continuous human-in-the-loop feedback to your app.&nbsp;
+Grow and improve business processes and customer interactions intelligently.
 </div>
 """
 
