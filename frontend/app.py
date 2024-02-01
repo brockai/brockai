@@ -55,14 +55,32 @@ st.markdown(f'''
 def get_manager():
     return stx.CookieManager()
 
+def set_stay_signed_in(value, access_token):
+    cookie_value = f"{value}|{access_token}"
+    cookie_manager.set('brockai', cookie_value)
+    st.session_state['stay_signed_in'] = value
+
 def stay_signed_in():
-    on = st.toggle('Stay Signed In?')
+    if cookie:
+        cookie_values = cookie.split('|')
+
+        if len(cookie_values) == 1:
+            toggle_value = False
+            access_token = cookie_values[0]
+        else:
+            toggle_value = True if cookie_values[0].lower() == "true" else False
+            access_token = cookie_values[1]
+    else:
+        toggle_value = False
+
+    on = st.toggle('Stay Signed In', value=toggle_value)
     
     if on:
-        st.write('Set on')
-        st.write(on)
-    # else:
-    #     cookie_manager.delete('brockai')
+        set_stay_signed_in(True, access_token)
+    else:
+        set_stay_signed_in(False, access_token)
+    
+    
 
 def get_title(title, icon, tag):
     title = sac.menu(
@@ -75,30 +93,31 @@ def get_title(title, icon, tag):
     )
     return title
 
-def navigation(title, icon, tag, show_sigin_button): 
+def navigation(title, icon, tag, show_signin_button): 
 
     access_token = st.session_state.get("access_token")
 
     if access_token == {}:
         access_token = None
 
-    if not show_sigin_button and access_token == None:
-        get_title(title, icon, tag)
+    col1, col2 = st.columns([9, 3])
+    if access_token == None:
+        if not show_signin_button: 
+            get_title(title, icon, tag)
+        else:
+            with col1:
+                get_title(title, icon, tag)
+            with col2:
+                signin_button()
     else:
-        col1, col2 = st.columns([9, 3])
         with col1:
             get_title(title, icon, tag)
+            stay_signed_in()
         with col2:
-            if show_sigin_button and access_token == None:
-                signin_button()
-            
-            if access_token != None:
-                if st.button('Platform Sign out', use_container_width=True):
-                    cookie_manager.delete('brockai')
-                    st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
-
-                # stay_signed_in()
-
+            if st.button('Platform Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
+                cookie_manager.delete('brockai')
+                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
+                
 authMetadata = get_tokens(authorization_code)
 cookie_manager = get_manager()
 
@@ -109,9 +128,20 @@ if authMetadata != None:
         if not is_index():
             create_index()
 
+cookie = cookie_manager.get('brockai')
+
+if cookie:
+    cookie_values = cookie.split('|')
+    if len(cookie_values) == 2:
+        stay_signed_in_value = True if cookie_values[0].lower() == "true" else False
+        
+        if stay_signed_in_value:
+            st.session_state.access_token = cookie[1]
+        
+
 if 'tenant_id' in st.session_state:
     docs = all_docs()
-    st.write(docs)
+    # st.write(docs)
 
 health, version = check_opensearch_health()
 

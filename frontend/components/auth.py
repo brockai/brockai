@@ -46,10 +46,11 @@ def get_title(title, icon, tag):
     )
     return title
 
-oauth = set_oauth()
-authorization_url, state = oauth.create_authorization_url(auth0_authorization_url) 
-        
 def signin_button():
+
+    oauth = set_oauth()
+    authorization_url, state = oauth.create_authorization_url(auth0_authorization_url) 
+
     if st.button('Platform Sign In', use_container_width=True):
         st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)
 
