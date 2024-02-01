@@ -80,8 +80,6 @@ def stay_signed_in():
     else:
         set_stay_signed_in(False, access_token)
     
-    
-
 def get_title(title, icon, tag):
     title = sac.menu(
         items=[
@@ -121,24 +119,22 @@ def navigation(title, icon, tag, show_signin_button):
 authMetadata = get_tokens(authorization_code)
 cookie_manager = get_manager()
 
+cookie = cookie_manager.get('brockai')
+if cookie:
+    cookie_values = cookie.split('|')
+    if len(cookie_values) == 2:
+        stay_signed_in_value = True if cookie_values[0].lower() == "true" else False
+
+        if stay_signed_in_value:
+            st.session_state.access_token = cookie[1]
+
 if authMetadata != None:
     if 'access_token' in authMetadata:
         cookie_manager.set('brockai', authMetadata['access_token'])
 
         if not is_index():
             create_index()
-
-cookie = cookie_manager.get('brockai')
-
-if cookie:
-    cookie_values = cookie.split('|')
-    if len(cookie_values) == 2:
-        stay_signed_in_value = True if cookie_values[0].lower() == "true" else False
-        
-        if stay_signed_in_value:
-            st.session_state.access_token = cookie[1]
-        
-
+  
 if 'tenant_id' in st.session_state:
     docs = all_docs()
     # st.write(docs)
