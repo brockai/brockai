@@ -13,7 +13,6 @@ authorization_state = params.get("state", [None])[0]
 def fetchUser(access_token):
     oauth = OAuth2Session(client_id=auth0_client_id, token={"access_token": access_token})
     user_info = oauth.get(userinfo_url).json()
-    st.write(user_info)
     return user_info
 
 def set_redirect(authorization_code, redirect_uri):
