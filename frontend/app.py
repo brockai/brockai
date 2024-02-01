@@ -109,6 +109,10 @@ if authMetadata != None:
         if not is_index():
             create_index()
 
+if 'tenant_id' in st.session_state:
+    docs = all_docs()
+    st.write(docs)
+
 health, version = check_opensearch_health()
 
 with st.sidebar.container():
