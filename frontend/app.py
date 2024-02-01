@@ -8,7 +8,7 @@ from components.platform_signup import beta_email_request
 from components.compliancy import compliancy
 from components.contact import contact
 from components.chat import chat
-from components.auth import signin_button
+from components.auth import signin_button, fetchUser
 
 from services.opensearch import check_opensearch_health, create_index, is_index, all_docs
 
@@ -55,30 +55,32 @@ st.markdown(f'''
 def get_manager():
     return stx.CookieManager()
 
-def set_stay_signed_in(value, access_token):
-    cookie_value = f"{value}|{access_token}"
+def set_cookie_value(access_token, stay_signed_in, tenant_id):
+    cookie_value = f"{access_token}|{tenant_id}|{stay_signed_in}"
     cookie_manager.set('brockai', cookie_value)
-    st.session_state['stay_signed_in'] = value
+    st.session_state['stay_signed_in'] = stay_signed_in
 
 def stay_signed_in():
     if cookie:
         cookie_values = cookie.split('|')
-
-        if len(cookie_values) == 1:
+    
+        if len(cookie_values) == 2:
             toggle_value = False
             access_token = cookie_values[0]
+            tenant_id = cookie_values[1]
         else:
-            toggle_value = True if cookie_values[0].lower() == "true" else False
-            access_token = cookie_values[1]
+            toggle_value = True if cookie_values[2].lower() == "true" else False
+            access_token = cookie_values[0]
+            tenant_id = cookie_values[1]
     else:
         toggle_value = False
 
     on = st.toggle('Stay Signed In', value=toggle_value)
     
     if on:
-        set_stay_signed_in(True, access_token)
+        set_cookie_value(access_token, True, tenant_id)
     else:
-        set_stay_signed_in(False, access_token)
+        set_cookie_value(access_token, False, tenant_id)
     
 def get_title(title, icon, tag):
     title = sac.menu(
@@ -119,22 +121,27 @@ def navigation(title, icon, tag, show_signin_button):
 authMetadata = get_tokens(authorization_code)
 cookie_manager = get_manager()
 
-cookie = cookie_manager.get('brockai')
-if cookie:
-    cookie_values = cookie.split('|')
-    if len(cookie_values) == 2:
-        stay_signed_in_value = True if cookie_values[0].lower() == "true" else False
-
-        if stay_signed_in_value:
-            st.session_state.access_token = cookie[1]
-
+#Auth0 redirect
 if authMetadata != None:
     if 'access_token' in authMetadata:
-        cookie_manager.set('brockai', authMetadata['access_token'])
+        cookie_value = f"{authMetadata['access_token']}|{authMetadata['tenant_id']}"
+        cookie_manager.set('brockai', cookie_value)
 
         if not is_index():
             create_index()
-  
+
+cookie = cookie_manager.get('brockai')
+
+if cookie:
+    cookie_values = cookie.split('|')
+    
+    if len(cookie_values) == 3:     
+        stay_signed_in_value = True if cookie_values[2].lower() == "true" else False
+
+        if stay_signed_in_value:
+            st.session_state.access_token = cookie_values[0]
+            st.session_state.tenant_id = cookie_values[1]       
+
 if 'tenant_id' in st.session_state:
     docs = all_docs()
     # st.write(docs)
