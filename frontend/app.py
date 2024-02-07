@@ -3,18 +3,19 @@ import streamlit_antd_components as sac
 import extra_streamlit_components as stx
 
 from authlib.integrations.requests_client import OAuth2Session
-from components.auth import get_tokens
-from components.platform_signup import beta_email_request
+from components.auth import auth_init
+from components.platform_signup import platform_signup
 from components.compliancy import compliancy
 from components.contact import contact
 from components.chat import chat
-from components.auth import signin_button, fetchUser
+from components.auth import signin_button
 
-from services.opensearch import check_opensearch_health, create_index, is_index, all_docs
+from services.opensearch import check_opensearch_health, is_index, tenant_doc, tenant_files
+
 
 from helpers.antd_utils import show_space
-from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, token_url, scope, response_type, domain, userinfo_url
-from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button
+from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, scope, response_type, domain, auth0_cookie_name
+from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button, jupyter_button
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
@@ -29,9 +30,6 @@ def set_oauth():
         response_type=response_type,
     )
     return oauth
-
-oauth = set_oauth()
-authorization_url, state = oauth.create_authorization_url(auth0_authorization_url) 
 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
@@ -57,7 +55,7 @@ def get_manager():
 
 def set_cookie_value(access_token, stay_signed_in, tenant_id):
     cookie_value = f"{access_token}|{tenant_id}|{stay_signed_in}"
-    cookie_manager.set('brockai', cookie_value)
+    cookie_manager.set(auth0_cookie_name, cookie_value)
     st.session_state['stay_signed_in'] = stay_signed_in
 
 def stay_signed_in():
@@ -115,40 +113,55 @@ def navigation(title, icon, tag, show_signin_button):
             stay_signed_in()
         with col2:
             if st.button('Platform Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
-                cookie_manager.delete('brockai')
+                cookie_manager.delete(auth0_cookie_name)
                 st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
-                
-authMetadata = get_tokens(authorization_code)
+
+oauth = set_oauth()
+authorization_url, state = oauth.create_authorization_url(auth0_authorization_url) 
+
+auth_init(authorization_code)
+
 cookie_manager = get_manager()
 
-#Auth0 redirect
-if authMetadata != None:
-    if 'access_token' in authMetadata:
-        cookie_value = f"{authMetadata['access_token']}|{authMetadata['tenant_id']}"
-        cookie_manager.set('brockai', cookie_value)
+cookie = cookie_manager.get(auth0_cookie_name)
 
-        if not is_index():
-            create_index()
-
-cookie = cookie_manager.get('brockai')
-
+# stay signed in
 if cookie:
     cookie_values = cookie.split('|')
     
     if len(cookie_values) == 3:     
         stay_signed_in_value = True if cookie_values[2].lower() == "true" else False
-
+        
         if stay_signed_in_value:
             st.session_state.access_token = cookie_values[0]
             st.session_state.tenant_id = cookie_values[1]       
 
+# set redirect from onboarding app
 if 'tenant_id' in st.session_state:
-    docs = all_docs()
-    # st.write(docs)
+    if is_index(st.session_state['tenant_id']):
+        
+        tenant_doc = tenant_doc()
+        if tenant_doc:
+            st.session_state['tenant_doc'] = tenant_doc
+            st.write(st.session_state['tenant_doc'])
+            st.session_state['app_redirects'] = (st.session_state['tenant_doc']['hits']['hits'][0]['_source']['mappings']['properties']['app_redirects']['app_redirects'])
+        
+        tenant_files = tenant_files()
+        if tenant_files:
+            st.session_state['tenant_files'] = tenant_files['hits']
+            st.write(st.session_state['tenant_files'])
+
+    else:
+        st.session_state['app_redirect'] = None
+else:
+    st.session_state['app_redirect'] = None
 
 health, version = check_opensearch_health()
 
 with st.sidebar.container():
+
+    if 'menu_index' not in st.session_state:
+        st.session_state['menu_index'] = 0
 
     upload = sac.Tag('Upload Files', color='blue', bordered=False)
     modified = sac.Tag('Modified', color='blue', bordered=False)
@@ -158,28 +171,34 @@ with st.sidebar.container():
     beta = sac.Tag('Beta', color='purple', bordered=False)
     alpha = sac.Tag('Alpha', color='purple', bordered=False)
 
-    menu = sac.menu(
-        items=[
+    menu = sac.menu([
             sac.MenuItem('platform', icon='rocket', tag=alpha),
             sac.MenuItem('regcheck', icon='shield-check', tag=protoType),
             sac.MenuItem('chat', icon='chat-left-text',tag=protoType),
             sac.MenuItem('contact', icon='envelope',)
         ],
         key='menu',
+        index=st.session_state['menu_index'],
         open_all=True, indent=10,
         format_func='title',
     )
-    
+
+    sac.divider('☁️ OpenSearch', color='gray')
     st.markdown(opensearch_platform_button, unsafe_allow_html=True)
     show_space(1)
-    sac.divider('OpenSearch Status', color='gray')
+    
     sac.chip(
         items=[
             sac.ChipItem(label=health),
             sac.ChipItem(label=version),
         ], variant='outline', size='xs', radius="md")
     
+    sac.divider('☁️ Jupyter Lab', color='gray')
+    st.markdown(jupyter_button, unsafe_allow_html=True)
+
+    show_space(1)
     sac.divider('Docs & Jupyter Notebooks', color='gray')
+
     with open('styles.css') as f:
         st.sidebar.markdown(
             f'<style>{f.read()}</style>'
@@ -200,6 +219,18 @@ with st.container():
         contact()
     else:
         navigation('platform', 'rocket', alpha, True)
-        beta_email_request()
 
-    
+        if 'app_redirects' in st.session_state:
+            redirect_compliancy = [item for item in st.session_state['app_redirects'] if item.get('name') == 'compliancy']
+            
+            if len(redirect_compliancy) == 1:
+                hits = st.session_state['tenant_files']['hits']
+
+                if len(hits) > 0:
+                    st.session_state['current_step_index'] = 1
+                    
+                compliancy()
+            else:
+                platform_signup()
+        else:
+            platform_signup()

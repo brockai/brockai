@@ -1,5 +1,3 @@
-from helpers.config import domain_platform
-
 sidebar_links_footer = """
 <div class="left-space top-left-space">☁️&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/Cloud-Deployment" target="_blank">Cloud Deployment</a></div>
 <div class="left-space top-left-space">🤗&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/🤗-Huggingface" target="_blank">Huggingface</a></div>
@@ -50,6 +48,14 @@ opensearch_platform_button = """
 <div class="rounded-box-230" style="text-align:center">
 <a href="https://dashboard.brockai.com" target="_blank">
 <img src="app/static/platform_logo_darkmode.png" alt="brockaiopensearch" height="20">
+</a>
+</div>
+"""
+
+jupyter_button = """
+<div class="rounded-box-230" style="text-align:center">
+<a href="https://jupyter.brockai.com" target="_blank">
+<img src="app/static/jupyter_brockai.png" alt="brockaijupyterp" height="20">
 </a>
 </div>
 """

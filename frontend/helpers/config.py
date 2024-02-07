@@ -15,6 +15,7 @@ auth0_client_id = os.getenv("AUTH0_CLIENT_ID")
 auth0_client_secret = os.getenv("AUTH0_CLIENT_SECRET")
 auth0_client_audience = os.getenv("AUTH0_CLIENT_AUDIENCE")
 auth0_redirect_uri = os.getenv("AUTH0_REDIRECT_URI")
+auth0_cookie_name = os.getenv("AUTH0_COOKIE_NAME")
 auth0_authorization_url = f"{auth0_domain}/authorize"
 opensearch_host = os.getenv("OPENSEARCH_HOST")
 opensearch_host_port = os.getenv("OPENSEARCH_HOST_PORT")

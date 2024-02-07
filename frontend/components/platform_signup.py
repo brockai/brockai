@@ -20,7 +20,7 @@ def generate_captcha():
     image = ImageCaptcha(width=400, height=100).generate(captcha_text)
     return captcha_text, image
 
-def beta_email_request():
+def platform_signup():
     if 'captcha_text' not in st.session_state:
         st.session_state.captcha_text = generate_captcha()
     

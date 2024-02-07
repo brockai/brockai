@@ -1,0 +1,11 @@
+[Unit]
+Description=JupyterLab
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/jupyter-lab --ip=146.190.55.9 --no-browser --NotebookApp.token=''
+WorkingDirectory=/spaces
+
+[Install]
+WantedBy=multi-user.target
+
