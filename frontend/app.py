@@ -143,13 +143,11 @@ if 'tenant_id' in st.session_state:
         tenant_doc = tenant_doc()
         if tenant_doc:
             st.session_state['tenant_doc'] = tenant_doc
-            st.write(st.session_state['tenant_doc'])
             st.session_state['app_redirects'] = (st.session_state['tenant_doc']['hits']['hits'][0]['_source']['mappings']['properties']['app_redirects']['app_redirects'])
         
         tenant_files = tenant_files()
         if tenant_files:
             st.session_state['tenant_files'] = tenant_files['hits']
-            st.write(st.session_state['tenant_files'])
 
     else:
         st.session_state['app_redirect'] = None
@@ -228,7 +226,7 @@ with st.container():
 
                 if len(hits) > 0:
                     st.session_state['current_step_index'] = 1
-                    
+
                 compliancy()
             else:
                 platform_signup()

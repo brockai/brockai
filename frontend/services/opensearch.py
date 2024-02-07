@@ -31,7 +31,6 @@ def check_opensearch_health():
 def is_index(index):
     try:
         response = client.indices.exists(index)
-        st.write(response)
         return response
 
     except Exception as e:
@@ -82,7 +81,6 @@ def create_tenant(user_info):
     }
     
     try:
-    
         response = client.indices.create(index=st.session_state.tenant_id, body=request_body, ignore=400)
          #{'acknowledged': True, 'shards_acknowledged': True, 'index': 'bclayton403'}
         if 'acknowledged' in response and response['acknowledged']:
