@@ -1,35 +1,23 @@
 import streamlit as st
 import streamlit_antd_components as sac 
-import extra_streamlit_components as stx
 
 from authlib.integrations.requests_client import OAuth2Session
-from components.auth import auth_init
+from components.auth import auth_init, cookie_manager
 from components.platform_signup import platform_signup
 from components.compliancy import compliancy
 from components.contact import contact
 from components.chat import chat
-from components.auth import signin_button
+from components.auth import navigation
 
 from services.opensearch import check_opensearch_health, is_index, tenant_doc, tenant_files
 
-
 from helpers.antd_utils import show_space
-from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, scope, response_type, domain, auth0_cookie_name
+from helpers.config import domain, auth0_cookie_name
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button, jupyter_button
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]
-
-def set_oauth():
-    oauth = OAuth2Session(
-        client_id=auth0_client_id,
-        client_secret=auth0_client_secret,
-        redirect_uri=auth0_redirect_uri,
-        scope=scope,
-        response_type=response_type,
-    )
-    return oauth
 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
@@ -50,36 +38,6 @@ st.markdown(f'''
     </style>
     ''', unsafe_allow_html=True)
 
-def get_manager():
-    return stx.CookieManager()
-
-def set_cookie_value(access_token, stay_signed_in, tenant_id):
-    cookie_value = f"{access_token}|{tenant_id}|{stay_signed_in}"
-    cookie_manager.set(auth0_cookie_name, cookie_value)
-    st.session_state['stay_signed_in'] = stay_signed_in
-
-def stay_signed_in():
-    if cookie:
-        cookie_values = cookie.split('|')
-    
-        if len(cookie_values) == 2:
-            toggle_value = False
-            access_token = cookie_values[0]
-            tenant_id = cookie_values[1]
-        else:
-            toggle_value = True if cookie_values[2].lower() == "true" else False
-            access_token = cookie_values[0]
-            tenant_id = cookie_values[1]
-    else:
-        toggle_value = False
-
-    on = st.toggle('Stay Signed In', value=toggle_value)
-    
-    if on:
-        set_cookie_value(access_token, True, tenant_id)
-    else:
-        set_cookie_value(access_token, False, tenant_id)
-    
 def get_title(title, icon, tag):
     title = sac.menu(
         items=[
@@ -91,41 +49,10 @@ def get_title(title, icon, tag):
     )
     return title
 
-def navigation(title, icon, tag, show_signin_button): 
-
-    access_token = st.session_state.get("access_token")
-
-    if access_token == {}:
-        access_token = None
-
-    col1, col2 = st.columns([9, 3])
-    if access_token == None:
-        if not show_signin_button: 
-            get_title(title, icon, tag)
-        else:
-            with col1:
-                get_title(title, icon, tag)
-            with col2:
-                signin_button()
-    else:
-        with col1:
-            get_title(title, icon, tag)
-            stay_signed_in()
-        with col2:
-            if st.button('Platform Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
-                cookie_manager.delete(auth0_cookie_name)
-                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
-
-oauth = set_oauth()
-authorization_url, state = oauth.create_authorization_url(auth0_authorization_url) 
-
 auth_init(authorization_code)
 
-cookie_manager = get_manager()
-
-cookie = cookie_manager.get(auth0_cookie_name)
-
 # stay signed in
+cookie = cookie_manager.get(auth0_cookie_name)
 if cookie:
     cookie_values = cookie.split('|')
     
@@ -134,7 +61,7 @@ if cookie:
         
         if stay_signed_in_value:
             st.session_state.access_token = cookie_values[0]
-            st.session_state.tenant_id = cookie_values[1]       
+            st.session_state.tenant_id = cookie_values[1]  
 
 # set redirect from onboarding app
 if 'tenant_id' in st.session_state:
