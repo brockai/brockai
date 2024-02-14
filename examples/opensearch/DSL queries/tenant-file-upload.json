@@ -1,0 +1,6 @@
+{
+    "id": "bfb19f33-b148-4aeb-a133-2f8372cda2b8",
+    "createdAt": 1706202456048,
+    "updatedAt": 1707427634973,
+    "text": "GET bclayton403/_search\n{\n  \"query\": {\n    \"match_all\": {}\n  }\n}\n\n\nGET bclayton403_files/_search\n{\n  \"query\": {\n    \"match\": {\n      \"file_size\": 106296\n    }\n    \n  }\n}\n\nGET bclayton403_files/_search\n{\n  \"query\": {\n        \"ids\": {\n            \"values\": [\"GbGZio0BBqW87IE_JHo4\"]\n        }\n    }\n}\n\nGET bclayton403_files/_search\n{\n  \"query\": {\n        \"term\": {\n            \"file_name\": \"600rows.txt\"\n        }\n    }\n}\n\n\nGET bclayton403_files/_search\n{\n  \"query\": {\n    \"match_all\": {}\n  }\n}\n\nGET bclayton403_files/_mapping\n\nPUT bclayton403_files/_doc/1"
+}

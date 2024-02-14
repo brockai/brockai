@@ -1,25 +1,28 @@
 import streamlit as st
 import streamlit_antd_components as sac 
 
-from authlib.integrations.requests_client import OAuth2Session
-from components.auth import auth_init, cookie_manager
+from components.platform_auth import auth_init, cookie_manager
 from components.platform_signup import platform_signup
-from components.compliancy import compliancy
+from components.regcheck import regcheck
 from components.contact import contact
 from components.chat import chat
-from components.auth import navigation
+from components.platform_navigation import navigation, prototype_navigation
 
-from services.opensearch import check_opensearch_health, is_index, tenant_doc, tenant_files
+from services.utils_service import check_opensearch_health, is_index
+from services.tenant_service import get_tenant_doc, get_tenant_files
 
 from helpers.antd_utils import show_space
-from helpers.config import domain, auth0_cookie_name
+from helpers.config import auth0_cookie_name
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button, jupyter_button
+
+st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]
 
-st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
+# initlalize Auth0 client
+auth_init(authorization_code)
 
 st.markdown(f'''
     <style>
@@ -49,37 +52,36 @@ def get_title(title, icon, tag):
     )
     return title
 
-auth_init(authorization_code)
+def set_nav(title, icon, tag, show_login_button):
+    navigation(title, icon, tag, show_login_button)
 
 # stay signed in
 cookie = cookie_manager.get(auth0_cookie_name)
 if cookie:
+
     cookie_values = cookie.split('|')
     
     if len(cookie_values) == 3:     
-        stay_signed_in_value = True if cookie_values[2].lower() == "true" else False
+        st.session_state['stay_signed_in'] = True if cookie_values[2].lower() == "true" else False
         
-        if stay_signed_in_value:
-            st.session_state.access_token = cookie_values[0]
-            st.session_state.tenant_id = cookie_values[1]  
+        if st.session_state['stay_signed_in']:
+            st.session_state['access_token'] = cookie_values[0]
+            st.session_state['tenant_id'] = cookie_values[1]  
 
 # set redirect from onboarding app
 if 'tenant_id' in st.session_state:
     if is_index(st.session_state['tenant_id']):
         
-        tenant_doc = tenant_doc()
-        if tenant_doc:
-            st.session_state['tenant_doc'] = tenant_doc
-            st.session_state['app_redirects'] = (st.session_state['tenant_doc']['hits']['hits'][0]['_source']['mappings']['properties']['app_redirects']['app_redirects'])
-        
-        tenant_files = tenant_files()
-        if tenant_files:
-            st.session_state['tenant_files'] = tenant_files['hits']
-
-    else:
-        st.session_state['app_redirect'] = None
-else:
-    st.session_state['app_redirect'] = None
+        if 'tenant_doc' not in st.session_state:
+            tenant_doc = get_tenant_doc()
+            if tenant_doc:
+                st.session_state['tenant_doc'] = tenant_doc
+                st.session_state['app_redirects'] = (st.session_state['tenant_doc']['hits']['hits'][0]['_source']['mappings']['properties']['app_redirects']['app_redirects'])
+            
+        if 'tenant_files' not in st.session_state:    
+            tenant_files = get_tenant_files()
+            if tenant_files:
+                st.session_state['tenant_files'] = tenant_files['hits']
 
 health, version = check_opensearch_health()
 
@@ -97,7 +99,7 @@ with st.sidebar.container():
     alpha = sac.Tag('Alpha', color='purple', bordered=False)
 
     menu = sac.menu([
-            sac.MenuItem('platform', icon='rocket', tag=alpha),
+            sac.MenuItem('prototypes', icon='rocket'),
             sac.MenuItem('regcheck', icon='shield-check', tag=protoType),
             sac.MenuItem('chat', icon='chat-left-text',tag=protoType),
             sac.MenuItem('contact', icon='envelope',)
@@ -132,10 +134,10 @@ with st.sidebar.container():
             , unsafe_allow_html=True
         ) 
 
-with st.container():        
+with st.container():     
     if menu == 'regcheck':
         navigation('regcheck', 'shield-check', protoType, False)
-        compliancy()
+        regcheck()
     elif menu == 'chat':
         navigation('chat', 'chat-left-text', protoType, True)
         chat()
@@ -143,19 +145,25 @@ with st.container():
         navigation('contact', 'envelope', None, True)
         contact()
     else:
-        navigation('platform', 'rocket', alpha, True)
-
-        if 'app_redirects' in st.session_state:
-            redirect_compliancy = [item for item in st.session_state['app_redirects'] if item.get('name') == 'compliancy']
-            
-            if len(redirect_compliancy) == 1:
-                hits = st.session_state['tenant_files']['hits']
-
-                if len(hits) > 0:
-                    st.session_state['current_step_index'] = 1
-
-                compliancy()
-            else:
-                platform_signup()
-        else:
+        if 'access_token' not in st.session_state:
+            navigation('prototypes', 'rocket', None, True)
             platform_signup()
+        else:
+            if "stay_signed_in" not in st.session_state:
+                st.session_state["stay_signed_in"] = False
+
+            item = prototype_navigation()
+            if item == 'Regcheck':
+                get_title('regcheck', 'shield-check', protoType)
+                st.session_state['bread_crumb_index'] = 1
+                regcheck()
+            if item == 'Chat':
+                st.session_state['bread_crumb_index'] = 2
+                get_title('chat', 'chat-left-text', protoType)
+                chat()
+            if item == None:
+                get_title('regcheck', 'shield-check', protoType)
+                st.session_state['bread_crumb_index'] = 1
+                regcheck()
+
+ 

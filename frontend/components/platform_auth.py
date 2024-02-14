@@ -1,12 +1,13 @@
 import requests
 import streamlit as st
-import pandas as pd
 import streamlit_antd_components as sac
 import extra_streamlit_components as stx
-from services.opensearch import create_tenant, is_index, create_file_index
+
+from services.utils_service import is_index
+from services.tenant_service import create_tenant, create_file_index
 
 from authlib.integrations.requests_client import OAuth2Session
-from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, token_url, scope, response_type, userinfo_url, auth0_cookie_name, domain
+from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, token_url, scope, response_type, userinfo_url, auth0_cookie_name
 
 def get_manager():
     return stx.CookieManager()
@@ -20,50 +21,13 @@ def set_cookie_value(access_token, stay_signed_in, tenant_id):
 
 def stay_signed_in(access_token):
 
-    cookie = cookie_manager.get(auth0_cookie_name)
-    
-    if cookie != None:
-        cookie_values = cookie.split('|')
-    
-        if len(cookie_values) == 2:
-            toggle_value = False
-        else:
-            toggle_value = True if cookie_values[2].lower() == "true" else False
-    else:
-        toggle_value = False
-
-    on = st.toggle('Stay Signed In', value=toggle_value)
+    on = sac.switch(label='Stay Signed In', on_label='On', value=st.session_state['stay_signed_in'], off_label='Off', align='end', size='sm')
     
     if on:
         set_cookie_value(access_token, True, st.session_state.tenant_id)
     else:
         set_cookie_value(access_token, False, st.session_state.tenant_id)
 
-def navigation(title, icon, tag, show_signin_button): 
-
-    access_token = st.session_state.get("access_token")
-
-    if access_token == {}:
-        access_token = None
-
-    col1, col2 = st.columns([9, 3])
-    if access_token == None:
-        if not show_signin_button: 
-            get_title(title, icon, tag)
-        else:
-            with col1:
-                get_title(title, icon, tag)
-            with col2:
-                signin_button()
-    else:
-        with col1:
-            get_title(title, icon, tag)
-            stay_signed_in(access_token)
-            
-        with col2:
-            if st.button('Platform Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
-                cookie_manager.delete(auth0_cookie_name)
-                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
 
 def fetchUser(access_token):
     oauth = OAuth2Session(client_id=auth0_client_id, token={"access_token": access_token})
@@ -90,23 +54,13 @@ def set_oauth():
     )
     return oauth
 
-def get_title(title, icon, tag):
-    title = sac.menu(
-        items=[
-            sac.MenuItem(title, icon=icon, tag=tag)
-            ],
-            key=title,
-            open_all=True, indent=20,
-            format_func='title'
-    )
-    return title
 
 def signin_button():
 
     oauth = set_oauth()
     authorization_url, state = oauth.create_authorization_url(auth0_authorization_url) 
 
-    if st.button('Platform Sign In', use_container_width=True):
+    if st.button('Sign In', use_container_width=True, ):
         st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)
 
 def auth_init(authorization_code):
@@ -132,4 +86,3 @@ def auth_init(authorization_code):
             cookie_manager.set(auth0_cookie_name, cookie_value)
     else:
         return None
-

@@ -26,18 +26,13 @@ tenant_index_mappings = {
 files_index_mappings = {
     "mappings": {
         "properties": {
-            "name": {"type": "text"},
-            "metadata": {
-                "properties": {
-                    "created_date": {"type": "date"},
-                    "file_size": {"type": "integer"},
-                    "data_extraction": {"type": "text"},
-                    "classification": {"type": "text"},
-                    "compliancy_check": {"type": "text"},
-                    "risk_assessment": {"type": "text"},
-                    "similar_files": {"type": "text"}
-                }
-            },
+            "file_name": {"type": "keyword"},
+            "created_date": {"type": "date"},
+            "file_size": {"type": "integer"},
+            "data_extraction": {"type": "text"},
+            "classification": {"type": "text"},
+            "compliancy_check": {"type": "text"},
+            "risk_assessment": {"type": "text"},
             "file": {
                 "properties": {
                     "content": {
