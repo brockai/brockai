@@ -153,15 +153,15 @@ with st.container():
                 st.session_state["stay_signed_in"] = False
 
             if 'bread_crumb_index' not in st.session_state:
-                st.session_state.get("bread_crumb_index") == 1
+                st.session_state["bread_crumb_index"] = 1
 
-            prototype_navigation(st.session_state.get("bread_crumb_index"))
+            st.session_state["bread_crumb_index"] = prototype_navigation()
             
-            if st.session_state.get("bread_crumb_index") == 1:
+            if st.session_state["bread_crumb_index"] == 1:
                 get_title('regcheck', 'shield-check', protoType)
                 regcheck()
 
-            if st.session_state.get("bread_crumb_index") == 2:
+            if st.session_state["bread_crumb_index"] == 2:
                 get_title('chat', 'chat-left-text', protoType)
                 chat()
 
