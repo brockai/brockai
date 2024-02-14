@@ -83,6 +83,9 @@ if 'tenant_id' in st.session_state:
             if tenant_files:
                 st.session_state['tenant_files'] = tenant_files['hits']
 
+        if 'bread_crumb_index' not in st.session_state:
+            st.session_state["bread_crumb_index"] = 1
+
 health, version = check_opensearch_health()
 
 with st.sidebar.container():
@@ -135,6 +138,7 @@ with st.sidebar.container():
         ) 
 
 with st.container():     
+    
     if menu == 'regcheck':
         navigation('regcheck', 'shield-check', protoType, False)
         regcheck()
@@ -151,9 +155,6 @@ with st.container():
         else:
             if "stay_signed_in" not in st.session_state:
                 st.session_state["stay_signed_in"] = False
-
-            if 'bread_crumb_index' not in st.session_state:
-                st.session_state["bread_crumb_index"] = 1
 
             st.session_state["bread_crumb_index"] = prototype_navigation()
             

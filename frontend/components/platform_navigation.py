@@ -25,7 +25,7 @@ def prototype_navigation():
     
     with col1:
         bread_crumb_idx = bread_crumbs()
-        st.session_state["bread_crumb_index"] = bread_crumb_idx
+        # st.session_state["bread_crumb_index"] = bread_crumb_idx
     with col2:
         if st.button('Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
             cookie_manager.delete(auth0_cookie_name)
