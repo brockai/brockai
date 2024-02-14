@@ -32,7 +32,7 @@ def prototype_navigation():
 
         stay_signed_in(st.session_state.get("access_token"))
 
-    return st.session_state['bread_crumb_index']
+    # return st.session_state['bread_crumb_index']
 
 def navigation(title, icon, tag, show_signin_button): 
 
