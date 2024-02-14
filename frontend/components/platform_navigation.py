@@ -16,7 +16,7 @@ def bread_crumbs():
             sac.SegmentedItem(label='Prototypes', icon='rocket', disabled=True),
             sac.SegmentedItem(label='Regcheck', icon='shield-check'),
             sac.SegmentedItem(label='Chat', icon='chat-left-text')
-        ], index=st.session_state.get("bread_crumb_index"), align='left', size='sm', radius='sm', use_container_width=True
+        ], index=st.session_state.get("bread_crumb_index"), return_index=True, align='left', size='sm', radius='sm', use_container_width=True
     )
 
 def prototype_navigation(): 
@@ -24,7 +24,7 @@ def prototype_navigation():
     col1, col2 = st.columns([9, 3])
     
     with col1:
-        item = bread_crumbs()
+        st.session_state['bread_crumb_index'] = bread_crumbs()
     with col2:
         if st.button('Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
             cookie_manager.delete(auth0_cookie_name)
@@ -32,7 +32,7 @@ def prototype_navigation():
 
         stay_signed_in(st.session_state.get("access_token"))
 
-    return item
+    return st.session_state['bread_crumb_index']
 
 def navigation(title, icon, tag, show_signin_button): 
 

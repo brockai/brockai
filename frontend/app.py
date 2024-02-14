@@ -152,16 +152,14 @@ with st.container():
             if "stay_signed_in" not in st.session_state:
                 st.session_state["stay_signed_in"] = False
 
-            item = prototype_navigation()
-            if item == 'Regcheck':
+            bread_crumb_index = prototype_navigation()
+            if bread_crumb_index == 1:
                 get_title('regcheck', 'shield-check', protoType)
-                st.session_state['bread_crumb_index'] = 1
                 regcheck()
-            if item == 'Chat':
-                st.session_state['bread_crumb_index'] = 2
+            elif bread_crumb_index == 2:
                 get_title('chat', 'chat-left-text', protoType)
                 chat()
-            if item == None:
+            else:
                 get_title('regcheck', 'shield-check', protoType)
                 st.session_state['bread_crumb_index'] = 1
                 regcheck()
