@@ -10,29 +10,27 @@ from components.platform_auth import cookie_manager, stay_signed_in, signin_butt
 from authlib.integrations.requests_client import OAuth2Session
 from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, token_url, scope, response_type, userinfo_url, auth0_cookie_name, domain
 
-def bread_crumbs():
+def bread_crumbs(bread_crumb_index):
     return sac.segmented(
         items=[
             sac.SegmentedItem(label='Prototypes', icon='rocket', disabled=True),
             sac.SegmentedItem(label='Regcheck', icon='shield-check'),
             sac.SegmentedItem(label='Chat', icon='chat-left-text')
-        ], index=st.session_state.get("bread_crumb_index"), return_index=True, align='left', size='sm', radius='sm', use_container_width=True
+        ], index=bread_crumb_index, return_index=True, align='left', size='sm', radius='sm', use_container_width=True
     )
 
-def prototype_navigation(): 
+def prototype_navigation(bread_crumb_index): 
 
     col1, col2 = st.columns([9, 3])
     
     with col1:
-        st.session_state['bread_crumb_index'] = bread_crumbs()
+        st.session_state['bread_crumb_index'] = bread_crumbs(bread_crumb_index)
     with col2:
         if st.button('Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
             cookie_manager.delete(auth0_cookie_name)
             st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
 
         stay_signed_in(st.session_state.get("access_token"))
-
-    # return st.session_state['bread_crumb_index']
 
 def navigation(title, icon, tag, show_signin_button): 
 
