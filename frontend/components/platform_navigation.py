@@ -24,7 +24,8 @@ def prototype_navigation():
     col1, col2 = st.columns([9, 3])
     
     with col1:
-        bread_crumb = bread_crumbs()
+        bread_crumb_idx = bread_crumbs()
+        st.session_state["bread_crumb_index"] = bread_crumb_idx
     with col2:
         if st.button('Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
             cookie_manager.delete(auth0_cookie_name)
@@ -32,7 +33,7 @@ def prototype_navigation():
 
         stay_signed_in(st.session_state.get("access_token"))
 
-    return bread_crumb
+    return bread_crumb_idx
 
 def navigation(title, icon, tag, show_signin_button): 
 
