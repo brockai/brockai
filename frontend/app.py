@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit_antd_components as sac 
+st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
 from components.platform_auth import auth_init, cookie_manager
 from components.platform_signup import platform_signup
@@ -15,7 +16,6 @@ from helpers.antd_utils import show_space
 from helpers.config import auth0_cookie_name
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button, jupyter_button
 
-st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
@@ -82,6 +82,9 @@ if 'tenant_id' in st.session_state:
             tenant_files = get_tenant_files()
             if tenant_files:
                 st.session_state['tenant_files'] = tenant_files['hits']
+
+        if 'bread_crumb_index' not in st.session_state:
+            st.session_state['bread_crumb_index'] = 1
 
 health, version = check_opensearch_health()
 
@@ -156,12 +159,9 @@ with st.container():
             if bread_crumb_index == 1:
                 get_title('regcheck', 'shield-check', protoType)
                 regcheck()
-            elif bread_crumb_index == 2:
+
+            if bread_crumb_index == 2:
                 get_title('chat', 'chat-left-text', protoType)
                 chat()
-            else:
-                get_title('regcheck', 'shield-check', protoType)
-                st.session_state['bread_crumb_index'] = 1
-                regcheck()
 
  
