@@ -78,14 +78,14 @@ jobs:
           script: |
             cp ~/.env.docker ~/brockai/.env
             cd ~/brockai/
-            docker compose up -d brockai-redis-1
-            docker compose up -d brockai-postgres-1
-            docker compose up -d brockai-airflow-init-1
-            docker compose up -d brockai-airflow-webserver-1
-            docker compose up -d brockai-flower-1
-            docker compose up -d brockai-airflow-trigger-1
-            docker compose up -d brockai-airflow-scheduler-1
-            docker compose up -d brockai-airflow- worker-1
+            docker compose up -d redis
+            docker compose up -d postgres
+            docker compose up -d airflow-init
+            docker compose up -d airflow-webserver
+            docker compose up -d flower
+            docker compose up -d airflow-trigger
+            docker compose up -d airflow-scheduler
+            docker compose up -d airflow-worker
 
             
 ## Not needed at this time
