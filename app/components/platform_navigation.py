@@ -1,14 +1,10 @@
 import requests
 import streamlit as st
 import streamlit_antd_components as sac
-import extra_streamlit_components as stx
-
-from services.utils_service import is_index
-from services.tenant_service import create_tenant, create_file_index
 
 from components.platform_auth import cookie_manager, stay_signed_in, signin_button
 from authlib.integrations.requests_client import OAuth2Session
-from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, token_url, scope, response_type, userinfo_url, auth0_cookie_name, domain
+from helpers.config import auth0_cookie_name, domain
 
 def bread_crumbs():
     return sac.segmented(

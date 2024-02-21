@@ -39,7 +39,7 @@ jobs:
             rm /var/www/streamlit -r || true
             mkdir /var/www/streamlit || true
             cp ~/.env.prod /var/www/streamlit/.env
-            cp ~/brockai/frontend/. -r /var/www/streamlit
+            cp ~/brockai/app/. -r /var/www/streamlit
 
             # create python env, install requirements, start streamlit
             sudo python3 -m venv /var/www/streamlit/brockai
@@ -64,7 +64,14 @@ jobs:
             docker compose up -d opensearch-node1
             docker compose up -d opensearch-node2
             docker compose up -d opensearch-dashboards
-
+            docker compose up -d brockai-redis-1
+            docker compose up -d brockai-postgres-1
+            docker compose up -d brockai-airflow-init-1
+            docker compose up -d brockai-airflow-webserver-1
+            docker compose up -d brockai-flower-1
+            docker compose up -d brockai-airflow-trigger-1
+            docker compose up -d brockai-airflow-scheduler-1
+            docker compose up -d brockai-airflow- worker-1
 
 
 

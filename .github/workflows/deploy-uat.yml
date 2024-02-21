@@ -39,7 +39,7 @@ jobs:
             rm /var/www/streamlit-uat -r || true
             mkdir /var/www/streamlit-uat || true
             cp ~/.env.uat /var/www/streamlit-uat/.env
-            cp ~/brockai/frontend/. -r /var/www/streamlit-uat
+            cp ~/brockai/app/. -r /var/www/streamlit-uat
 
             # create python env, install requirements, start streamlit
             sudo python3 -m venv /var/www/streamlit-uat/brockai-uat
@@ -64,6 +64,14 @@ jobs:
             docker compose up -d opensearch-node1
             docker compose up -d opensearch-node2
             docker compose up -d opensearch-dashboards
+            docker compose up -d brockai-redis-1
+            docker compose up -d brockai-postgres-1
+            docker compose up -d brockai-airflow-init-1
+            docker compose up -d brockai-airflow-webserver-1
+            docker compose up -d brockai-flower-1
+            docker compose up -d brockai-airflow-trigger-1
+            docker compose up -d brockai-airflow-scheduler-1
+            docker compose up -d brockai-airflow- worker-1
 
             
 ## Not needed at this time
@@ -80,11 +88,11 @@ jobs:
   #         script: |
   #           # build and deploy platform
   #           # apt install npm || true
-  #           cp ~/.env.react -r ~/brockai/frontend/platformx
-  #           cd ~/brockai/frontend/platformx
+  #           cp ~/.env.react -r ~/brockai/app/platformx
+  #           cd ~/brockai/app/platformx
   #           rm -r node_modules
   #           npm install
   #           npm run build:production
   #           rm /var/www/platform -r || true
   #           mkdir /var/www/platform || true
-  #           cp ~/brockai/frontend/platformx/build/. -r /var/www/platform
+  #           cp ~/brockai/app/platformx/build/. -r /var/www/platform

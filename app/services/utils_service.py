@@ -1,17 +1,10 @@
 import streamlit as st
 
-from opensearchpy import OpenSearch
-from helpers.config import opensearch_user, opensearch_password, opensearch_host, opensearch_host_port
+# from opensearchpy import OpenSearch
+from helpers.config import client
 from services.s3api import upload_files
-
-auth = (opensearch_user, opensearch_password)
-
-client = OpenSearch(
-    hosts = [{'host':  opensearch_host, 'port': opensearch_host_port}],
-    http_auth = auth,
-    use_ssl = True,
-    verify_certs = False
-)
+from services.platform_service import platform_log
+from helpers.config import platform_admin_tenant
 
 def check_opensearch_health():
     try:
@@ -19,21 +12,20 @@ def check_opensearch_health():
         if info:
             return f"Cluster Up! 👍", "Version "+info['version']['number']
         else:
+            platform_log('error', 'check_opensearch_health failed', 'utils_service', platform_admin_tenant)
             return f"Cluster Down! 👎", "Version ❌"
 
     except Exception as e:
-        # left here on purpose, hard error
-        st.write(Exception, e)
+        platform_log('error', 'check_opensearch_health failed', 'utils_service', platform_admin_tenant)
         return f"Cluster Down! 👎", "Version ❌"
 
-def is_index(index):
+def is_index(tenant_id, index):
     try:
         response = client.indices.exists(index)
         return response
 
     except Exception as e:
-        # left here on purpose, hard error
-        st.write(Exception, e)
+        platform_log('error', 'check_opensearch_health failed', 'utils_service', tenant_id)
         return e
 
 def s3_tenant_files(files):        

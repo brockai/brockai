@@ -2,20 +2,20 @@ import streamlit as st
 import streamlit_antd_components as sac 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
-from components.platform_auth import auth_init, cookie_manager
+from components.platform_auth import auth_init, cookie_manager, set_tenant_role
 from components.platform_signup import platform_signup
 from components.regcheck import regcheck
 from components.contact import contact
 from components.chat import chat
+from components.platform_admin import platform_admin
 from components.platform_navigation import navigation, prototype_navigation
 
 from services.utils_service import check_opensearch_health, is_index
-from services.tenant_service import get_tenant_doc, get_tenant_files
+from services.tenant_service import get_tenant_doc
 
 from helpers.antd_utils import show_space
 from helpers.config import auth0_cookie_name
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button, jupyter_button
-
 
 params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
@@ -58,7 +58,6 @@ def set_nav(title, icon, tag, show_login_button):
 # stay signed in
 cookie = cookie_manager.get(auth0_cookie_name)
 if cookie:
-
     cookie_values = cookie.split('|')
     
     if len(cookie_values) == 3:     
@@ -68,23 +67,21 @@ if cookie:
             st.session_state['access_token'] = cookie_values[0]
             st.session_state['tenant_id'] = cookie_values[1]  
 
-# set redirect from onboarding app
+admin_disabled = True
 if 'tenant_id' in st.session_state:
-    if is_index(st.session_state['tenant_id']):
+    admin_disabled = False
+
+    if is_index(st.session_state['tenant_id'], st.session_state['tenant_id']):
         
         if 'tenant_doc' not in st.session_state:
-            tenant_doc = get_tenant_doc()
-            if tenant_doc:
-                st.session_state['tenant_doc'] = tenant_doc
-                st.session_state['app_redirects'] = (st.session_state['tenant_doc']['hits']['hits'][0]['_source']['mappings']['properties']['app_redirects']['app_redirects'])
+            tenant_doc = get_tenant_doc(st.session_state['tenant_id'])
             
-        if 'tenant_files' not in st.session_state:    
-            tenant_files = get_tenant_files()
-            if tenant_files:
-                st.session_state['tenant_files'] = tenant_files['hits']
+            if len(tenant_doc['hits']['hits']) == 0:
+                st.session_state['tenant_doc'] = tenant_doc['hits']['hits'][0]['_source']['mappings']['properties']
+                set_tenant_role()
 
-        if 'bread_crumb_index' not in st.session_state:
-            st.session_state["bread_crumb_index"] = 1
+    if 'bread_crumb_index' not in st.session_state:
+        st.session_state["bread_crumb_index"] = 1
 
 health, version = check_opensearch_health()
 
@@ -101,11 +98,13 @@ with st.sidebar.container():
     beta = sac.Tag('Beta', color='purple', bordered=False)
     alpha = sac.Tag('Alpha', color='purple', bordered=False)
 
+    # 
     menu = sac.menu([
             sac.MenuItem('prototypes', icon='rocket'),
             sac.MenuItem('regcheck', icon='shield-check', tag=protoType),
-            sac.MenuItem('chat', icon='chat-left-text',tag=protoType),
-            sac.MenuItem('contact', icon='envelope',)
+            sac.MenuItem('chat', icon='chat-left-text', tag=protoType),
+            sac.MenuItem('contact', icon='envelope'),
+            sac.MenuItem('admin', icon='database-gear', tag=beta, disabled=admin_disabled)
         ],
         key='menu',
         index=st.session_state['menu_index'],
@@ -123,8 +122,8 @@ with st.sidebar.container():
             sac.ChipItem(label=version),
         ], variant='outline', size='xs', radius="md")
     
-    sac.divider('☁️ Jupyter Lab', color='gray')
-    st.markdown(jupyter_button, unsafe_allow_html=True)
+    # sac.divider('☁️ Jupyter Lab', color='gray')
+    # st.markdown(jupyter_button, unsafe_allow_html=True)
 
     show_space(1)
     sac.divider('Docs & Jupyter Notebooks', color='gray')
@@ -137,17 +136,20 @@ with st.sidebar.container():
             , unsafe_allow_html=True
         ) 
 
-with st.container():     
-    
+with st.container(): 
+
     if menu == 'regcheck':
-        navigation('regcheck', 'shield-check', protoType, False)
+        navigation(menu, 'shield-check', protoType, False)
         regcheck()
     elif menu == 'chat':
-        navigation('chat', 'chat-left-text', protoType, True)
+        navigation(menu, 'chat-left-text', protoType, True)
         chat()
     elif menu == 'contact':
-        navigation('contact', 'envelope', None, True)
+        navigation(menu, 'envelope', None, True)
         contact()
+    elif menu == 'admin':
+        navigation(menu, 'database-gear', beta, True)
+        platform_admin()
     else:
         if 'access_token' not in st.session_state:
             navigation('prototypes', 'rocket', None, True)
@@ -159,7 +161,6 @@ with st.container():
             st.session_state["bread_crumb_index"] = prototype_navigation()
             
             if st.session_state["bread_crumb_index"] == 1:
-                get_title('regcheck', 'shield-check', protoType)
                 regcheck()
 
             if st.session_state["bread_crumb_index"] == 2:

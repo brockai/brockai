@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 
+from opensearchpy import OpenSearch
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -22,6 +23,7 @@ opensearch_host_port = os.getenv("OPENSEARCH_HOST_PORT")
 opensearch_platform = os.getenv("OPENSEARCH_PLATFORM")
 opensearch_user = os.getenv("OPENSEARCH_USER")
 opensearch_password = os.getenv("OPENSEARCH_PASSWORD")
+platform_admin_tenant = os.getenv("PLATFORM_ADMIN_TENANT")
 
 scope = "openid profile email"
 response_type = "code" 
@@ -37,6 +39,16 @@ mailgun = {
     'admin_email': os.getenv("ADMIN_EMAIL")
 }
 
+auth = (opensearch_user, opensearch_password)
+
+client = OpenSearch(
+    hosts = [{'host':  opensearch_host, 'port': opensearch_host_port}],
+    http_compress = True,
+    ssl_show_warn = False,
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = False
+)
 
 domain_api = os.getenv("DOMAIN_API")
 domain_platform = os.getenv("DOMAIN_PLATFORM")

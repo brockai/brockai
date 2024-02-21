@@ -9,7 +9,7 @@ def regcheck_processing():
             unsafe_allow_html=True
     )
     
-    tenant_files = get_tenant_files()
+    tenant_files = get_tenant_files(st.session_state['tenant_id'])
     if tenant_files:
                     
         if len(tenant_files['hits']['hits']) > 0:

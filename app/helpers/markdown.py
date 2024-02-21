@@ -1,5 +1,5 @@
 sidebar_links_footer = """
-<div class="left-space top-left-space">☁️&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/Cloud-Deployment" target="_blank">Cloud Deployment</a></div>
+<div class="left-space top-left-space"><img src="app/static/brockai.png" alt="Discord" height="18">&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/Platform" target="_blank">Platform Docs</a></div>
 <div class="left-space top-left-space">🤗&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/🤗-Huggingface" target="_blank">Huggingface</a></div>
 <div class="left-space top-left-space"><img src="app/static/openai.png" alt="openai" width="18">&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/OpenAI" target="_blank">OpenAI</a></div>
 <div class="left-space top-left-space">👑&nbsp;&nbsp;&nbsp;<a href="https://github.com/brockai/brockai/wiki/deepset-(Haystack)" target="_blank">deepset (Haystack)</a></div>
