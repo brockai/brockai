@@ -2,6 +2,9 @@ import os
 import streamlit as st
 
 from opensearchpy import OpenSearch
+import airflow_client.client
+
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -24,6 +27,9 @@ opensearch_platform = os.getenv("OPENSEARCH_PLATFORM")
 opensearch_user = os.getenv("OPENSEARCH_USER")
 opensearch_password = os.getenv("OPENSEARCH_PASSWORD")
 platform_admin_tenant = os.getenv("PLATFORM_ADMIN_TENANT")
+airflow_api = os.getenv("AIRFLOW_API")
+airflow_api_user = os.getenv("AIRFLOW_API_USER")
+airflow_api_password = os.getenv("AIRFLOW_API_PASSWORD")
 
 scope = "openid profile email"
 response_type = "code" 
@@ -48,6 +54,12 @@ client = OpenSearch(
     http_auth = auth,
     use_ssl = True,
     verify_certs = False
+)
+
+airflow_configuration = airflow_client.client.Configuration(
+    host=airflow_api,
+    username=airflow_api_user,
+    password=airflow_api_password
 )
 
 domain_api = os.getenv("DOMAIN_API")

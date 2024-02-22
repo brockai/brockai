@@ -52,6 +52,15 @@ opensearch_platform_button = """
 </div>
 """
 
+airflow_button = """
+<div class="rounded-box-230 href_link" style="text-align:center">
+<a href="http://airflow.brockai.com:8080" target="_blank">
+<img src="app/static/airflow.png" alt="airflow" height="20">&nbsp;&nbsp;Airflow
+</a>
+</div>
+"""
+
+
 jupyter_button = """
 <div class="rounded-box-230" style="text-align:center">
 <a href="https://jupyter.brockai.com" target="_blank">
@@ -59,4 +68,3 @@ jupyter_button = """
 </a>
 </div>
 """
-

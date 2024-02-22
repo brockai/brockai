@@ -10,10 +10,10 @@ def check_opensearch_health():
     try:
         info = client.info()
         if info:
-            return f"Cluster Up! 👍", "Version "+info['version']['number']
+            return f"Cluster 👍", "Version "+info['version']['number']
         else:
             platform_log('error', 'check_opensearch_health failed', 'utils_service', platform_admin_tenant)
-            return f"Cluster Down! 👎", "Version ❌"
+            return f"Cluster 👎", "Version ❌"
 
     except Exception as e:
         platform_log('error', 'check_opensearch_health failed', 'utils_service', platform_admin_tenant)

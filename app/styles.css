@@ -92,3 +92,14 @@ a:active {
   line-height: 0.5;
   vertical-align: middle;
 }
+
+.href_link {
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+      color: #0066cc; /* Change to your preferred hover color */
+      text-decoration: none;
+  }
+}
