@@ -1,3 +1,6 @@
+"""
+Example DAG demonstrating the usage of labels with different branches.
+"""
 import pendulum
 
 from airflow import DAG
