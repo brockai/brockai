@@ -1,76 +1,51 @@
-#
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
 
-"""Example DAG demonstrating the usage of the BashOperator."""
+import streamlit as st
+st.set_page_config(layout="wide")
+# import logging
+# logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
+# logging.getLogger("haystack").setLevel(logging.INFO)
 
-import datetime
+import pandas as pd
 
-import pendulum
+from helpers.markdown import sidebar_links_footer, app_header
+from helpers.errorcheck import elasticsearch_health
 
-from airflow import DAG
-from airflow.operators.bash import BashOperator
-from airflow.operators.empty import EmptyOperator
+st.title("👑 deepset File Upload & Search 🧪")
 
-with DAG(
-    dag_id='example_bash_operator',
-    schedule_interval='0 0 * * *',
-    start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
-    catchup=False,
-    dagrun_timeout=datetime.timedelta(minutes=60),
-    tags=['example', 'example2'],
-    params={"example_key": "example_value"},
-) as dag:
-    run_this_last = EmptyOperator(
-        task_id='run_this_last',
+with open('styles.css') as f:
+    st.sidebar.markdown(
+        f'<style>{f.read()}</style>'
+        +app_header
+        +sidebar_links_footer
+        , unsafe_allow_html=True
     )
+# from deepset.piplines import deepset_indexsearch
+# pipelineIndex = deepset_indexsearch()
 
-    # [START howto_operator_bash]
-    run_this = BashOperator(
-        task_id='run_after_loop',
-        bash_command='echo 1',
-    )
-    # [END howto_operator_bash]
+isHealthy = elasticsearch_health()
 
-    run_this >> run_this_last
+# if isHealthy:
+#     from helpers.piplines import deepset_indexsearch
+#     pipelineIndex = deepset_indexsearch()
+# else:
+#     st.error(':disappointed: Sorry, the system is not available right now')    
+    
+uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True, disabled=not isHealthy)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write("filename:", uploaded_file.name)
+    # st.write(bytes_data)
+      
+question = st.text_input(
+    "Search for compliancy by part no, supplier, manufacturer and more", 
+    placeholder="Enter part no, supplier, manufacturer",
+    max_chars=100, disabled=not uploaded_files)
 
-    for i in range(3):
-        task = BashOperator(
-            task_id='runme_' + str(i),
-            bash_command='echo "{{ task_instance_key_str }}" && sleep 1',
-        )
-        task >> run_this
+# run_pressed = st.button("Run", disabled=not uploaded_files)
 
-    # [START howto_operator_bash_template]
-    also_run_this = BashOperator(
-        task_id='also_run_this',
-        bash_command='echo "run_id={{ run_id }} | dag_run={{ dag_run }}"',
-    )
-    # [END howto_operator_bash_template]
-    also_run_this >> run_this_last
+# if run_pressed and isHealthy:
+#     from deepset.piplines import deepset_prediction_pipeline
+#     pipelineQuery = deepset_prediction_pipeline(question)
+#     answer_df = pd.DataFrame(pipelineQuery["answers"])
+#     answer_df
 
-# [START howto_operator_bash_skip]
-this_will_skip = BashOperator(
-    task_id='this_will_skip',
-    bash_command='echo "hello world"; exit 99;',
-    dag=dag,
-)
-# [END howto_operator_bash_skip]
-this_will_skip >> run_this_last
-
-if __name__ == "__main__":
-    dag.cli()
