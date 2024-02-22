@@ -98,7 +98,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker restart
+            docker restart brockai-airflow-worker-1
 
 
             
