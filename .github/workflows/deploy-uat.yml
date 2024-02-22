@@ -86,6 +86,7 @@ jobs:
             docker compose up -d airflow-trigger
             docker compose up -d airflow-scheduler
             docker compose up -d airflow-worker
+            docker restart
 
             
 ## Not needed at this time
