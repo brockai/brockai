@@ -86,7 +86,22 @@ jobs:
             docker compose up -d airflow-trigger
             docker compose up -d airflow-scheduler
             docker compose up -d airflow-worker
+
+  Restart:
+    runs-on: ubuntu-latest
+    needs: Compose-Up-Airflow
+    steps:
+      - name: Start airflow
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cp ~/.env.docker ~/brockai/.env
+            cd ~/brockai/
             docker restart
+
 
             
 ## Not needed at this time
