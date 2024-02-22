@@ -67,7 +67,7 @@ jobs:
 
   Compose-Up-Airflow:
     runs-on: ubuntu-latest
-    needs: Setup-Streamlit-Python
+    needs: Compose-Up-Opensearch
     steps:
       - name: Start airflow
         uses: appleboy/ssh-action@master
@@ -87,7 +87,7 @@ jobs:
             docker compose up -d airflow-scheduler
             docker compose up -d airflow-worker
 
-  Restart:
+  Restart-Docker:
     runs-on: ubuntu-latest
     needs: Compose-Up-Airflow
     steps:
@@ -98,8 +98,6 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cp ~/.env.docker ~/brockai/.env
-            cd ~/brockai/
             docker restart
 
 
