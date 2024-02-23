@@ -7,7 +7,7 @@ def regcheck():
     
     from datetime import datetime
     from services.tenant_service import post_tenant_files, get_tenant_files
-    from services.preprocessing.preprocessing_service import preprocessing_service
+    from services.airflow_service import run_dag
 
     from components.platform_auth import signin_button
     from components.regcheck_training import regcheck_training
@@ -70,8 +70,7 @@ def regcheck():
         time.sleep(3)
         st.session_state["is_notification"] = False
         st.session_state['notification_message'] = None
-        # preprocessing_service()
-        # st.rerun()
+        st.rerun()
             
     if 'tenant_id' in st.session_state:
         tenant_files = get_tenant_files(st.session_state['tenant_id'])
@@ -107,12 +106,15 @@ def regcheck():
                 # set flag for notification banner on rerun
                 st.session_state['notification_message'] = 'File uploaded successfully'
                 st.session_state["is_notification"] = True
-                # preprocessing_service()
                 st.rerun()
 
     if step == 'Step 2':
         processing = sac.Tag(st.session_state['file_count']+' files processed', color='blue', bordered=False)
         get_step('Step 2 - Processing', 'arrow-clockwise', processing)
+
+        if st.button('run dag'):
+            run_dag('test')
+
         regcheck_processing()
        
     if step == 'Step 3': 
