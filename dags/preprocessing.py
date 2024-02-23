@@ -8,7 +8,7 @@ from airflow.operators.empty import EmptyOperator
 from airflow.utils.edgemodifier import Label
 
 with DAG(
-    "example_branch_labels",
+    "preprocessing",
     schedule_interval="@daily",
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     catchup=False,
