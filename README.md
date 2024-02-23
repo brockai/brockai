@@ -1,14 +1,11 @@
-👋 Hi, I’m @brockai,
-  
-👀 I am interested in building open source Natural Language Processing (NLP) applications.
+brockai provides a plaform where data can be ingested, preprocessed, modeled and tranined.
 
-🌱 I’m working on building an API and frontend with search capability to analyze Bill of Material components to make predictions on compliancy.
-  
-💞️ I’m looking to collaborate on projects that could benefit from the addition NLP browser and/or api applications.
-  
-📫  Drop me a note, bclayton403@gmail.com
+It is built using the SAO Stack (Streamlit - Airflow - OpenSearch)
 
-<!---
-brockai/brockai is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+Streamlit - An open-source Python library that makes prototyping ML/AI apps quickly. Take code from Jupyter Notebooks and use in your app natively.
+
+Airflow - An open-source platform designed to programmatically author, schedule, and monitor workflows. Code DAGs locally, then publish to host automatically.
+
+OpenSearch - An open-source distributed search and analytics engine is a fork of ElasticSearch. OpenSearch comes with built-in security, scalable capacity and performance, search, observability, dashboards, and more
+
+To see us in action visit [brockai.com](https://brockai.com)
