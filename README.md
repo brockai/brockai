@@ -1,6 +1,6 @@
-brockai provides a plaform where data can be ingested, preprocessed, modeled and tranined.
+brockai provides a plaform designed to make prototyping ML/AI apps faster and easier. Data can be ingested, preprocessed, modeled, tranined and more. Beautiful production ready user interfaces are built with Python for specific use cases.
 
-It is built using the SAO Stack (Streamlit - Airflow - OpenSearch)
+SAO Stack (Streamlit - Airflow - OpenSearch)
 
 Streamlit - An open-source Python library that makes prototyping ML/AI apps quick. Just use Jupyter Notebooks like always and then paste your code directly into the app.
 
