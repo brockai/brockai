@@ -15,7 +15,7 @@ from services.tenant_service import get_tenant_doc
 from services.airflow_service import  get_database_scheduler_health, get_connection_health
 
 from helpers.antd_utils import show_space
-from helpers.config import auth0_cookie_name
+from helpers.config import auth0_cookie_name, platform_admin_tenant
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button, airflow_button
 
 params = st.experimental_get_query_params()
@@ -75,7 +75,7 @@ if 'tenant_id' in st.session_state:
     if is_index(st.session_state['tenant_id'], st.session_state['tenant_id']):
         
         if 'tenant_doc' not in st.session_state:
-            tenant_doc = get_tenant_doc(st.session_state['tenant_id'])
+            tenant_doc = get_tenant_doc(platform_admin_tenant)
             
             if len(tenant_doc['hits']['hits']) == 0:
                 st.session_state['tenant_doc'] = tenant_doc['hits']['hits'][0]['_source']['mappings']['properties']
