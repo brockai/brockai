@@ -1,4 +1,4 @@
-brockai provides a plaform designed to make prototyping ML/AI apps faster and easier. Data can be ingested, preprocessed, modeled, tranined and more. Beautiful production ready user interfaces are built with Python for specific use cases.
+brockai provides a platform designed to make prototyping ML/AI apps faster and easier. Data can be ingested, preprocessed, modeled, trained and more. Beautiful production ready user interfaces are built with Python for specific use cases.
 
 SAO Stack (Streamlit - Airflow - OpenSearch)
 
