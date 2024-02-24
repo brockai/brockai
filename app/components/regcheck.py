@@ -21,10 +21,10 @@ def regcheck():
     if access_token:
         disable_fileup_loader = False
 
-    def get_step(title, icon, tag):
+    def get_step(title, icon):
         title = sac.menu(
             items=[
-                sac.MenuItem(title, icon=icon, tag=tag)
+                sac.MenuItem(title, icon=icon)
                 ],
                 key=title,
                 open_all=True, indent=20,
@@ -89,8 +89,7 @@ def regcheck():
     )
         
     if step == 'Step 1':
-        upload = sac.Tag(st.session_state['file_count']+' files uploaded', color='blue', bordered=False)
-        get_step('Step 1 - Upload Files', 'cloud-arrow-up', upload)
+        get_step('Step 1 - Upload Files', 'cloud-arrow-up')
                 
         files = st.file_uploader(
             "Choose a CSV file", 
@@ -109,15 +108,13 @@ def regcheck():
                 st.rerun()
 
     if step == 'Step 2':
-        processing = sac.Tag(st.session_state['file_count']+' files processed', color='blue', bordered=False)
-        get_step('Step 2 - Processing', 'arrow-clockwise', processing)
+        get_step('Step 2 - Processing', 'arrow-clockwise')
 
         if st.button('run dag'):
             run_dag('test')
 
         regcheck_processing()
        
-    if step == 'Step 3': 
-        compliancy = sac.Tag('Compliancy', color='green', bordered=False)
-        get_step('Step 3 - Compliancy', 'shield-check', compliancy)
+    if step == 'Step 3':
+        get_step('Step 3 - Compliancy', 'shield-check')
         regcheck_training()
