@@ -99,7 +99,8 @@ jobs:
   #         key: ${{ secrets.SSH_PRIVATE_KEY }}
   #         script: |
   #           docker restart brockai-airflow-worker-1
-            
+ 
+  
             
 #sudo docker exec brockai-airflow-worker-1 airflow scheduler -D
 # docker restart brockai-airflow-worker-1
