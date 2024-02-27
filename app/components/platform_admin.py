@@ -44,7 +44,7 @@ def platform_admin():
 
     tab_index = sac.tabs([
         sac.TabsItem(label='Platform Settings', icon='gear'),
-        sac.TabsItem(label='Vector Profile', icon='vector-pen'),
+        sac.TabsItem(label='Profile', icon='vector-pen'),
         sac.TabsItem(label='Platform Logs', icon='list-columns-reverse', disabled=not_admin)
     ], index=st.session_state['tab_index'], return_index=True, align='left')
     
@@ -85,14 +85,14 @@ def platform_admin():
 
         show_space(1)
         sac.chip(
-            tenant_chip_items, label='Vector Profiles', align='left', radius='md', variant='outline'
+            tenant_chip_items, label='Tenants', align='left', radius='md', variant='outline'
         )
 
     if tab_index == 1:
         
         with st.form("my_form"):
             
-            st.write('Vector Index Root: ', tenant_index)
+            st.write('Vector Index: ', tenant_index)
             st.write('Authentication Email: ', tenant_email)
 
             name = st.text_input("Name", max_chars=50, value=tenant_properties['name'])
