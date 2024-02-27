@@ -98,6 +98,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            cd ~/brockai/
             docker compose restart airflow-scheduler
             docker compose restart airflow-trigger
             docker compose restart airflow-worker
