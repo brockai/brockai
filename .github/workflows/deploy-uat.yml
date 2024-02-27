@@ -83,7 +83,7 @@ jobs:
             docker compose up -d postgres
             docker compose up -d airflow-webserver
             docker compose up -d airflow-scheduler
-            docker compose up -d airflow-trigger
+            docker compose up -d airflow-triggerer
             docker compose up -d airflow-worker
             docker compose up -d flower
 
@@ -100,7 +100,7 @@ jobs:
           script: |
             cd ~/brockai/
             docker compose restart airflow-scheduler
-            docker compose restart airflow-trigger
+            docker compose restart airflow-triggerer
             docker compose restart airflow-worker
   
             
