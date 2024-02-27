@@ -47,10 +47,6 @@ files_mappings = {
             "file_name": {"type": "keyword"},
             "created_date": {"type": "date"},
             "file_size": {"type": "integer"},
-            "data_extraction": {"type": "text"},
-            "classification": {"type": "text"},
-            "compliancy_check": {"type": "text"},
-            "risk_assessment": {"type": "text"},
             "file": {
                 "properties": {
                     "content": {
