@@ -102,13 +102,7 @@ jobs:
             docker compose restart airflow-scheduler
             docker compose restart airflow-triggerer
             docker compose restart airflow-worker
-  
-            
-#sudo docker exec brockai-airflow-worker-1 airflow scheduler -D
-# docker restart brockai-airflow-worker-1
 
-
-            
 ## Not needed at this time
  # Setup-Platform:
   #   runs-on: ubuntu-latest
