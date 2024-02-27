@@ -1,31 +1,11 @@
 import streamlit as st
+import base64
 from datetime import datetime
 from helpers.config import client
+from services.shared_service import platform_log, post_platform_doc
+from services.tenant_service import get_tenant_files
 
-from services.mappings import match_all_query, models, default_index_settings, platform_index_mappings, admin_role, pipelines, platform_log_mappings
-
-def platform_log(type, message, service, tenant_id):
-
-    data = {
-        "mappings": {
-            "properties": {
-                "type": type,
-                "message": message,
-                "service": service,
-                "tenant_id": tenant_id,
-                "datetime": datetime.now()
-            }
-        }
-    }
-
-    try:
-        response = post_platform_doc(tenant_id, 'platform_logs', data)
-        return response
-
-    except Exception as e:
-        error_message = str(e)
-        platform_log('error','platform logs failed: '+error_message, 'platform_service', tenant_id)
-        return e
+from services.mappings import match_all_query, models, default_index_settings, admin_role, pipelines, files_mappings, logs_mappings
     
 def put_platform_doc(index, doc_id, data): 
 
@@ -41,25 +21,7 @@ def put_platform_doc(index, doc_id, data):
         error_message = str(e)
         if 'tenant_id' in st.session_state:
             tenant_id = st.session_state['tenant_id']    
-            platform_log('error','put platform doc failed: '+error_message, 'platform_service', tenant_id)
-
-        return e
-
-def post_platform_doc(tenant_id, index, data): 
-
-    request_body = {
-        **data
-    }
-
-    try:
-        response = client.index(index , body=request_body, ignore=400)
-        return response
-
-    except Exception as e:
-        error_message = str(e)
-        if 'tenant_id' in st.session_state:
-            tenant_id = st.session_state['tenant_id']    
-            platform_log('error','post platform doc failed: '+error_message, 'platform_service', tenant_id)
+            platform_log('error', 'put platform doc failed: '+error_message, 'platform_service', tenant_id)
 
         return e
     
@@ -73,65 +35,7 @@ def platform_nlp_ingest(tenant_id):
         error_message = str(e)
         platform_log('error', 'platform nlp ingest failed: '+error_message, 'platform_service', tenant_id)
         return e   
-    
-def is_tenant_platform_settings(tenant_id):
-
-    field_name = 'tenants'
-    search_query = {
-        "query": {
-            "bool": {
-                "must": [
-                    {
-                        "term": {
-                            f"{field_name}.keyword": tenant_id
-                        }
-                    }
-                ]
-            }
-        }
-    }
-
-    try:
-        response = client.search(index='platform_settings', body=search_query)
-
-        if response['hits']['total']['value'] > 0:
-            return True
-        else:
-            return False
-        
-    except Exception as e:
-        error_message = str(e)
-        platform_log('error', 'is tenant platform settings failed: '+error_message, 'platform_service', tenant_id)
-        return e
-
-def add_tenant_platform_settings(tenant_id):
-
-    app_tenant = {"index": tenant_id}
-
-    # Define the update query
-    update_query = {
-        "script": {
-            "source": f"ctx._source['tenants'].add(params.newObject)",
-            "lang": "painless",
-            "params": {
-                "newObject": app_tenant
-            }
-        },
-        "query": {
-            "match_all": {}
-        }
-    }
-
-    try:
-        response = client.update_by_query(index='platform_settings', body=update_query)
-        return response
-    
-    except Exception as e:
-        error_message = str(e)
-        if not "400" in error_message:
-            platform_log('error', 'add tenant platform settings failed: '+error_message, 'platform_service', tenant_id)
-        
-        return e
+ 
     
 def get_logs(tenant_id):
 
@@ -141,8 +45,32 @@ def get_logs(tenant_id):
        
     except Exception as e:
         error_message = str(e)
-        platform_log('error', 'get logs failed :'+error_message, 'tenant_service', tenant_id)
+        platform_log('error', 'get logs failed :'+error_message, 'platform_service', tenant_id)
         return e
+    
+def get_platform_tenants(tenant_id):
+
+    try:
+        index_pattern = 'platform*'
+
+        response = client.cat.indices(index=index_pattern, format='json')
+
+        tenants = []
+        remove_prefex = "platform_"
+        indices_to_exclude = ["settings", "logs", "files", "ingest"]
+        
+        for tenant in response:
+            contains_index = any(idx in tenant['index'] for idx in indices_to_exclude)
+            if not contains_index:
+                index = tenant['index'][len(remove_prefex):]
+                tenants.append(index)
+
+        return tenants
+       
+    except Exception as e:
+        error_message = str(e)
+        platform_log('error', 'get logs failed :'+error_message, 'platform_service', tenant_id)
+        return e    
 
 def get_platform_settings(tenant_id):
      
@@ -157,94 +85,128 @@ def get_platform_settings(tenant_id):
 
 def create_platform_settings(tenant_id):
 
-    request_body = {
-        **default_index_settings,
-        **platform_index_mappings
+    data = {
+        "name": 'Platform Settings',
+        "roles": admin_role,
+        "pipelines": pipelines,
+        "models": models
     }
-    
+            
     try:
-        response = client.indices.create(index='platform_settings' , body=request_body, ignore=400)
+        response = post_platform_doc(tenant_id, 'platform_settings', data)
         
-        if 'acknowledged' in response and response['acknowledged']:
-        
-            tenants = {"tenants":[{"index":tenant_id}]}
-            
-            data = {
-                "mappings": {
-                    "properties": {
-                        "name": 'Platform Settings',
-                        "roles": admin_role,
-                        "pipelines": pipelines,
-                        "models": models,
-                        "tenants": tenants
-                    }
-                }
-            }
-            
-            try:
-                response = post_platform_doc(tenant_id, 'platform_settings', data)
+        if response['result'] == 'created':
+            platform_log('created', 'create platform settings succeeded', 'platform_service', tenant_id)
 
-                if response:
-                    platform_log('acknowledged', 'create platform settings succeeded: '+response, 'tenant_service', tenant_id)
-
-            except Exception as e:
-                error_message = str(e)
-                platform_log('error', 'platform settings document failed :'+error_message, 'platform_service', tenant_id)
-                return e
-            
-        elif response['error']['root_cause']['type'] != 'resource_already_exists_exception':
-            error_message = str(e)
-            platform_log('error', 'platform settings document failed: '+error_message, 'platform_service', tenant_id)
-            return e
-        
-        return response
-    
     except Exception as e:
         error_message = str(e)
-        platform_log('error', 'platform settings failed:'+error_message, 'platform_service', tenant_id)
+        platform_log('error', 'create platform settings failed:'+error_message, 'platform_service', tenant_id)
         return e 
+
+def create_platform_tenant(tenant_id, user_info, roles):
+
+    data = {
+        "name": user_info["name"],
+        "given_name": user_info["given_name"],
+        "email": user_info["email"],
+        "roles": roles
+    }
+
+    try:
+        response = post_platform_doc(tenant_id, 'platform_'+tenant_id, data)
+
+        if response['result'] == 'created':
+            platform_log('created', 'create tenant succeeded', 'platform_service', tenant_id)
+
+    except Exception as e:
+        error_message = str(e)
+        platform_log('error', 'post tenant document failed:'+error_message, 'platform_service', tenant_id)
+        return e
 
 def create_platform_logs(tenant_id):
 
     request_body = {
         **default_index_settings,
-        **platform_log_mappings
+        **logs_mappings
+    }
+            
+    try:
+        response = client.indices.create(index='platform_logs', body=request_body, ignore=400)
+
+        if response['acknowledged']:
+            platform_log('created', 'create platform logs succeeded', 'platform_service', tenant_id)
+
+        return response
+
+    except Exception as e:
+        error_message = str(e)
+        platform_log('error', 'create platform logs failed: '+error_message, 'platform_service', tenant_id)
+        return e     
+
+def create_tenant_files(tenant_id):
+
+    request_body = {
+        **default_index_settings,
+        **files_mappings
     }
     
     try:
-        response = client.indices.create(index='platform_logs' , body=request_body, ignore=400)
+        response = client.indices.create(index='platform_'+tenant_id+'_files', body=request_body, ignore=400)
         
-        if 'acknowledged' in response and response['acknowledged']:
-            
-            data = {
-                "mappings": {
-                    "properties": {
-                        "type": 'acknowledged',
-                        "message": 'platform_logs created',
-                        "service": 'platform_service',
-                        "tenant_id": tenant_id,
-                        "datetime": datetime.now()
-                    }
-                }
-            }
-            
-            try:
-                response = post_platform_doc('platform logs', data)
+        if response['acknowledged']:
+            platform_log(f'created', 'create tenant files succeeded', 'platform_service', tenant_id)
 
-                if response:
-                    platform_log('acknowledged', 'create platform logs succeeded: '+response, 'tenant_service', tenant_id)
-
-            except Exception as e:
-                error_message = str(e)
-                platform_log('error', 'platform logs entry failed: '+error_message, 'platform_service', tenant_id)
-                return e 
-            
-        elif response['error']['root_cause']['type'] != 'resource_already_exists_exception':
-            platform_log('create platform logs failed', 'platform_service', tenant_id)
-        
         return response
     
     except Exception as e:
         error_message = str(e)
-        platform_log('error', 'platform logs failed: '+error_message, 'platform_service', tenant_id)
-        return e 
+        platform_log('error', 'create tenant files failed:'+error_message, 'platform_service', tenant_id)
+        return e
+
+
+def post_tenant_files(tenant_id, files):
+    
+    with st.spinner(text="In progress"):
+        for file in files:
+            bytes_data = file.getvalue()
+                                    
+            # byte data encoded for opensearch
+            base64_data = base64.b64encode(bytes_data).decode('utf-8')
+
+            data = {
+                'file_name': file.name,
+                'created_date': datetime.now(),
+                'file_size': file.size,
+                'data_extraction': 'Not Started',
+                'classification': 'Not Started',
+                'compliancy_check': 'Not Started',
+                'risk_assessment': 'Not Started',
+                'similar_files': 'Not Started',
+                'file': {
+                    'content': base64_data
+                }
+            }
+
+            st.session_state["file_uploader_key"] += 1
+            
+            try:          
+                response = post_tenant_files(tenant_id, data)
+
+                if response:
+                    platform_log(f'acknowledged', 'post tenant files succeeded', 'platform_service', tenant_id)
+
+            except Exception as e:
+                error_message = str(e)
+                platform_log(f'error', 'create tenant file index failed: '+error_message, 'platform_service', tenant_id)
+                return e
+            
+    if response['result'] == "created":
+        tenant_files = get_tenant_files(st.session_state['tenant_id'])
+
+        if tenant_files:
+            st.session_state['tenant_files'] = tenant_files['hits']
+            st.session_state['file_count'] = str(tenant_files['hits']['total']['value'])
+            st.session_state['notification_message'] = '👍 '+ str(len(files)) + ' files sent for Processing...'
+            return True
+    else:
+        return False

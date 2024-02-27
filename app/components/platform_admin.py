@@ -4,7 +4,7 @@ def platform_admin():
     import streamlit_antd_components as sac
 
     from helpers.antd_utils import show_space
-    from services.platform_service import platform_nlp_ingest, get_platform_settings, get_logs, put_platform_doc
+    from services.platform_service import get_platform_tenants, get_platform_settings, get_logs, put_platform_doc
     from services.tenant_service import get_tenant_doc
     from helpers.config import platform_admin_tenant 
 
@@ -18,17 +18,20 @@ def platform_admin():
     else:
         tab_index = st.session_state['tab_index']
 
-    platform_settings = get_platform_settings(platform_admin_tenant )
-    platform_properties = platform_settings['hits']['hits'][0]['_source']['mappings']['properties']
+    platform_settings = get_platform_settings(platform_admin_tenant)
+
+    if 'hits' in platform_settings:
+        platform_properties = platform_settings['hits']['hits'][0]['_source']
 
     platform_roles = platform_properties['roles']
     platform_models = platform_properties['models']['models']
     platform_pipelines = platform_properties['pipelines']['pipelines']
-    platform_tenants = platform_properties['tenants']['tenants']
+
+    platform_tenants = get_platform_tenants(platform_admin_tenant)
 
     tenant_doc = get_tenant_doc(st.session_state['tenant_id'])
     doc =  tenant_doc['hits']['hits'][0]
-    tenant_properties = tenant_doc['hits']['hits'][0]['_source']['mappings']['properties']
+    tenant_properties = tenant_doc['hits']['hits'][0]['_source']
 
     tenant_index = doc['_index']
     tenant_email = tenant_properties['email']
@@ -61,9 +64,9 @@ def platform_admin():
 
         tenant_chip_items = []
         for tenant in platform_tenants:
-            tenant_chip_items.append(sac.ChipItem(label=tenant['index'], icon='vector-pen'))
+            tenant_chip_items.append(sac.ChipItem(label=tenant, icon='vector-pen'))
 
-        col1, col2, col3, col4, col5 =  st.columns([3, 0.25, 3, 0.25, 3])
+        col1, col2, col3, col4, col5 =  st.columns([2, 0.25, 4, 0.25, 4])
 
         with col1:
             sac.chip(
@@ -133,11 +136,10 @@ def platform_admin():
     if tab_index == 2:
 
         platform_logs = get_logs(platform_admin_tenant)
-        logs = platform_logs['hits']['hits']
-
+        
         extracted_logs = []
-        for l in logs:
-            extracted_logs.append(l['_source']['mappings']['properties'])
+        for l in platform_logs['hits']['hits']:
+            extracted_logs.append(l['_source'])
 
         st.write(pd.json_normalize(extracted_logs))
         

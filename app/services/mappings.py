@@ -28,43 +28,20 @@ default_index_settings = {
     }
 }
 
-#types: error, acknowledged, test
-platform_log_mappings = {
+logs_mappings = {
     "mappings": {
         "properties": {
             "type": {"type": "keyword"},
-            "tenant_id": {"type": "keyword"},
             "message": {"type": "text"},
             "service": {"type": "text"},
-            "timestamp": {"type": "date"}
+            "tenant_id": {"type": "text"},
+            "create_data": {"type": "date"},
         }
     }
 }
 
-platform_index_mappings = {
-    "mappings": {
-        "properties": {
-            "name": {"type": "keyword"},
-            "roles": {"type": "object"},
-            "models":  {"type": "object"},
-            "pipelines":  {"type": "object"},
-            "tenants": {"type": "object"}
-        }
-    }
-}
 
-tenant_index_mappings = {
-    "mappings": {
-        "properties": {
-            "name": {"type": "keyword"},
-            "given_name": {"type": "text"},
-            "email": {"type": "keyword"},
-            "role":  {"type": "object"},
-        }
-    }
-}
-
-files_index_mappings = {
+files_mappings = {
     "mappings": {
         "properties": {
             "file_name": {"type": "keyword"},

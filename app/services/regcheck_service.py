@@ -1,6 +1,6 @@
 import streamlit as st
 
-from services.utils_service import client
+from services.shared_service import client
 
 from services.mappings import match_all_query, default_index_settings, tenant_index_mappings, files_index_mappings
 

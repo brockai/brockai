@@ -75,7 +75,6 @@ def regcheck():
     if 'tenant_id' in st.session_state:
         tenant_files = get_tenant_files(st.session_state['tenant_id'])
         if tenant_files:
-            #not found error
             st.session_state['tenant_files'] = tenant_files['hits']
             st.session_state['file_count'] = str(tenant_files['hits']['total']['value'])
 

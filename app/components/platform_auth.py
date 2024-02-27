@@ -3,9 +3,9 @@ import streamlit as st
 import streamlit_antd_components as sac
 import extra_streamlit_components as stx
 
-from services.utils_service import is_index
-from services.tenant_service import create_tenant, create_tenant_file_index
-from services.platform_service import create_platform_settings, add_tenant_platform_settings, is_tenant_platform_settings, create_platform_logs
+from services.shared_service import is_index
+from services.mappings import  admin_role, tenant_role
+from services.platform_service import create_platform_tenant, create_tenant_files, create_platform_settings, create_platform_logs
 
 from authlib.integrations.requests_client import OAuth2Session
 from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, token_url, scope, response_type, userinfo_url, auth0_cookie_name
@@ -76,20 +76,20 @@ def auth_init(authorization_code):
     
             st.session_state['tenant_id'] = user_info['nickname']
 
+            roles = tenant_role
+            
+            if not is_index(st.session_state['tenant_id'], 'platform_logs'):
+                create_platform_logs(st.session_state['tenant_id']) 
+
             if not is_index(st.session_state['tenant_id'], 'platform_settings'):
                 create_platform_settings(st.session_state['tenant_id'])
-            else:
-                if not is_tenant_platform_settings(st.session_state['tenant_id']):
-                    add_tenant_platform_settings(st.session_state['tenant_id'])
+                roles = admin_role
 
-            if not is_index(st.session_state['tenant_id'], st.session_state['tenant_id']):
-                create_tenant(st.session_state['tenant_id'], user_info)
+            if not is_index(st.session_state['tenant_id'], 'platform_'+st.session_state['tenant_id']):
+                create_platform_tenant(st.session_state['tenant_id'], user_info, roles)
 
-            if not is_index(st.session_state['tenant_id'], st.session_state['tenant_id']+'_files'):
-                create_tenant_file_index(st.session_state['tenant_id'])
-
-            if not is_index(st.session_state['tenant_id'], 'platform_logs'):
-                create_platform_logs(st.session_state['tenant_id'])
+            if not is_index(st.session_state['tenant_id'], 'platform_'+st.session_state['tenant_id']+'_files'):
+                create_tenant_files(st.session_state['tenant_id'])
 
             cookie_value = f"{access_token}|{st.session_state['tenant_id']}"
             cookie_manager.set(auth0_cookie_name, cookie_value)

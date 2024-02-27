@@ -10,7 +10,7 @@ from components.chat import chat
 from components.platform_admin import platform_admin
 from components.platform_navigation import navigation, prototype_navigation
 
-from services.utils_service import check_opensearch_health, is_index
+from services.shared_service import check_opensearch_health, is_index
 from services.tenant_service import get_tenant_doc
 from services.airflow_service import  get_database_scheduler_health, get_connection_health
 
