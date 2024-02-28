@@ -18,11 +18,6 @@ def regcheck_processing():
                 obj = {
                     'File Name': hit['_source']['file_name'],
                     'File Size': hit['_source']['file_size'],
-                    'Data Extracted': hit['_source']['data_extraction'],
-                    'Data Classified': hit['_source']['classification'],
-                    'Compliancy Check': hit['_source']['compliancy_check'], 
-                    'Risk Assessment': hit['_source']['risk_assessment'], 
-                    'Similar Files': hit['_source']['similar_files'], 
                     'Date Created': hit['_source']['created_date'],
                 }
                     

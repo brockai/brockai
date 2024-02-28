@@ -99,7 +99,6 @@ with st.sidebar.container():
     beta = sac.Tag('Beta', color='purple', bordered=False)
     alpha = sac.Tag('Alpha', color='purple', bordered=False)
 
-    # 
     menu = sac.menu([
             sac.MenuItem('prototypes', icon='rocket'),
             sac.MenuItem('regcheck', icon='shield-check', tag=protoType),
