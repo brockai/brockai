@@ -7,7 +7,6 @@ def regcheck():
     
     from datetime import datetime
     from services.tenant_service import post_tenant_files, get_tenant_files
-    from services.airflow_service import run_dag
 
     from components.platform_auth import signin_button
     from components.regcheck_training import regcheck_training
@@ -108,10 +107,6 @@ def regcheck():
 
     if step == 'Step 2':
         get_step('Step 2 - Processing', 'arrow-clockwise')
-
-        if st.button('run dag'):
-            run_dag('test')
-
         regcheck_processing()
        
     if step == 'Step 3':

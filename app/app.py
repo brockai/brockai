@@ -12,7 +12,6 @@ from components.platform_navigation import navigation, prototype_navigation
 
 from services.shared_service import check_opensearch_health, is_index
 from services.tenant_service import get_tenant_doc
-from services.airflow_service import  get_database_scheduler_health, get_connection_health
 
 from helpers.antd_utils import show_space
 from helpers.config import auth0_cookie_name, platform_admin_tenant
@@ -120,20 +119,6 @@ with st.sidebar.container():
         items=[
             sac.ChipItem(label=health),
             sac.ChipItem(label=version),
-        ], variant='outline', size='xs', radius="md")
-    
-    if 'tenant_id' in st.session_state:
-        health_connections = get_connection_health()
-        health_database_scheduler = get_database_scheduler_health()
-
-        st.markdown(airflow_button, unsafe_allow_html=True)
-        show_space(1)
-
-        sac.chip(
-        items=[
-            sac.ChipItem(label=health_connections),
-            sac.ChipItem(label=health_database_scheduler['database']),
-            sac.ChipItem(label=health_database_scheduler['scheduler']),
         ], variant='outline', size='xs', radius="md")
 
     sac.divider('Docs & Jupyter Notebooks', color='gray')

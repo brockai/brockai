@@ -11,4 +11,5 @@ extra_streamlit_components
 Authlib
 boto3
 opensearch-py
-apache-airflow-client
+dagster-webserve
+dagster
