@@ -2,8 +2,6 @@ import os
 import streamlit as st
 
 from opensearchpy import OpenSearch
-import airflow_client.client
-
 
 from dotenv import load_dotenv
 load_dotenv()
