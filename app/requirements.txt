@@ -11,5 +11,5 @@ extra_streamlit_components
 Authlib
 boto3
 opensearch-py
-dagster-webserve
 dagster
+dagster-webserver
