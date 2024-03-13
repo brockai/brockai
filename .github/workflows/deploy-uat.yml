@@ -76,6 +76,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            cp ~/.env.dagster ~/brockai/.env
             cd ~/brockai/
             docker compose up -d dagster-postgresql
             docker compose up -d dagster-user-code
