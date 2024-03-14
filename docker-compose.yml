@@ -67,9 +67,24 @@ services:
     image: postgres:11
     container_name: docker_example_postgresql
     environment:
-      - POSTGRES_USER=${DAGSTER_POSTGRES_USER}
-      - POSTGRES_PASSWORD=${DAGSTER_POSTGRES_PASSWORD}
-      - POSTGRES_DB=${DAGSTER_POSTGRES_DB}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: PearTree369
+      POSTGRES_DB: dagster
+    networks:
+      - docker_example_network
+
+  docker_example_user_code:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_user_code
+    container_name: docker_example_user_code
+    image: docker_example_user_code_image
+    restart: always
+    environment:
+      DAGSTER_POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
+      DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
+      DAGSTER_POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
+      DAGSTER_CURRENT_IMAGE: "docker_example_user_code_image"
     networks:
       - docker_example_network
 
