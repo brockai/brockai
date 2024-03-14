@@ -71,7 +71,7 @@ services:
       POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
       POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
     networks:
-      - docker_example_network
+      - dagster-network
 
   dagster-user-code:
     build:
