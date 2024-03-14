@@ -73,6 +73,21 @@ services:
     networks:
       - docker_example_network
 
+  docker_example_user_code:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_user_code
+    container_name: docker_example_user_code
+    image: docker_example_user_code_image
+    restart: always
+    environment:
+      DAGSTER_POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
+      DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
+      DAGSTER_POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
+      DAGSTER_CURRENT_IMAGE: "docker_example_user_code_image"
+    networks:
+      - docker_example_network
+
   docker_example_webserver:
     build:
       context: .
@@ -101,6 +116,7 @@ services:
       - docker_example_network
     depends_on:
       - docker_example_postgresql
+      - docker_example_user_code
 
   docker_example_daemon:  
     build:
@@ -122,6 +138,7 @@ services:
       - docker_example_network
     depends_on:
       - docker_example_postgresql
+      - docker_example_user_code
 
 volumes:
   opensearch-data1:
@@ -132,22 +149,3 @@ networks:
   docker_example_network:
     driver: bridge
     name: docker_example_network
-
-
-
-
-
-# docker_example_user_code:
-  #   build:
-  #     context: .
-  #     dockerfile: ./Dockerfile_user_code
-  #   container_name: docker_example_user_code
-  #   image: docker_example_user_code_image
-  #   restart: always
-  #   environment:
-  #     DAGSTER_POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
-  #     DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
-  #     DAGSTER_POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
-  #     DAGSTER_CURRENT_IMAGE: "docker_example_user_code_image"
-  #   networks:
-  #     - docker_example_network    

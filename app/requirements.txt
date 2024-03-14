@@ -12,4 +12,3 @@ Authlib
 boto3
 opensearch-py
 dagster
-dagster-webserver
