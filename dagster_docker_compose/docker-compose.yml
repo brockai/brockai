@@ -67,11 +67,33 @@ services:
     image: postgres:11
     container_name: docker_example_postgresql
     environment:
-      POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
-      POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
-      POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: PearTree369
+      POSTGRES_DB: dagster
     networks:
-      - dagster-network
+      - docker_example_network
+
+  docker_example_daemon:  
+    build:
+      context: .
+      dockerfile: ./Dockerfile_dagster
+    entrypoint:
+      - dagster-daemon
+      - run
+    container_name: docker_example_daemon
+    restart: on-failure
+    environment:
+      DAGSTER_POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
+      DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
+      DAGSTER_POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
+    volumes: # Make docker client accessible so we can launch containers using host docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/io_manager_storage:/tmp/io_manager_storage
+    networks:
+      - docker_example_network
+    depends_on:
+      - docker_example_postgresql
+      - docker_example_user_code
 
   docker_example_user_code:
     build:
@@ -110,28 +132,6 @@ services:
       DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
       DAGSTER_POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
     volumes: # Make docker client accessible so we can terminate containers from the webserver
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /tmp/io_manager_storage:/tmp/io_manager_storage
-    networks:
-      - docker_example_network
-    depends_on:
-      - docker_example_postgresql
-      - docker_example_user_code
-
-  docker_example_daemon:  
-    build:
-      context: .
-      dockerfile: ./Dockerfile_dagster
-    entrypoint:
-      - dagster-daemon
-      - run
-    container_name: docker_example_daemon
-    restart: on-failure
-    environment:
-      DAGSTER_POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
-      DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
-      DAGSTER_POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
-    volumes: # Make docker client accessible so we can launch containers using host docker
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/io_manager_storage:/tmp/io_manager_storage
     networks:
