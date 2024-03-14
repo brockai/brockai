@@ -63,9 +63,22 @@ services:
     volumes:
       - ./opensearch_dashboards.yml:/root/brockai/config/opensearch_dashboards.yml
 
+  docker_example_postgresql:
+    image: postgres:11
+    container_name: docker_example_postgresql
+    environment:
+      POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
+    networks:
+      - docker_example_network
+
 volumes:
   opensearch-data1:
   opensearch-data2:
   
 networks:
   opensearch-net:
+  docker_example_network:
+    driver: bridge
+    name: docker_example_network
