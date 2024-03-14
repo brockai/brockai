@@ -67,9 +67,9 @@ services:
     image: postgres:11
     container_name: docker_example_postgresql
     environment:
-      POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
-      POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
-      POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
+      - POSTGRES_USER=${DAGSTER_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DAGSTER_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DAGSTER_POSTGRES_DB}
     networks:
       - docker_example_network
 
