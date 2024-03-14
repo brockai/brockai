@@ -73,25 +73,26 @@ services:
     networks:
       - dagster-network
 
-  dagster-user-code:
+
+docker_example_user_code:
     build:
       context: .
-      dockerfile: ./Dockerfile-user-code
-    container_name: dagster-user-code
-    image: dagster-user-code-image
+      dockerfile: ./Dockerfile_user_code
+    container_name: docker_example_user_code
+    image: docker_example_user_code_image
     restart: always
     environment:
       DAGSTER_POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
       DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
       DAGSTER_POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
-      DAGSTER_CURRENT_IMAGE: "dagster-user-code-image"
+      DAGSTER_CURRENT_IMAGE: "docker_example_user_code_image"
     networks:
-      - dagster-network
+      - docker_example_network
 
-  dagster-webserver-ui:
+docker_example_webserver:
     build:
       context: .
-      dockerfile: ./Dockerfile-dagster
+      dockerfile: ./Dockerfile_dagster
     entrypoint:
       - dagster-webserver
       - -h
@@ -100,7 +101,7 @@ services:
       - "3000"
       - -w
       - workspace.yaml
-    container_name: dagster-webserver-ui
+    container_name: docker_example_webserver
     expose:
       - "3000"
     ports:
@@ -113,19 +114,19 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/io_manager_storage:/tmp/io_manager_storage
     networks:
-      - dagster-network
+      - docker_example_network
     depends_on:
       - docker_example_postgresql
-      - dagster-user-code
+      - docker_example_user_code
 
-  dagster-daemon:
+docker_example_daemon:
     build:
       context: .
-      dockerfile: ./Dockerfile-dagster
+      dockerfile: ./Dockerfile_dagster
     entrypoint:
       - dagster-daemon
       - run
-    container_name: dagster-daemon
+    container_name: docker_example_daemon
     restart: on-failure
     environment:
       DAGSTER_POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
@@ -135,10 +136,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/io_manager_storage:/tmp/io_manager_storage
     networks:
-      - dagster-network
+      - docker_example_network
     depends_on:
       - docker_example_postgresql
-      - dagster-user-code
+      - docker_example_user_code
 
 volumes:
   opensearch-data1:
@@ -146,6 +147,6 @@ volumes:
   
 networks:
   opensearch-net:
-  dagster-network:
+  docker_example_network:
     driver: bridge
-    name: dagster-network
+    name: docker_example_network
