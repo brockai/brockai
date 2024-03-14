@@ -63,15 +63,15 @@ services:
     volumes:
       - ./opensearch_dashboards.yml:/root/brockai/config/opensearch_dashboards.yml
 
-  dagster-postgresql:
+  docker_example_postgresql:
     image: postgres:11
-    container_name: dagster-postgresql
+    container_name: docker_example_postgresql
     environment:
       POSTGRES_USER: ${DAGSTER_POSTGRES_USER}
       POSTGRES_PASSWORD: ${DAGSTER_POSTGRES_PASSWORD}
       POSTGRES_DB: ${DAGSTER_POSTGRES_DB}
     networks:
-      - dagster-network
+      - docker_example_network
 
   dagster-user-code:
     build:
@@ -115,7 +115,7 @@ services:
     networks:
       - dagster-network
     depends_on:
-      - dagster-postgresql
+      - docker_example_postgresql
       - dagster-user-code
 
   dagster-daemon:
@@ -137,7 +137,7 @@ services:
     networks:
       - dagster-network
     depends_on:
-      - dagster-postgresql
+      - docker_example_postgresql
       - dagster-user-code
 
 volumes:

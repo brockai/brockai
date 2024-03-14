@@ -78,7 +78,7 @@ jobs:
           script: |
             cp ~/.env.dagster ~/brockai/.env
             cd ~/brockai/
-            docker compose up -d dagster-postgresql
+            docker compose up -d docker_example_postgresql
             docker compose up -d dagster-user-code
             docker compose up -d dagster-daemon
             docker compose up -d dagster-webserver-ui
