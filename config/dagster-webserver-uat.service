@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=root
 WorkingDirectory=/var/www/streamlit-uat
-ExecStart=/opt/dagster/dagster_home -h 0.0.0.0 -p 3001
+ExecStart=/opt/dagster/dagster_home -h 0.0.0.0 -p 3000
 Restart=always
 RestartSec=3
 
