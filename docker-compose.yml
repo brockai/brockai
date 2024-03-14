@@ -73,7 +73,6 @@ services:
     networks:
       - dagster-network
 
-
 docker_example_user_code:
     build:
       context: .
