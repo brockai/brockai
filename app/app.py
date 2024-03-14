@@ -111,15 +111,15 @@ with st.sidebar.container():
         format_func='title',
     )
 
-    sac.divider('☁️ Platform Services', color='gray')
-    st.markdown(opensearch_platform_button, unsafe_allow_html=True)
-    show_space(1)
+    # sac.divider('☁️ Platform Services', color='gray')
+    # st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+    # show_space(1)
     
-    sac.chip(
-        items=[
-            sac.ChipItem(label=health),
-            sac.ChipItem(label=version),
-        ], variant='outline', size='xs', radius="md")
+    # sac.chip(
+    #     items=[
+    #         sac.ChipItem(label=health),
+    #         sac.ChipItem(label=version),
+    #     ], variant='outline', size='xs', radius="md")
 
     # sac.divider('Docs & Jupyter Notebooks', color='gray')
 
