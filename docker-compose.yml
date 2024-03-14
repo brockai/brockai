@@ -73,7 +73,7 @@ services:
     networks:
       - dagster-network
 
-docker_example_user_code:
+  docker_example_user_code:
     build:
       context: .
       dockerfile: ./Dockerfile_user_code
@@ -88,7 +88,7 @@ docker_example_user_code:
     networks:
       - docker_example_network
 
-docker_example_webserver:
+  docker_example_webserver:
     build:
       context: .
       dockerfile: ./Dockerfile_dagster
@@ -118,7 +118,7 @@ docker_example_webserver:
       - docker_example_postgresql
       - docker_example_user_code
 
-docker_example_daemon:
+  docker_example_daemon:  
     build:
       context: .
       dockerfile: ./Dockerfile_dagster
