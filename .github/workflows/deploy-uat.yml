@@ -65,23 +65,23 @@ jobs:
             docker compose up -d opensearch-node2
             docker compose up -d opensearch-dashboards
 
-  # Compose-Up-Dagster:
-  #   runs-on: ubuntu-latest
-  #   needs: Compose-Up-Opensearch
-  #   steps:
-  #     - name: Start dagster
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.DROPLET_IP }}
-  #         username: ${{ secrets.DROPLET_USERNAME }}
-  #         key: ${{ secrets.SSH_PRIVATE_KEY }}
-  #         script: |
-  #           cp ~/.env.dagster ~/brockai/.env
-  #           cd ~/brockai/
-  #           docker compose up -d docker_example_postgresql
-  #           docker compose up -d docker_example_user_code
-  #           docker compose up -d docker_example_daemon
-  #           docker compose up -d docker_example_webserver
+  Compose-Up-Dagster:
+    runs-on: ubuntu-latest
+    needs: Compose-Up-Opensearch
+    steps:
+      - name: Start dagster
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cp ~/.env.dagster ~/brockai/.env
+            cd ~/brockai/
+            docker compose up -d docker_example_postgresql
+            docker compose up -d docker_example_user_code
+            docker compose up -d docker_example_daemon
+            docker compose up -d docker_example_webserver
             
 
 
