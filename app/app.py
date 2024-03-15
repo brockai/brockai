@@ -17,7 +17,7 @@ from helpers.antd_utils import show_space
 from helpers.config import auth0_cookie_name, platform_admin_tenant
 from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearch_platform_button, airflow_button
 
-params = st.query_params()
+params = st.experimental_get_query_params()
 authorization_code = params.get("code", [None])[0]
 authorization_state = params.get("state", [None])[0]
 
