@@ -19,8 +19,12 @@ from helpers.markdown import sidebar_links_footer, sidebar_app_header, opensearc
 
 params = st.query_params.to_dict()
 
-authorization_code = params["code"]
-authorization_state = params["state"]
+authorization_code = None
+authorization_state = None
+
+if len(params) > 0: 
+    authorization_code = params["code"]
+    authorization_state = params["state"]
 
 # initlalize Auth0 client
 auth_init(authorization_code)
