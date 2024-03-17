@@ -44,7 +44,6 @@ jobs:
             # create python env, install requirements, start streamlit
             sudo python3 -m venv /var/www/streamlit-uat/brockai-uat
             source /var/www/streamlit-uat/brockai-uat/bin/activate
-            
             pip cache purge
             pip install -r /var/www/streamlit-uat/requirements.txt
             sudo systemctl start streamlit-uat.service || true
