@@ -6,7 +6,6 @@ tiktoken
 captcha
 python-dotenv
 streamlit-antd-components
-extra_streamlit_components
 Authlib
 boto3
 opensearch-py
