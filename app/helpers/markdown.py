@@ -33,7 +33,7 @@ Powered by&nbsp;&nbsp;<img src="app/static/openai-white-lockup.png" alt="OpenAI"
 
 platform_intro = """
 <div>
-<h3>30 - 90 Day AI Prototypes</h3>
+<h3>60 - 90 Day AI Prototypes</h3>
 Add AI with continuous human-in-the-loop feedback to your app.&nbsp;
 Grow and improve business processes and customer interactions intelligently.
 </div>
