@@ -6,7 +6,7 @@ Streamlit is a great tool, however it has been my experience that it is limited 
 
 Using OpenSearch as the database provides ML/AL compatibility, irrespective of the frontend. Using Node to build the API provides a robust, portable, proven middleware.
 
-<a href="https://github.com/brockai/brockai/wiki" target="_blank">Research Wiki</a>
+#### <a href="https://github.com/brockai/brockai/wiki" target="_blank">Research Wiki</a>
 
 ## ProtoTypes & Apps
 
