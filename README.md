@@ -8,5 +8,4 @@ Using OpenSearch as the database provides ML/AL compatibility, irrespective of t
 
 ## ProtoTypes & Apps
 
-### [Birch Mountain Entrprises Fuel Delivery](https://bme.brockai.com)
-<a href="https://bme.brockai.com" target="_blank">Brock AI</a>
+### <a href="https://bme.brockai.com" target="_blank">Birch Mountain Entrprises Fuel Delivery</a>
