@@ -35,8 +35,10 @@ There are two audiences, Drivers and Administrators. Drivers are concerened with
 - Hosting Provider: Digital Ocean
 - github (private): https://github.com/brockai/bmel
 
+### Simple Load, Scale In, Deliver, Scale Out, End Shift
 [20.07.2024 14_10.webm](https://github.com/user-attachments/assets/08e4e3c1-8de1-4ddc-89a1-42e0d91c25bf)
 
+### Reporting and Administration
 [20.07.2024 14_23.webm](https://github.com/user-attachments/assets/2ffad4b5-ec0d-44a9-a00f-5b1dfebec8b6)
 
 <a href="https://bme.brockai.com" target="_blank">Birch Mountain Entrprises Fuel Delivery</a>
