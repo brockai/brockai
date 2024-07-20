@@ -1,10 +1,16 @@
 # Streamlit, Node, OpenSearch Experimental
 
-Adding Machine Learning (ML) and Artificial Intelligence (AI) into traditional mobile and desktop applications can provide significant advantages and open up a plethora of new possibilities.
+I believe adding Machine Learning (ML) and Artificial Intelligence (AI) to mobile and desktop applications can provide significant advantages and open up a plethora of new possibilities.
 
-Streamlit is a great tool, however it has been my experience that it is limited on the frontend when compared to React/VUE or Angular (I suspect that will improve over time). On the flip side, Streamlit backend integration is outstanding and is 100% python based, using Jupyter Notebooks with Streamlit is magic. 
+Streamlit is a great tool, however it has been my experience that it is limited on the frontend when compared to React/VUE or Angular (I suspect that will improve over time). On the flip side, Streamlit backend integration is outstanding and is 100% python based, using Jupyter Notebooks with Streamlit is magic (no need for Node). 
 
-Using OpenSearch as the database provides ML/AL compatibility, irrespective of the frontend. Using Node to build the API provides a robust, portable, proven middleware.
+## Why Node?
+Really, the frontend is probably the most cricial part of an app beacuse it is in everyones hands. The combination of React, NextJS and TailwindCSS covers both mobile and desktop in one codebase. There are npm packages that allow for React to connect with OpenSearch (no need for Node), however if there is a need to connect to other providers, such as Geotab, or you need a forgot email/signup service, you are faced with managing another service connection on the frontend. Not the end of the world, but all of your eggs are in one basket.
+
+To seperate concerns for better management and deployment, Node provides a robust, portable, proven middleware to house the app API, irrespective of the frontend. 
+
+## Why OpenSearch?
+OpenSearch provides ML/AL compatibility
 
 #### <a href="https://github.com/brockai/brockai/wiki" target="_blank">Research Wiki</a>
 
