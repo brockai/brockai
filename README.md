@@ -22,7 +22,7 @@ Github actions are used to clone the repo, build the frontend, deploy Node and s
 
 ## Apps & Prototypes
 
-### Birch Mountain Entrprises Fuel Delivery
+### Birch Mountain Enterprises Fuel Delivery
 
 BME provide fuel delivery services. Their tractors are outfitted with Geotab hardware that tracks location. The app integrates with Geotab Fleet Management which provides API services for user management and tractor location. 
 
