@@ -6,7 +6,7 @@ Streamlit is a great tool, however it has been my experience that it is limited 
 
 Really, the frontend is probably the most cricial part, the face of the app. The combination of React, NextJS and TailwindCSS covers both mobile and desktop in one codebase. 
 
-There are npm packages that allow for React to connect with OpenSearch (no need for Node). However, what if you want to connect to other providers such as Geotab or an email provider or you want an AI OCR provider. You are faced with managing another service connection on the frontend. Not the end of the world, but all of your eggs are in one basket.
+There are npm packages that allow for React to connect with OpenSearch (no need for Node). However, what if you want to connect to other providers such as Geotab or you want to use AI OCR provider. You are faced with managing another service connection on the frontend. Not the end of the world, but all of your eggs are in one basket.
 
 To seperate concerns for better management and deployment, Node is proven middleware to house the API, irrespective of the frontend. 
 
@@ -16,7 +16,7 @@ OpenSearch is an open-source search and analytics suite, originally derived from
 OpenSearch provides ML/AL compatibility and is deployed in a docker container.
 
 ## Github Automated Deployment & Testing
-The app needs to be deployed automatically, Github actions are used to clone the repo, build the frontend, deploy Node and start and stop all related services. Any build or deployment faliures are emailed to the repo owner.
+Github actions are used to clone the repo, build the frontend, deploy Node and start and stop all related services. Any build or deployment failures are emailed to the repo owner.
 
 #### <a href="https://github.com/brockai/brockai/wiki" target="_blank">Research Wiki</a>
 
