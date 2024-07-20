@@ -9,10 +9,12 @@ Really, the frontend is probably the most cricial part of an app, it is in every
 
 There are npm packages that allow for React to connect with OpenSearch (no need for Node), however if there is a need to connect to other providers, such as Geotab, or you need a forgot email/signup service, you are faced with managing another service connection on the frontend. Not the end of the world, but all of your eggs are in one basket.
 
-To seperate concerns for better management and deployment, Node provides a robust, portable, proven middleware to house the app API, irrespective of the frontend. 
+To seperate concerns for better management and deployment, Node provides a robust, portable, proven middleware to house the API, irrespective of the frontend. 
 
 ## Why OpenSearch?
-OpenSearch provides ML/AL compatibility
+OpenSearch is an open-source search and analytics suite, originally derived from Elasticsearch and Kibana, and managed by the OpenSearch project, which is sponsored by Amazon Web Services (AWS).
+
+OpenSearch provides ML/AL compatibility.
 
 #### <a href="https://github.com/brockai/brockai/wiki" target="_blank">Research Wiki</a>
 
