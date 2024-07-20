@@ -7,14 +7,14 @@ Streamlit is a great tool, however it has been my experience that it is limited 
 ## Why Node?
 Really, the frontend is probably the most cricial part of an app, it is in everyones hands. The combination of React, NextJS and TailwindCSS covers both mobile and desktop in one codebase. 
 
-There are npm packages that allow for React to connect with OpenSearch (no need for Node), however if there is a need to connect to other providers, such as Geotab, or you need a forgot email/signup service, you are faced with managing another service connection on the frontend. Not the end of the world, but all of your eggs are in one basket.
+There are npm packages that allow for React to connect with OpenSearch (no need for Node), however if there is a need to connect to other providers, such as Geotab, or you need a email service, or you want an AI OCR service. You are faced with managing another service connection on the frontend. Not the end of the world, but all of your eggs are in one basket.
 
-To seperate concerns for better management and deployment, Node provides a robust, portable, proven middleware to house the API, irrespective of the frontend. 
+To seperate concerns for better management and deployment, Node is proven middleware to house the API, irrespective of the frontend. 
 
 ## Why OpenSearch?
 OpenSearch is an open-source search and analytics suite, originally derived from Elasticsearch and Kibana, and managed by the OpenSearch project, which is sponsored by Amazon Web Services (AWS).
 
-OpenSearch provides ML/AL compatibility.
+OpenSearch provides ML/AL compatibility and is deployed in a docker container.
 
 #### <a href="https://github.com/brockai/brockai/wiki" target="_blank">Research Wiki</a>
 
