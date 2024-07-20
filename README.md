@@ -21,6 +21,6 @@ There are two audiences, Drivers and Administrators. Drivers are concerened with
 - Server: NodeJS/Geotab/OpenSearch
 - Database: OpenSearch
 - Hosting Provider: Digital Ocean
-- github (private): [https://bme.brockai.com" target="_blank"](Birch Mountain Entrprises Fuel Delivery)>
+- github (private): https://github.com/brockai/bmel
 
 <a href="https://bme.brockai.com" target="_blank">Birch Mountain Entrprises Fuel Delivery</a>
