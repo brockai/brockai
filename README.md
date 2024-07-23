@@ -18,7 +18,7 @@ OpenSearch provides ML/AL compatibility as well as document storage and query fo
 ## Github Automated Deployment & Testing
 Github actions are used to clone the repo, build the frontend, deploy Node and start and stop all related services. Any build or deployment failures are emailed to the repo owner.
 
-#### <a href="https://github.com/brockai/brockai/wiki" target="_blank">Research Wiki</a>
+#### <a href="https://github.com/brockai/brockai/wiki" target="_blank">ML/AL Research Wiki</a>
 
 ## Apps & Prototypes
 
