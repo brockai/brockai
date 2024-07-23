@@ -1,4 +1,4 @@
-# Streamlit, Node, OpenSearch Experimental
+# Streamlit - Node - OpenSearch Experimental
 
 I believe adding Machine Learning (ML) and Artificial Intelligence (AI) to mobile and desktop applications can provide significant advantages and open up a plethora of new possibilities.
 
