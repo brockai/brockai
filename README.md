@@ -13,12 +13,12 @@ To seperate concerns for better management and deployment, Node is proven middle
 ## Why OpenSearch?
 OpenSearch is an open-source search and analytics suite, originally derived from Elasticsearch and Kibana, and managed by the OpenSearch project, which is sponsored by Amazon Web Services (AWS).
 
-OpenSearch provides ML/AL compatibility as well as document storage and query for app data. It is deployed in a docker container.
+OpenSearch provides ML/AI compatibility as well as document storage and query for app data. It is deployed in a docker container.
 
 ## Github Automated Deployment & Testing
 Github actions are used to clone the repo, build the frontend, deploy Node and start and stop all related services. Any build or deployment failures are emailed to the repo owner.
 
-#### <a href="https://github.com/brockai/brockai/wiki" target="_blank">ML/AL Research Wiki</a>
+#### <a href="https://github.com/brockai/brockai/wiki" target="_blank">ML/AI Research Wiki</a>
 
 ## Apps & Prototypes
 
