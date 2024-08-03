@@ -24,8 +24,8 @@ def platform_signup():
     if 'captcha_text' not in st.session_state:
         st.session_state.captcha_text = generate_captcha()
     
-    st.markdown(platform_intro, unsafe_allow_html=True)
-    show_space(1)
+    # st.markdown(platform_intro, unsafe_allow_html=True)
+    # show_space(1)
 
     col1, col2, col3 =  st.columns([3, 0.25, 1])
 
