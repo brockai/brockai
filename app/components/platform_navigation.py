@@ -24,20 +24,8 @@ def prototype_navigation():
 
     return bread_crumb_idx
 
-def navigation(title, icon, tag, show_signin_button): 
-
-    access_token = st.session_state.get("access_token")
-
-    if access_token == {}:
-        access_token = None
-    
-    if access_token == None:
-        if not show_signin_button: 
-            get_title(title, icon, tag)
-        else:
-            get_title(title, icon, tag)
-    else:
-        title = get_title(title, icon, tag)
+def navigation(title, icon, tag): 
+    title = get_title(title, icon, tag)
 
 
 def get_title(title, icon, tag):

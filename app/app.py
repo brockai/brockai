@@ -106,19 +106,19 @@ pageCol = st.columns([12])
 tab1, tab2, tab3, tab4 = st.tabs(["AI Proto Types", "Regulatory Compliancy", "Chat", "Platform"])
 
 with tab1:
-    navigation('60 - 90 Day AI Proto Types', 'rocket', None, True)
+    navigation('60 - 90 Day AI Proto Types', 'rocket', None)
     platform_signup()
 
 with tab2:
-    navigation('Bill of Materials Regulatory Compliancy', 'shield-check', 'Prototype', True)
+    navigation('Bill of Materials Regulatory Compliancy', 'shield-check', 'Prototype')
     regcheck()
     
 with tab3:
-    navigation('General Purpose Chatbot', 'chat-left-text', 'Prototype', True)
+    navigation('General Purpose Chatbot', 'chat-left-text', 'Prototype')
     chat()
 
 with tab4:
-    navigation('brockai Platform Services', 'chat-left-text', None, True)
+    navigation('brockai Platform Services', 'chat-left-text', None)
     st.markdown(opensearch_platform_button, unsafe_allow_html=True)
     show_space(1)
 
