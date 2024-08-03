@@ -1,15 +1,13 @@
-streamlit==1.28
+streamlit
 openai>=1.2
 st_pages
 scipy
 tiktoken
 captcha
 python-dotenv
-IPython
 streamlit-antd-components
 extra_streamlit_components
 Authlib
 boto3
 opensearch-py
 dagster
-dagster-webserver

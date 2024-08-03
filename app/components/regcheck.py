@@ -50,7 +50,7 @@ def regcheck():
         step_1_description = 'File Library, Structured & Unstructured data'
         step_2_description = 'Extraction, Classification, Compliancy Check, Risk Assessment'
         step_3_description = 'Similar Files Lookup, Continous Feedback Loop, Model Trianing, Analytics'
-        signin_button()
+        # signin_button()
 
     if "current_step_index" not in st.session_state:
         st.session_state['current_step_index'] = 0      
