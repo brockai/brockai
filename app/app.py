@@ -1,8 +1,8 @@
 import streamlit as st
-# import streamlit_antd_components as sac 
+import streamlit_antd_components as sac 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
-from components.platform_auth import auth_init, cookie_manager, set_tenant_role, signin_button
+from components.platform_auth import auth_init, cookie_manager, set_tenant_role, signin_button, signout_button
 from components.platform_signup import platform_signup
 from components.regcheck import regcheck
 from components.contact import contact
@@ -57,9 +57,6 @@ def get_title(title, icon, tag):
     )
     return title
 
-# def set_nav(title, icon, tag, show_login_button):
-#     navigation(title, icon, tag, show_login_button)
-
 # stay signed in
 cookie = cookie_manager.get(auth0_cookie_name)
 if cookie:
@@ -100,27 +97,17 @@ with col1:
             , unsafe_allow_html=True
         ) 
 with col2:
-    signin_button()
+    if 'access_token' not in st.session_state:
+        signin_button()
+    else:
+        signout_button()
 
 pageCol = st.columns([12])
 tab1, tab2, tab3, tab4 = st.tabs(["AI Proto Types", "RegCheck", "Chat", "Platform"])
 
 with tab1:
-    if 'access_token' not in st.session_state:
-            navigation('60 - 90 Day AI Proto Types', 'rocket', None, True)
-            platform_signup()
-    else:
-        if "stay_signed_in" not in st.session_state:
-            st.session_state["stay_signed_in"] = False
-
-            # st.session_state["bread_crumb_index"] = prototype_navigation()
-                
-            # if st.session_state["bread_crumb_index"] == 1:
-            #     regcheck()
-
-            # if st.session_state["bread_crumb_index"] == 2:
-            #     get_title('chat', 'chat-left-text', 'Proto Type')
-            #     chat()
+    navigation('60 - 90 Day AI Proto Types', 'rocket', None, True)
+    platform_signup()
 
 with tab2:
     navigation('Bill of Materials Regulatory Compliancy', 'shield-check', 'RegCheck', True)
@@ -158,83 +145,6 @@ footer = """
     </div>
 """
 
-# st.markdown(opensearch_platform_button, unsafe_allow_html=True)
 
-# with st.sidebar.container():
-
-#     if 'menu_index' not in st.session_state:
-#         st.session_state['menu_index'] = 0
-
-#     upload = sac.Tag('Upload Files', color='blue', bordered=False)
-#     modified = sac.Tag('Modified', color='blue', bordered=False)
-#     protoType = sac.Tag('Prototype', color='green', bordered=False)
-#     deprecated = sac.Tag('Deprecated', color='orange', bordered=False)
-#     production = sac.Tag('Production', color='red', bordered=False)
-#     beta = sac.Tag('Beta', color='purple', bordered=False)
-#     alpha = sac.Tag('Alpha', color='purple', bordered=False)
-
-#     menu = sac.menu([
-#             sac.MenuItem('prototypes', icon='rocket'),
-#             sac.MenuItem('regcheck', icon='shield-check', tag=protoType),
-#             sac.MenuItem('chat', icon='chat-left-text', tag=protoType),
-#             sac.MenuItem('contact', icon='envelope'),
-#             sac.MenuItem('admin', icon='database-gear', tag=beta, disabled=admin_disabled)
-#         ],
-#         key='menu',
-#         index=st.session_state['menu_index'],
-#         open_all=True, indent=10,
-#         format_func='title',
-#     )
-
-#     sac.divider('☁️ Platform Services', color='gray')
-#     st.markdown(opensearch_platform_button, unsafe_allow_html=True)
-#     show_space(1)
-    
-#     sac.chip(
-#         items=[
-#             sac.ChipItem(label=health),
-#             sac.ChipItem(label=version),
-#         ], variant='outline', size='xs', radius="md")
-
-#     sac.divider('Docs & Jupyter Notebooks', color='gray')
-
-    # with open('styles.css') as f:
-    #     st.sidebar.markdown(
-    #         f'<style>{f.read()}</style>'
-    #         +sidebar_app_header
-    #         +sidebar_links_footer
-    #         , unsafe_allow_html=True
-    #     ) 
-
-# with st.container(): 
-
-#     if menu == 'regcheck':
-#         navigation(menu, 'shield-check', protoType, False)
-#         regcheck()
-#     elif menu == 'chat':
-#         navigation(menu, 'chat-left-text', protoType, True)
-#         chat()
-#     elif menu == 'contact':
-#         navigation(menu, 'envelope', None, True)
-#         contact()
-#     elif menu == 'admin':
-#         navigation(menu, 'database-gear', beta, True)
-#         platform_admin()
-#     else:
-#         if 'access_token' not in st.session_state:
-#             navigation('prototypes', 'rocket', None, True)
-#             platform_signup()
-#         else:
-#             if "stay_signed_in" not in st.session_state:
-#                 st.session_state["stay_signed_in"] = False
-
-#             st.session_state["bread_crumb_index"] = prototype_navigation()
-            
-#             if st.session_state["bread_crumb_index"] == 1:
-#                 regcheck()
-
-#             if st.session_state["bread_crumb_index"] == 2:
-#                 get_title('chat', 'chat-left-text', protoType)
-#                 chat()
 
  

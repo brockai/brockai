@@ -6,6 +6,7 @@ import extra_streamlit_components as stx
 from services.shared_service import is_index
 from services.mappings import  admin_role, tenant_role
 from services.platform_service import create_platform_tenant, create_tenant_files, create_platform_settings, create_platform_logs
+from helpers.config import domain
 
 from authlib.integrations.requests_client import OAuth2Session
 from helpers.config import auth0_client_id, auth0_client_secret, auth0_redirect_uri, auth0_authorization_url, token_url, scope, response_type, userinfo_url, auth0_cookie_name
@@ -62,6 +63,15 @@ def signin_button():
 
     if st.button('Sign In', use_container_width=True, ):
         st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{authorization_url}\'" />', unsafe_allow_html=True)
+
+def signout_button():
+
+    if st.button('Sign out', use_container_width=True):
+        cookie_manager.delete(auth0_cookie_name)
+        del st.session_state.access_token
+        st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
+        
+
 
 def auth_init(authorization_code):
     

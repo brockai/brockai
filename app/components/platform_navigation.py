@@ -17,17 +17,10 @@ def bread_crumbs():
 
 def prototype_navigation(): 
         
-    col1, col2 = st.columns([9, 3])
-    
-    with col1:
-        bread_crumb_idx = bread_crumbs()
-        # st.session_state["bread_crumb_index"] = bread_crumb_idx
-    with col2:
-        if st.button('Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
-            cookie_manager.delete(auth0_cookie_name)
-            st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
-
-        stay_signed_in(st.session_state.get("access_token"))
+    bread_crumb_idx = bread_crumbs()
+    st.session_state["bread_crumb_index"] = bread_crumb_idx
+   
+    stay_signed_in(st.session_state.get("access_token"))
 
     return bread_crumb_idx
 
@@ -37,26 +30,14 @@ def navigation(title, icon, tag, show_signin_button):
 
     if access_token == {}:
         access_token = None
-        
-    col1, col2 = st.columns([9, 3])
     
     if access_token == None:
         if not show_signin_button: 
             get_title(title, icon, tag)
         else:
-            with col1:
-                get_title(title, icon, tag)
-            # with col2:
-                # signin_button()
+            get_title(title, icon, tag)
     else:
-        with col1:
-            title = get_title(title, icon, tag)
-        with col2:
-            if st.button('Sign out', use_container_width=True, disabled=st.session_state['stay_signed_in']):
-                cookie_manager.delete(auth0_cookie_name)
-                st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
-
-            stay_signed_in(access_token)
+        title = get_title(title, icon, tag)
 
 
 def get_title(title, icon, tag):
