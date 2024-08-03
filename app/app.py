@@ -126,7 +126,7 @@ with st.sidebar.container():
             sac.ChipItem(label=version),
         ], variant='outline', size='xs', radius="md")
 
-    # sac.divider('Docs & Jupyter Notebooks', color='gray')
+    sac.divider('Docs & Jupyter Notebooks', color='gray')
 
     with open('styles.css') as f:
         st.sidebar.markdown(
