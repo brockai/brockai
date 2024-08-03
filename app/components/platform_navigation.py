@@ -46,8 +46,8 @@ def navigation(title, icon, tag, show_signin_button):
         else:
             with col1:
                 get_title(title, icon, tag)
-            with col2:
-                signin_button()
+            # with col2:
+                # signin_button()
     else:
         with col1:
             title = get_title(title, icon, tag)
