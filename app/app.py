@@ -1,5 +1,5 @@
 import streamlit as st
-import streamlit_antd_components as sac 
+# import streamlit_antd_components as sac 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
 from components.platform_auth import auth_init, cookie_manager, set_tenant_role, signin_button, signout_button
@@ -46,16 +46,16 @@ st.markdown(f'''
     </style>
     ''', unsafe_allow_html=True)
 
-def get_title(title, icon, tag):
-    title = sac.menu(
-        items=[
-            sac.MenuItem(title, icon=icon, tag=tag)
-            ],
-            key=title,
-            open_all=True, indent=20,
-            format_func='title'
-    )
-    return title
+# def get_title(title, icon, tag):
+#     title = sac.menu(
+#         items=[
+#             sac.MenuItem(title, icon=icon, tag=tag)
+#             ],
+#             key=title,
+#             open_all=True, indent=20,
+#             format_func='title'
+#     )
+#     return title
 
 # stay signed in
 cookie = cookie_manager.get(auth0_cookie_name)
@@ -122,11 +122,11 @@ with tab4:
     st.markdown(opensearch_platform_button, unsafe_allow_html=True)
     show_space(1)
 
-    sac.chip(
-        items=[
-            sac.ChipItem(label=health),
-            sac.ChipItem(label=version),
-        ], variant='outline', size='xs', radius="md")
+    # sac.chip(
+    #     items=[
+    #         sac.ChipItem(label=health),
+    #         sac.ChipItem(label=version),
+    #     ], variant='outline', size='xs', radius="md")
 
 
 footer = """
