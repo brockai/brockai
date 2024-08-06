@@ -13,11 +13,6 @@ def platform_admin():
         unsafe_allow_html=True
     )
 
-    if 'tab_index' not in st.session_state:
-        st.session_state['tab_index'] = 0
-    else:
-        tab_index = st.session_state['tab_index']
-
     platform_settings = get_platform_settings(platform_admin_tenant)
 
     if 'hits' in platform_settings:
@@ -29,7 +24,7 @@ def platform_admin():
 
     platform_tenants = get_platform_tenants(platform_admin_tenant)
 
-    tenant_doc = get_tenant_doc(st.session_state['tenant_id'])
+    tenant_doc = get_tenant_doc(platform_admin_tenant)
     doc =  tenant_doc['hits']['hits'][0]
     tenant_properties = tenant_doc['hits']['hits'][0]['_source']
 
@@ -37,19 +32,9 @@ def platform_admin():
     tenant_email = tenant_properties['email']
     tenant_roles = tenant_properties['roles']['roles']
 
-    for item in tenant_roles:
-        not_admin = True
-        if 'name' in item and item['name'] == 'admin':
-            not_admin = False
+    tab1, tab2, tab3 = st.tabs(["Platform Setting", "Profile", "Platform Logs"])
 
-    tab_index = sac.tabs([
-        sac.TabsItem(label='Platform Settings', icon='gear'),
-        sac.TabsItem(label='Profile', icon='vector-pen'),
-        sac.TabsItem(label='Platform Logs', icon='list-columns-reverse', disabled=not_admin)
-    ], index=st.session_state['tab_index'], return_index=True, align='left')
-    
-    if tab_index  == 0:
-
+    with tab1:
         role_chip_items = []
         for role in platform_roles['roles']:
             role_chip_items.append(sac.ChipItem(label=role['name'], icon='people'))
@@ -88,8 +73,8 @@ def platform_admin():
             tenant_chip_items, label='Tenants', align='left', radius='md', variant='outline'
         )
 
-    if tab_index == 1:
-        
+    with tab2:
+            
         with st.form("my_form"):
             
             st.write('Vector Index: ', tenant_index)
@@ -133,8 +118,8 @@ def platform_admin():
 
                     put_platform_doc(st.session_state['tenant_id'], doc_id, data)
 
-    if tab_index == 2:
-
+    with tab3:
+       
         platform_logs = get_logs(platform_admin_tenant)
         
         extracted_logs = []

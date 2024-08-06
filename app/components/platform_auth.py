@@ -68,11 +68,8 @@ def signout_button():
 
     if st.button('Sign out', use_container_width=True):
         cookie_manager.delete(auth0_cookie_name)
-        del st.session_state.access_token
         st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{domain}\'" />', unsafe_allow_html=True) 
         
-
-
 def auth_init(authorization_code):
     
     if authorization_code != None:
@@ -101,8 +98,10 @@ def auth_init(authorization_code):
             if not is_index(st.session_state['tenant_id'], 'platform_'+st.session_state['tenant_id']+'_files'):
                 create_tenant_files(st.session_state['tenant_id'])
 
-            cookie_value = f"{access_token}|{st.session_state['tenant_id']}"
+            cookie_value = f"{st.session_state['tenant_id']}"
             cookie_manager.set(auth0_cookie_name, cookie_value)
+
+            return st.session_state['tenant_id']
 
 def set_tenant_role():
     roles = st.session_state['tenant_doc']['roles']
