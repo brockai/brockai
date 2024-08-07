@@ -5,7 +5,6 @@ import random
 from captcha.image import ImageCaptcha
 from helpers.markdown import platform_intro, discord
 from helpers.config import mailgun
-from helpers.antd_utils import show_space
 
 def is_valid_email(email):
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -34,7 +33,6 @@ def platform_signup():
     captcha_input = None
 
     with col3:
-        show_space(3)
         st.markdown('<p style="text-align: justify; font-size: 12px;">CAPTCHAs are active to prevent automated submissions. <br> Thank you for your understanding.</p>', unsafe_allow_html=True)
         captcha_placeholder = st.empty()
         captcha_placeholder.image(captcha_image, use_column_width=True)
