@@ -71,7 +71,7 @@ with col1:
     with open('styles.css') as f:
         st.markdown(
             f'<style>{f.read()}</style>'
-            +"""<img src="app/static/brockailogo32.png" height="48" alt="Platform">"""
+            +"""<img src="app/static/brockailogo.png" height="48" alt="Platform">"""
             , unsafe_allow_html=True
         ) 
 with col2:
@@ -86,37 +86,50 @@ pageCol = st.columns([12])
 # icons=["app-indicator", "shield-check", "chat-dots", "layers"],
 selected = option_menu(
     menu_title=None,
-    options=["Apps", "Regulatory Compliancy", "Platform"],
-    icons=["app-indicator", "shield-check",  "layers"],
+    options=["Apps", "Regulatory Compliancy", "Contact", "Platform"],
+    icons=["app-indicator", "shield-check",  "person", "layers" ],
     orientation="horizontal",
 )
 
-
 # Display content based on the selected tab
 if selected == "Apps":
-    
-    hasClicked = card(
-        title="Mobile Fuel Delivery",
-        text="Click to Learn More",
-        # image="http://placekitten.com/200/300",
-        url="https://github.com/brockai#apps"
-    )
+    col1, col2 = st.columns([6, 6], gap="medium")
 
-    # st.link_button("Birch Mountain Enterprises Fuel", "https://bme.brockai.com/")
-    st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
-    st.markdown('''
-        - **Frontend:** React/NextJS/TailwindCSS/Streamlit
-        - **Server:** NodeJS/Geotab
-        - **Database:** OpenSearch
-        ''', unsafe_allow_html=True)
-    
-    st.link_button("Learn More", "https://github.com/brockai/brockai/wiki")
-   
-    st.markdown('<h5>Future-proof AI applications with OpenSearch</h5>', unsafe_allow_html=True)
+    with col1:
 
-    st.link_button("Learn More", "https://opensearch.org/platform/search/vector-database.html")
-    st.subheader('Contact')
-    platform_signup()
+        cola, colb = st.columns([6, 6], gap="medium")
+
+        with cola:
+            st.markdown('''
+                <a href="https://github.com/brockai#apps" target="_blank">
+                <img src="app/static/bmellogo.jpg" alt="Fuel Delivery App" height="115">
+                </a>
+                <br><br>
+                ''', unsafe_allow_html=True)
+            st.link_button("Mobile Fuel Delivery - Learn More", "https://github.com/brockai#apps")
+
+        with colb:  
+            st.markdown('''
+                <img src="app/static/brockailogo.png" height="85" alt="Platform">
+                <p>AI and machine learning to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
+                ''', unsafe_allow_html=True)
+            st.link_button("Regulatory Compliance - Learn More", "https://github.com/brockai/regcheck")
+        
+        
+    with col2:
+        st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
+        st.markdown('''
+            - **Frontend:** React/NextJS/TailwindCSS/Streamlit
+            - **Server:** NodeJS
+            - **Database:** OpenSearch
+            - **Integration:** Geotab
+            - **Security & Authentication:** Auth0
+            ''', unsafe_allow_html=True)
+
+        st.link_button("Future-proof your app with AI from OpenSearch - Learn More", "https://opensearch.org/platform/search/vector-database.html")
+
+        st.link_button("Learn More", "https://github.com/brockai/brockai/wiki")
+
 
 elif selected == "Regulatory Compliancy":
     regcheck()
@@ -138,6 +151,9 @@ elif selected == "Platform":
     if 'tenant_id' not in st.session_state:
         st.text('Please Sign In')
 
+elif selected == "Contact":
+    st.subheader('Contact')
+    platform_signup()
 
 # tab1, tab2, tab3, tab4 = st.tabs(["Apps", "Regulatory Compliancy", "Chat", "Platform"])
 
