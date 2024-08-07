@@ -12,7 +12,7 @@ This repo is used to build out Machine Learning (ML) and Artificial Intelligence
 
 ## <a href="https://github.com/brockai/brockai/wiki" target="_blank">ML/AI Research Wiki</a>
 
-[Apps](#apps)
+## [Apps](#apps)
 
 ### Birch Mountain Enterprises Fuel Delivery
 
