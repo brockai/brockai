@@ -13,6 +13,8 @@ from services.tenant_service import get_tenant_doc
 from helpers.config import auth0_cookie_name, platform_admin_tenant
 from helpers.markdown import opensearch_platform_button
 from streamlit_extras.tags import tagger_component
+from streamlit_option_menu import option_menu
+
 
 params = st.query_params.to_dict()
 
@@ -78,18 +80,50 @@ with col2:
         signout_button()
 
 pageCol = st.columns([12])
-tab1, tab2, tab3, tab4 = st.tabs(["AI Prototype's", "Regulatory Compliancy", "Chat", "Platform"])
 
-with tab1:
+if 'selected_tab' not in st.session_state:
+    st.session_state.selected_tab = 'Apps'
+
+def update_tab(selected):
+    st.session_state.selected_tab = selected
+
+# Create tabs with icons and update session state
+selected = option_menu(
+    menu_title=None,  # required
+    options=["Apps", "Regulatory Compliancy", "Chat", "Platform"],  # required
+    icons=["app-indicator", "shield-check", "chat-dots", "layers"],  # required (choose appropriate icons)
+    menu_icon="cast",  # optional
+    default_index=0,  # optional
+    orientation="horizontal",
+    on_change=lambda: update_tab(selected)
+)
+
+# Update the selected tab in session state
+st.session_state.selected_tab = selected
+
+# Display content based on the selected tab
+if st.session_state.selected_tab == "Apps":
+    st.link_button("Birch Mountain Enterprises Fuel Delivery App", "https://bme.brockai.com/")
+    st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
+    st.markdown('''
+        - **Frontend:** React/NextJS/TailwindCSS/Streamlit
+        - **Server:** NodeJS/Geotab
+        - **Database:** OpenSearch
+        ''', unsafe_allow_html=True)
+   
+    st.markdown('<h5>Future-proof AI applications with OpenSearch</h5>', unsafe_allow_html=True)
+
+    st.link_button("Learn More", "https://opensearch.org/platform/search/vector-database.html")
+    st.subheader('Contact')
     platform_signup()
 
-with tab2:
+if st.session_state.selected_tab == "Regulatory Compliancy":
     regcheck()
-    
-with tab3:
+
+if st.session_state.selected_tab == "Chat":
     chat()
 
-with tab4:
+if st.session_state.selected_tab == "Platform":
     col1, col2 = st.columns([10, 2], gap="medium")
     with col1:
         tagger_component('OpenSearch', [health, version])
@@ -101,6 +135,43 @@ with tab4:
     
     if 'tenant_id' not in st.session_state:
         st.text('Please Sign In')
+
+
+# tab1, tab2, tab3, tab4 = st.tabs(["Apps", "Regulatory Compliancy", "Chat", "Platform"])
+
+# with tab1:
+#     st.link_button("Birch Mountain Enterprises Fuel Delivery App", "https://bme.brockai.com/")
+#     st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
+#     st.markdown('''
+#         - **Frontend:** React/NextJS/TailwindCSS/Streamlit
+#         - **Server:** NodeJS/Geotab
+#         - **Database:** OpenSearch
+#         ''', unsafe_allow_html=True)
+   
+#     st.markdown('<h5>Future-proof AI applications with OpenSearch</h5>', unsafe_allow_html=True)
+
+#     st.link_button("Learn More", "https://opensearch.org/platform/search/vector-database.html")
+#     st.subheader('Contact')
+#     platform_signup()
+
+# with tab2:
+#     regcheck()
+    
+# with tab3:
+#     chat()
+
+# with tab4:
+#     col1, col2 = st.columns([10, 2], gap="medium")
+#     with col1:
+#         tagger_component('OpenSearch', [health, version])
+#     with col2:
+#         st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+
+#     if 'tenant_id' in st.session_state:
+#         platform_admin()
+    
+#     if 'tenant_id' not in st.session_state:
+#         st.text('Please Sign In')
 
 
 
