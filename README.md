@@ -2,7 +2,7 @@
 
 Hi I'm Brock,
 
-This repo is used to build out Machine Learning (ML) and Artificial Intelligence (AI) prototypes that can be added to desktop and mobile apps. You can see it in action at brockai.com.
+This repo is used to build out Machine Learning (ML) and Artificial Intelligence (AI) prototypes that can be added to desktop and mobile apps. You can see it in action at <a href="https://brockai.com" target="_blank">brockai.com</a>.
 
 ## Our Stack
 - Frontend: React/NextJS/TailwindCSS/Streamlit
