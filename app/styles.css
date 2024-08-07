@@ -103,3 +103,7 @@ a:active {
       text-decoration: none;
   }
 }
+
+.stTabs {
+  height: 400px; /* Adjust the height as desired */
+}

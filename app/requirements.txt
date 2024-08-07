@@ -7,8 +7,6 @@ captcha
 python-dotenv
 streamlit-extras
 extra_streamlit_components
-streamlit_option_menu
-streamlit-card
 Authlib
 boto3
 opensearch-py

@@ -22,18 +22,18 @@ def chat():
         else:
             st.chat_message(msg["role"]).write(msg["content"])
             
-    # if prompt := st.chat_input():
-    #     if not openaikey:
-    #         st.info("Please add your OpenAI API key to continue.")
-    #         st.stop()
+    if prompt := st.chat_input():
+        if not openaikey:
+            st.info("Please add your OpenAI API key to continue.")
+            st.stop()
 
-    #     st.session_state.messages_bot.append({"role": "user", "content": prompt})
-    #     st.chat_message("user").write(prompt)
+        st.session_state.messages_bot.append({"role": "user", "content": prompt})
+        st.chat_message("user").write(prompt)
             
-    #     response = client.chat.completions.create(model=st.session_state.openai_model, messages=st.session_state.messages_bot)
-    #     msg = response.choices[0].message.content
+        response = client.chat.completions.create(model=st.session_state.openai_model, messages=st.session_state.messages_bot)
+        msg = response.choices[0].message.content
             
-    #     st.session_state.messages_bot.append({"role": "assistant", "content": msg})
-    #     st.chat_message("assistant",avatar="🤖").write(msg)
+        st.session_state.messages_bot.append({"role": "assistant", "content": msg})
+        st.chat_message("assistant",avatar="🤖").write(msg)
 
    

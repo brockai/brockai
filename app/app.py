@@ -13,9 +13,8 @@ from services.tenant_service import get_tenant_doc
 from helpers.config import auth0_cookie_name, platform_admin_tenant
 from helpers.markdown import opensearch_platform_button
 from streamlit_extras.tags import tagger_component
-from streamlit_option_menu import option_menu
+
 from openai import OpenAI
-from streamlit_card import card
 
 params = st.query_params.to_dict()
 
@@ -82,17 +81,9 @@ with col2:
 
 pageCol = st.columns([12])
 
-# options=["Apps", "Regulatory Compliancy", "Chat", "Platform"],
-# icons=["app-indicator", "shield-check", "chat-dots", "layers"],
-selected = option_menu(
-    menu_title=None,
-    options=["Apps", "Regulatory Compliancy", "Contact", "Platform"],
-    icons=["app-indicator", "shield-check",  "person", "layers" ],
-    orientation="horizontal",
-)
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Apps", "Regulatory Compliancy", "Chat", "Contact", "Platform"])
 
-# Display content based on the selected tab
-if selected == "Apps":
+with tab1:
     col1, col2 = st.columns([6, 6], gap="medium")
 
     with col1:
@@ -110,7 +101,7 @@ if selected == "Apps":
 
         with colb:  
             st.markdown('''
-                <img src="app/static/brockailogo.png" height="85" alt="Platform">
+                <img src="app/static/brockailogo.png" height="70" alt="Platform">
                 <p>AI and machine learning to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
                 ''', unsafe_allow_html=True)
             st.link_button("Regulatory Compliance - Learn More", "https://github.com/brockai/regcheck")
@@ -130,15 +121,17 @@ if selected == "Apps":
 
         st.link_button("Learn More", "https://github.com/brockai/brockai/wiki")
 
-
-elif selected == "Regulatory Compliancy":
+with tab2:
     regcheck()
 
-# elif selected == "Chat":
-#     st.title("Chat")
-#     chat()
+with tab3:
+    chat()
 
-elif selected == "Platform":
+with tab4:
+    st.subheader('Contact')
+    platform_signup()
+
+with tab5:
     col1, col2 = st.columns([10, 2], gap="medium")
     with col1:
         tagger_component('OpenSearch', [health, version])
@@ -150,46 +143,6 @@ elif selected == "Platform":
     
     if 'tenant_id' not in st.session_state:
         st.text('Please Sign In')
-
-elif selected == "Contact":
-    st.subheader('Contact')
-    platform_signup()
-
-# tab1, tab2, tab3, tab4 = st.tabs(["Apps", "Regulatory Compliancy", "Chat", "Platform"])
-
-# with tab1:
-#     st.link_button("Birch Mountain Enterprises Fuel Delivery App", "https://bme.brockai.com/")
-#     st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
-#     st.markdown('''
-#         - **Frontend:** React/NextJS/TailwindCSS/Streamlit
-#         - **Server:** NodeJS/Geotab
-#         - **Database:** OpenSearch
-#         ''', unsafe_allow_html=True)
-   
-#     st.markdown('<h5>Future-proof AI applications with OpenSearch</h5>', unsafe_allow_html=True)
-
-#     st.link_button("Learn More", "https://opensearch.org/platform/search/vector-database.html")
-#     st.subheader('Contact')
-#     platform_signup()
-
-# with tab2:
-#     regcheck()
-    
-# with tab3:
-#     chat()
-
-# with tab4:
-#     col1, col2 = st.columns([10, 2], gap="medium")
-#     with col1:
-#         tagger_component('OpenSearch', [health, version])
-#     with col2:
-#         st.markdown(opensearch_platform_button, unsafe_allow_html=True)
-
-#     if 'tenant_id' in st.session_state:
-#         platform_admin()
-    
-#     if 'tenant_id' not in st.session_state:
-#         st.text('Please Sign In')
 
 
 
