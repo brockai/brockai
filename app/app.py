@@ -91,6 +91,10 @@ with tab1:
         cola, colb = st.columns([6, 6], gap="medium")
 
         with cola:
+            st.markdown("""
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+                """, unsafe_allow_html=True)
+            
             st.markdown('''
                 <a href="https://github.com/brockai#apps" target="_blank">
                 <img src="app/static/bmellogo.jpg" alt="Fuel Delivery App" height="115">
@@ -99,14 +103,28 @@ with tab1:
                 ''', unsafe_allow_html=True)
             st.link_button("Mobile Fuel Delivery - Learn More", "https://github.com/brockai#apps")
 
+            st.markdown('''
+                <i class="bi bi-patch-check" style="color: green; margin-left: 10px; font-size: 24px;"></i>
+                <span style="font-size: 24px; color: white;">Sponsor</span>
+                <div><a href="https://bmel.ca/" target="_blank">
+                    <img src="app/static/bmellogo.jpg" alt="Birch Mountain Enterprisesr" height="45">
+                </a></div>
+                ''', unsafe_allow_html=True)
+
         with colb:  
             st.markdown('''
-                <img src="app/static/brockailogo.png" height="70" alt="Platform">
+                <img src="app/static/brockailogo.png" height="85" alt="Platform">
                 <p>AI and machine learning to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
                 ''', unsafe_allow_html=True)
             st.link_button("Regulatory Compliance - Learn More", "https://github.com/brockai/regcheck")
         
-        
+            st.markdown('''
+                <i class="bi bi-patch-check" style="color: green; margin-left: 10px; font-size: 24px;"></i> 
+                <span style="font-size: 24px; color: white;">Sponsor</span>
+                <div><a href="https://rumzer.com" target="_blank">
+                    <img src="app/static/rumzerlogo.png" alt="Rumzer" height="35">
+                </a></div>
+                ''', unsafe_allow_html=True)
     with col2:
         st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
         st.markdown('''
@@ -119,7 +137,7 @@ with tab1:
 
         st.link_button("Future-proof your app with AI from OpenSearch - Learn More", "https://opensearch.org/platform/search/vector-database.html")
 
-        st.link_button("Learn More", "https://github.com/brockai/brockai/wiki")
+        st.link_button("Visit our Wiki - Learn More", "https://github.com/brockai/brockai/wiki")
 
 with tab2:
     regcheck()
