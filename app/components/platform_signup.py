@@ -46,7 +46,7 @@ def platform_signup():
 
     with col1:
         
-        st.markdown('<h4>Send us a note about your prototype idea</h4>', unsafe_allow_html=True)
+        st.markdown('<h4>Send us a note about your Prototype idea</h4>', unsafe_allow_html=True)
         with st.form("contact_form", clear_on_submit=True):
             email = st.text_input("**Your email***")
             message = st.text_area("**Your message***")

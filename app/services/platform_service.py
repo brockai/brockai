@@ -4,7 +4,7 @@ from datetime import datetime
 from helpers.config import client
 from services.shared_service import platform_log, post_platform_doc
 
-from services.mappings import match_all_query, models, default_index_settings, admin_role, pipelines, files_mappings, logs_mappings
+from services.mappings import match_all_query, models, default_index_settings, admin_role, pipelines, files_mappings, logs_mappings, match_tenant_files_query
     
 def put_platform_doc(index, doc_id, data): 
 
@@ -160,4 +160,15 @@ def create_tenant_files(tenant_id):
     except Exception as e:
         error_message = str(e)
         platform_log('error', 'create tenant files failed:'+error_message, 'platform_service', tenant_id)
+        return e
+
+def get_platform_files(tenant_id):
+     
+    try:
+        response = client.search(body=match_tenant_files_query, index='platform_'+tenant_id+'_files', size=100)
+        return response
+       
+    except Exception as e:
+        error_message = str(e)
+        platform_log('error', 'get platform settings failed: '+error_message, 'platform_service',  tenant_id)
         return e

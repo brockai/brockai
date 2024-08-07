@@ -1,10 +1,11 @@
 def platform_admin():
     import streamlit as st
     import pandas as pd
-    import streamlit_antd_components as sac
+    # from streamlit_extras.badges import badge
+    from streamlit_extras.tags import tagger_component
 
     from helpers.antd_utils import show_space
-    from services.platform_service import get_platform_tenants, get_platform_settings, get_logs, put_platform_doc
+    from services.platform_service import get_platform_tenants, get_platform_settings, get_logs, put_platform_doc, get_platform_files
     from services.tenant_service import get_tenant_doc
     from helpers.config import platform_admin_tenant 
 
@@ -32,46 +33,36 @@ def platform_admin():
     tenant_email = tenant_properties['email']
     tenant_roles = tenant_properties['roles']['roles']
 
-    tab1, tab2, tab3 = st.tabs(["Platform Setting", "Profile", "Platform Logs"])
-
+    tab1, tab2, tab3 = st.tabs(["Tenant Data", "Profile", "Logs"])
+    
     with tab1:
-        role_chip_items = []
-        for role in platform_roles['roles']:
-            role_chip_items.append(sac.ChipItem(label=role['name'], icon='people'))
-
-        model_chip_items = []
-        for model in platform_models:
-            model_chip_items.append(sac.ChipItem(label=model['name'], icon='box'))
-
-        pipeline_chip_items = []
-        for pipeline in platform_pipelines:
-            pipeline_chip_items.append(sac.ChipItem(label=pipeline['name'], icon='building-gear'))
-
-        tenant_chip_items = []
-        for tenant in platform_tenants:
-            tenant_chip_items.append(sac.ChipItem(label=tenant, icon='vector-pen'))
-
-        col1, col2, col3, col4, col5 =  st.columns([2, 0.25, 4, 0.25, 4])
+        col1, col2, col3, col4, col5, col6, col7 =  st.columns([3, 0.33, 2, 0.33, 4, 0.33, 3])
 
         with col1:
-            sac.chip(
-                role_chip_items, label='Roles', align='left', radius='md', variant='outline'
+            flattened = [item for item in platform_tenants]
+            option = st.selectbox(
+                "Tenants",
+                (flattened),
             )
-
+            st.write("You selected:", option)
+            if option:
+                platform_files = get_platform_files(platform_admin_tenant)
+                st.write(platform_files)
+           
         with col3:
-            sac.chip(
-                model_chip_items, label='Models', align='left', radius='md', variant='outline'
-            )
-
+            st.text("Roles")
+            flattened = [item["name"] for item in tenant_roles]
+            tagger_component('', flattened)
+           
         with col5:
-            sac.chip(
-                pipeline_chip_items, label='Pipelines', align='left', radius='md', variant='outline'
-            )
+            st.text("Models")
+            flattened = [item["name"] for item in platform_models]
+            tagger_component('', flattened)
 
-        show_space(1)
-        sac.chip(
-            tenant_chip_items, label='Tenants', align='left', radius='md', variant='outline'
-        )
+        with col7:
+            st.text("Pipelines")
+            flattened = [item["name"] for item in platform_pipelines]
+            tagger_component('', flattened)
 
     with tab2:
             
@@ -128,4 +119,4 @@ def platform_admin():
 
         st.write(pd.json_normalize(extracted_logs))
         
-            
+

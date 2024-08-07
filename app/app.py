@@ -1,5 +1,5 @@
 import streamlit as st
-import streamlit_antd_components as sac 
+# import streamlit_antd_components as sac 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
 from components.platform_auth import auth_init, cookie_manager, set_tenant_role, signin_button, signout_button
@@ -7,7 +7,7 @@ from components.platform_signup import platform_signup
 from components.regcheck import regcheck
 from components.chat import chat
 from components.platform_admin import platform_admin
-from components.platform_navigation import navigation, prototype_navigation
+# from components.platform_navigation import navigation, prototype_navigation
 
 from services.shared_service import check_opensearch_health, is_index
 from services.tenant_service import get_tenant_doc
@@ -15,6 +15,7 @@ from services.tenant_service import get_tenant_doc
 from helpers.antd_utils import show_space
 from helpers.config import auth0_cookie_name, platform_admin_tenant
 from helpers.markdown import opensearch_platform_button
+from streamlit_extras.tags import tagger_component
 
 params = st.query_params.to_dict()
 
@@ -80,50 +81,30 @@ with col2:
         signout_button()
 
 pageCol = st.columns([12])
-tab1, tab2, tab3, tab4 = st.tabs(["AI Proto Types", "Regulatory Compliancy", "Chat", "Platform"])
+tab1, tab2, tab3, tab4 = st.tabs(["AI Prototype's", "Regulatory Compliancy", "Chat", "Platform"])
 
 with tab1:
-    navigation('60 - 90 Day AI Proto Types', 'rocket', None)
     platform_signup()
 
 with tab2:
     regcheck()
     
 with tab3:
-    # navigation('General Purpose Chatbot', 'chat-left-text', 'Prototype')
     chat()
 
 with tab4:
-    navigation('brockai Platform Services', 'chat-left-text', None)
+    col1, col2 = st.columns([10, 2], gap="medium")
+    with col1:
+        tagger_component('OpenSearch', [health, version])
+    with col2:
+        st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+
     if 'tenant_id' in st.session_state:
         platform_admin()
-
-    st.write('Platform Database')
-    st.markdown(opensearch_platform_button, unsafe_allow_html=True)
-    show_space(1)
     
-    sac.chip(
-        items=[
-            sac.ChipItem(label=health),
-            sac.ChipItem(label=version),
-        ], variant='outline', size='xs', radius="md")
+    if 'tenant_id' not in st.session_state:
+        st.text('Please Sign In')
 
-
-footer = """
-    <style>
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px;
-    }
-    </style>
-    <div class="footer">
-        <p>Footer content goes here. &copy; 2024</p>
-    </div>
-"""
 
 
 

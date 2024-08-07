@@ -5,6 +5,14 @@ match_all_query = {
     "size": 1000
 }
 
+match_tenant_files_query = {
+    "query": {
+        "match_all": {}
+    },
+    "_source": ["file_name", "file_size"],
+    "size": 100
+}
+
 file_query = {
     "query": {
         "ids": {

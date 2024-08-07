@@ -5,7 +5,7 @@ scipy
 tiktoken
 captcha
 python-dotenv
-streamlit-antd-components
+streamlit-extras
 extra_streamlit_components
 Authlib
 boto3
