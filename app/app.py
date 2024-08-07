@@ -14,7 +14,8 @@ from helpers.config import auth0_cookie_name, platform_admin_tenant
 from helpers.markdown import opensearch_platform_button
 from streamlit_extras.tags import tagger_component
 from streamlit_option_menu import option_menu
-
+from openai import OpenAI
+from streamlit_card import card
 
 params = st.query_params.to_dict()
 
@@ -81,35 +82,35 @@ with col2:
 
 pageCol = st.columns([12])
 
-if 'selected_tab' not in st.session_state:
-    st.session_state.selected_tab = 'Apps'
-
-def update_tab(selected):
-    st.session_state.selected_tab = selected
-
-# Create tabs with icons and update session state
+# options=["Apps", "Regulatory Compliancy", "Chat", "Platform"],
+# icons=["app-indicator", "shield-check", "chat-dots", "layers"],
 selected = option_menu(
-    menu_title=None,  # required
-    options=["Apps", "Regulatory Compliancy", "Chat", "Platform"],  # required
-    icons=["app-indicator", "shield-check", "chat-dots", "layers"],  # required (choose appropriate icons)
-    menu_icon="cast",  # optional
-    default_index=0,  # optional
+    menu_title=None,
+    options=["Apps", "Regulatory Compliancy", "Platform"],
+    icons=["app-indicator", "shield-check",  "layers"],
     orientation="horizontal",
-    on_change=lambda: update_tab(selected)
 )
 
-# Update the selected tab in session state
-st.session_state.selected_tab = selected
 
 # Display content based on the selected tab
-if st.session_state.selected_tab == "Apps":
-    st.link_button("Birch Mountain Enterprises Fuel Delivery App", "https://bme.brockai.com/")
+if selected == "Apps":
+    
+    hasClicked = card(
+        title="Mobile Fuel Delivery",
+        text="Click to Learn More",
+        # image="http://placekitten.com/200/300",
+        url="https://github.com/brockai"
+    )
+
+    # st.link_button("Birch Mountain Enterprises Fuel", "https://bme.brockai.com/")
     st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
     st.markdown('''
         - **Frontend:** React/NextJS/TailwindCSS/Streamlit
         - **Server:** NodeJS/Geotab
         - **Database:** OpenSearch
         ''', unsafe_allow_html=True)
+    
+    st.link_button("Learn More", "https://github.com/brockai/brockai/wiki")
    
     st.markdown('<h5>Future-proof AI applications with OpenSearch</h5>', unsafe_allow_html=True)
 
@@ -117,13 +118,14 @@ if st.session_state.selected_tab == "Apps":
     st.subheader('Contact')
     platform_signup()
 
-if st.session_state.selected_tab == "Regulatory Compliancy":
+elif selected == "Regulatory Compliancy":
     regcheck()
 
-if st.session_state.selected_tab == "Chat":
-    chat()
+# elif selected == "Chat":
+#     st.title("Chat")
+#     chat()
 
-if st.session_state.selected_tab == "Platform":
+elif selected == "Platform":
     col1, col2 = st.columns([10, 2], gap="medium")
     with col1:
         tagger_component('OpenSearch', [health, version])
