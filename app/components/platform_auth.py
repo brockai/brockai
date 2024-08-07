@@ -1,6 +1,5 @@
 import requests
 import streamlit as st
-import streamlit_antd_components as sac
 import extra_streamlit_components as stx
 
 from services.shared_service import is_index

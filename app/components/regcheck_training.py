@@ -3,12 +3,10 @@ def regcheck_training():
     import streamlit as st
     import pandas as pd
     from io import StringIO
-    import streamlit_antd_components as sac
     
     from datetime import datetime
     from services.tenant_service import get_tenant_files, get_tenant_file
     from components.platform_auth import signin_button
-    from helpers.antd_utils import show_space
 
     st.markdown(
         f'<style>.df .col-Name {{max-width: 100%;}}</style>', 

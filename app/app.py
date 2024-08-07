@@ -1,5 +1,4 @@
 import streamlit as st
-# import streamlit_antd_components as sac 
 st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
 
 from components.platform_auth import auth_init, cookie_manager, set_tenant_role, signin_button, signout_button
@@ -7,12 +6,10 @@ from components.platform_signup import platform_signup
 from components.regcheck import regcheck
 from components.chat import chat
 from components.platform_admin import platform_admin
-# from components.platform_navigation import navigation, prototype_navigation
 
 from services.shared_service import check_opensearch_health, is_index
 from services.tenant_service import get_tenant_doc
 
-from helpers.antd_utils import show_space
 from helpers.config import auth0_cookie_name, platform_admin_tenant
 from helpers.markdown import opensearch_platform_button
 from streamlit_extras.tags import tagger_component
