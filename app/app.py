@@ -3,9 +3,9 @@ st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./
 
 from components.platform_auth import auth_init, cookie_manager, set_tenant_role, signin_button, signout_button
 from components.platform_signup import platform_signup
-from components.regcheck import regcheck
 from components.chat import chat
 from components.platform_admin import platform_admin
+from components.bomai import bomai
 
 from services.shared_service import check_opensearch_health, is_index
 from services.tenant_service import get_tenant_doc
@@ -13,8 +13,6 @@ from services.tenant_service import get_tenant_doc
 from helpers.config import auth0_cookie_name, platform_admin_tenant
 from helpers.markdown import opensearch_platform_button
 from streamlit_extras.tags import tagger_component
-
-from openai import OpenAI
 
 params = st.query_params.to_dict()
 
@@ -70,7 +68,7 @@ with col1:
     with open('styles.css') as f:
         st.markdown(
             f'<style>{f.read()}</style>'
-            +"""<img src="app/static/brockailogo.png" height="48" alt="Platform">"""
+            +"""<img src="app/static/brockailogo.png" height="65" alt="Platform">"""
             , unsafe_allow_html=True
         ) 
 with col2:
@@ -81,50 +79,49 @@ with col2:
 
 pageCol = st.columns([12])
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Apps", "Regulatory Compliancy", "Chat", "Contact", "Platform"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["📱 Apps", "🚀 BOM Check AI", "💬 Chat", "👥 Contact", "☁️ Platform"])
 
 with tab1:
-    col1, col2 = st.columns([6, 6], gap="medium")
+    col1, col2 = st.columns([8, 4], gap="large")
 
     with col1:
 
-        cola, colb = st.columns([6, 6], gap="medium")
+        cola, colb = st.columns([6, 6], gap="large")
 
         with cola:
-            st.markdown("""
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
-                """, unsafe_allow_html=True)
-            
             st.markdown('''
-                <a href="https://github.com/brockai#apps" target="_blank">
-                <img src="app/static/bmellogo.jpg" alt="Fuel Delivery App" height="115">
-                </a>
-                <br><br>
+                <div style="display: inline-flex; align-items: center;">
+                <img src="app/static/brockai.png" height="55" alt="Platform" style="margin-right: 10px;">
+                <span style="color: red; font-size: 24px;">Mobile Fuel Delivery</span>
+                </div>
+                <p>Full featured mobile bulk fuel delivery with geotab integration</p>
                 ''', unsafe_allow_html=True)
             st.link_button("Mobile Fuel Delivery - Learn More", "https://github.com/brockai#apps")
 
             st.markdown('''
-                <i class="bi bi-patch-check" style="color: green; margin-left: 10px; font-size: 24px;"></i>
-                <span style="font-size: 24px; color: white;">Sponsor</span>
+                <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
                 <div><a href="https://bmel.ca/" target="_blank">
-                    <img src="app/static/bmellogo.jpg" alt="Birch Mountain Enterprisesr" height="45">
+                    <img src="app/static/bmellogo.jpg" alt="Birch Mountain Enterprisesr" height="75">
                 </a></div>
                 ''', unsafe_allow_html=True)
-
+            
         with colb:  
             st.markdown('''
-                <img src="app/static/brockailogo.png" height="85" alt="Platform">
+                <div style="display: inline-flex; align-items: center;">
+                <img src="app/static/brockai.png" height="55" alt="Platform" style="margin-right: 10px;">
+                <span style="color: red; font-size: 24px;">BOM Check AI</span>
+                </div>
                 <p>AI and machine learning to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
                 ''', unsafe_allow_html=True)
-            st.link_button("Regulatory Compliance - Learn More", "https://github.com/brockai/regcheck")
+            st.link_button("BOM Check AI - Learn More", "https://github.com/brockai/bomai")
         
             st.markdown('''
-                <i class="bi bi-patch-check" style="color: green; margin-left: 10px; font-size: 24px;"></i> 
-                <span style="font-size: 24px; color: white;">Sponsor</span>
+                <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
                 <div><a href="https://rumzer.com" target="_blank">
-                    <img src="app/static/rumzerlogo.png" alt="Rumzer" height="35">
+                    <img src="app/static/rumzerlogo.png" alt="Rumzer" height="55">
                 </a></div>
                 ''', unsafe_allow_html=True)
+            
     with col2:
         st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
         st.markdown('''
@@ -140,7 +137,7 @@ with tab1:
         st.link_button("Visit our Wiki - Learn More", "https://github.com/brockai/brockai/wiki")
 
 with tab2:
-    regcheck()
+    bomai()
 
 with tab3:
     chat()
