@@ -9,7 +9,7 @@ def bomai():
     st.markdown(
         """
         <div className="iframe-container">
-        <iframe className="responsive-iframe" src={url}" width="100%" height="100vh" style="border:none;"></iframe>
+        <iframe className="responsive-iframe" src=https://bomai.brockai.com" width="100%" height="100vh" style="border:none;"></iframe>
         </div>
         """,
         unsafe_allow_html=True
