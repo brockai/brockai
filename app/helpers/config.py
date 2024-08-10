@@ -25,6 +25,7 @@ opensearch_platform = os.getenv("OPENSEARCH_PLATFORM")
 opensearch_user = os.getenv("OPENSEARCH_USER")
 opensearch_password = os.getenv("OPENSEARCH_PASSWORD")
 platform_admin_tenant = os.getenv("PLATFORM_ADMIN_TENANT")
+bomai_url = os.getenv("BOMI_URL")
 
 scope = "openid profile email"
 response_type = "code" 
