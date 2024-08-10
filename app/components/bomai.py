@@ -3,7 +3,7 @@ def bomai():
 
     from helpers.config import bomai_url
     
-    tenant_id = st.session_state['tenant_id']
+    tenant_id = 'bclayton403'
     url = f"{bomai_url}?id={tenant_id}"
 
     st.markdown(
