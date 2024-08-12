@@ -79,7 +79,7 @@ with col2:
 
 pageCol = st.columns([12])
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["📱 Apps", "🚀 BOM Check AI", "💬 Chat", "👥 Contact", "☁️ Platform"])
+tab1, tab2, tab3, tab4 = st.tabs(["📱 Apps", "💬 Chat", "👥 Contact", "☁️ Platform"])
 
 with tab1:
     col1, col2 = st.columns([8, 4], gap="large")
@@ -91,7 +91,6 @@ with tab1:
         with cola:
             st.markdown('''
                 <div style="display: inline-flex; align-items: center;">
-                <img src="app/static/brockai.png" height="55" alt="Platform" style="margin-right: 10px;">
                 <span style="color: red; font-size: 24px;">Mobile Fuel Delivery</span>
                 </div>
                 <p>Full featured mobile bulk fuel delivery with geotab integration</p>
@@ -108,12 +107,11 @@ with tab1:
         with colb:  
             st.markdown('''
                 <div style="display: inline-flex; align-items: center;">
-                <img src="app/static/brockai.png" height="55" alt="Platform" style="margin-right: 10px;">
                 <span style="color: red; font-size: 24px;">BOM Check AI</span>
                 </div>
                 <p>AI and machine learning to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
                 ''', unsafe_allow_html=True)
-            st.link_button("BOM Check AI - Learn More", "https://github.com/brockai/bomai")
+            st.link_button("BOM Check AI - Learn More", "https://bomai.brockai.com")
         
             st.markdown('''
                 <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
@@ -137,21 +135,19 @@ with tab1:
         st.link_button("Visit our Wiki - Learn More", "https://github.com/brockai/brockai/wiki")
 
 with tab2:
-    bomai()
-
-with tab3:
     chat()
 
-with tab4:
+with tab3:
     st.subheader('Contact')
     platform_signup()
 
-with tab5:
+with tab4:
     col1, col2 = st.columns([10, 2], gap="medium")
     with col1:
-        tagger_component('OpenSearch', [health, version])
+        ""
     with col2:
         st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+        # tagger_component('',[health, version])
 
     if 'tenant_id' in st.session_state:
         platform_admin()
