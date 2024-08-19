@@ -27,5 +27,3 @@ There are two audiences, Drivers and Administrators. Drivers are concerened with
 [20.07.2024 14_23.webm](https://github.com/user-attachments/assets/2ffad4b5-ec0d-44a9-a00f-5b1dfebec8b6)
 
 <a href="https://bme.brockai.com" target="_blank">Birch Mountain Entrprises Fuel Delivery</a>
-
-## Prototypes
