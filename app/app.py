@@ -1,5 +1,5 @@
 import streamlit as st
-st.set_page_config(layout="wide", page_title="brockai - Platform", page_icon="./static/brockai.png") 
+st.set_page_config(layout="wide", page_title="brockai", page_icon="./static/brockai.png") 
 
 from components.platform_auth import auth_init, cookie_manager, set_tenant_role, signin_button, signout_button
 from components.platform_signup import platform_signup
@@ -62,20 +62,27 @@ if cookie:
 
 health, version = check_opensearch_health()
 
-col1, col2 = st.columns([9, 3], gap="medium")
+# col1, col2 = st.columns([9, 3], gap="medium")
+# with col1:
+with open('styles.css') as f:
+    st.markdown(
+        f'<style>{f.read()}</style>'
+        +"""<img src="app/static/brockailogo.png" height="65" alt="Platform">"""
+        , unsafe_allow_html=True
+    ) 
 
-with col1:
-    with open('styles.css') as f:
-        st.markdown(
-            f'<style>{f.read()}</style>'
-            +"""<img src="app/static/brockailogo.png" height="65" alt="Platform">"""
-            , unsafe_allow_html=True
-        ) 
-with col2:
-    if 'tenant_id' not in st.session_state:
-        signin_button()
-    else:
-        signout_button()
+st.markdown('''
+    <div style="display: inline-flex; align-items: center;">
+    <span style="color: red; font-size: 24px;">AI prototypes for desktop and mobile apps</span>
+    </div>
+    <p>Got an idea for an AI powered app? Have an existing app or project and want to add an AI piece?<br><b>We can help</b></p>
+    ''', unsafe_allow_html=True)
+
+# with col2:
+#     if 'tenant_id' not in st.session_state:
+#         signin_button()
+#     else:
+#         signout_button()
 
 pageCol = st.columns([12])
 
@@ -110,7 +117,7 @@ with tab1:
                 <div style="display: inline-flex; align-items: center;">
                 <span style="color: red; font-size: 24px;">BOM Check AI</span>
                 </div>
-                <p>AI and machine learning to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
+                <p>AI mobile/desktop app to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
                 ''', unsafe_allow_html=True)
             st.link_button("BOM Check AI - Learn More", "https://bomai.brockai.com")
         
@@ -122,11 +129,12 @@ with tab1:
                 ''', unsafe_allow_html=True)
             
     with col2:
-        st.markdown('<h5>About brockai</h5>', unsafe_allow_html=True)
+        st.markdown('<h5>Powered by</h5>', unsafe_allow_html=True)
         st.markdown('''
-            - **Frontend:** Streamlit
-            - **Server:** NodeJS
+            - **Frontends:** Streamlit/React/NextJS
+            - **API:** NodeJS
             - **Database:** OpenSearch
+            - **GPUs:** Paperspace
             - **Security & Authentication:** Auth0
             ''', unsafe_allow_html=True)
 
