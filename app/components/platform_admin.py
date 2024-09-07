@@ -66,9 +66,6 @@ def platform_admin():
             
         with st.form("my_form"):
             
-            st.write('Vector Index: ', tenant_index)
-            st.write('Authentication Email: ', tenant_email)
-
             name = st.text_input("Name", max_chars=50, value=tenant_properties['name'])
             given_name = st.text_input("Given Name", value=tenant_properties['given_name'], max_chars=50)
 

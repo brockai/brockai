@@ -1,16 +1,16 @@
 # Machine Learning & Artificial Intelligence Prototypes
 
-Hi I'm Brock,
+This repo is used to build out Machine Learning (ML) and Artificial Intelligence (AI) proof of concepts to be migrated to desktop and mobile apps.
 
-This repo is used to build out Machine Learning (ML) and Artificial Intelligence (AI) prototypes that can be added to desktop and mobile apps. You can see it in action at <a href="https://brockai.com" target="_blank">brockai.com</a>.
-
-## Our Stack
+## Desktop and Mobile Stack
 - Frontend: React/NextJS/TailwindCSS/Streamlit
 - Server: NodeJS/Geotab/OpenSearch
 - Database: OpenSearch
 - Hosting Provider: Digital Ocean
 
 ## <a href="https://github.com/brockai/brockai/wiki" target="_blank">ML/AI Research Wiki</a>
+
+<a href="https://brockai.com" target="_blank">brockai.com</a>
 
 ## [Apps](#apps)
 
