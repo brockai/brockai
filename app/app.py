@@ -79,7 +79,8 @@ with col2:
 
 pageCol = st.columns([12])
 
-tab1, tab2, tab3, tab4 = st.tabs(["📱 Apps", "💬 Chat", "👥 Contact", "☁️ Platform"])
+# tab1, tab2, tab3, tab4 = st.tabs(["📱 Apps", "💬 Chat", "👥 Contact", "☁️ Platform"])
+tab1, tab2, tab3 = st.tabs(["📱 Apps", "💬 Chat", "👥 Contact"])
 
 with tab1:
     col1, col2 = st.columns([8, 4], gap="large")
@@ -121,18 +122,19 @@ with tab1:
                 ''', unsafe_allow_html=True)
             
     with col2:
-        st.markdown('<h5>Our Stack</h5>', unsafe_allow_html=True)
+        st.markdown('<h5>About brockai</h5>', unsafe_allow_html=True)
         st.markdown('''
-            - **Frontend:** React/NextJS/TailwindCSS/Streamlit
+            - **Frontend:** Streamlit
             - **Server:** NodeJS
             - **Database:** OpenSearch
-            - **Integration:** Geotab
             - **Security & Authentication:** Auth0
             ''', unsafe_allow_html=True)
 
-        st.link_button("Future-proof your app with AI from OpenSearch - Learn More", "https://opensearch.org/platform/search/vector-database.html")
+        # st.link_button("Future-proof your app with AI from OpenSearch - Learn More", "https://opensearch.org/platform/search/vector-database.html")
 
         st.link_button("Visit our Wiki - Learn More", "https://github.com/brockai/brockai/wiki")
+
+        st.markdown(opensearch_platform_button, unsafe_allow_html=True)
 
 with tab2:
     chat()
@@ -141,19 +143,19 @@ with tab3:
     st.subheader('Contact')
     platform_signup()
 
-with tab4:
-    col1, col2 = st.columns([10, 2], gap="medium")
-    with col1:
-        ""
-    with col2:
-        st.markdown(opensearch_platform_button, unsafe_allow_html=True)
-        # tagger_component('',[health, version])
+# with tab4:
+#     col1, col2 = st.columns([10, 2], gap="medium")
+#     with col1:
+#         ""
+#     with col2:
+#         st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+#         # tagger_component('',[health, version])
 
-    if 'tenant_id' in st.session_state:
-        platform_admin()
+#     if 'tenant_id' in st.session_state:
+#         platform_admin()
     
-    if 'tenant_id' not in st.session_state:
-        st.text('Please Sign In')
+#     if 'tenant_id' not in st.session_state:
+#         st.text('Please Sign In')
 
 
 
