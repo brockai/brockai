@@ -21,7 +21,8 @@ BME provide fuel delivery services. Their tractors are outfitted with Geotab har
 There are two audiences, Drivers and Administrators. Drivers are concerened with loading, scaling in/out, delivery, onboard volume and load tracking and delays. Administrators are concerned with reporting on fuel delivery, tracking fuel Onboard real-time, managing tractor access to drivers and managing driver access.
 
 ### Pre-load - Load - Scale In - Delivery - Scale Out - End Shift
-[20.07.2024 14_10.webm](https://github.com/user-attachments/assets/08e4e3c1-8de1-4ddc-89a1-42e0d91c25bf)
+
+[20.07.2024 14_10.webm](https://github.com/user-attachments/assets/9dbed0f1-11a2-45e3-976b-5bdfa6b3358e)
 
 ### Reporting and Administration
 [20.07.2024 14_23.webm](https://github.com/user-attachments/assets/2ffad4b5-ec0d-44a9-a00f-5b1dfebec8b6)
