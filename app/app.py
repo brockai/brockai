@@ -67,12 +67,12 @@ health, version = check_opensearch_health()
 with open('styles.css') as f:
     st.markdown(
         f'<style>{f.read()}</style>'
-        +"""<img src="app/static/brockailogo.png" height="65" alt="Platform">"""
+        +"""<img src="app/static/brockailogo.png" height="65" alt="brockai">"""
         , unsafe_allow_html=True
     ) 
 
 st.markdown('''
-    <div style="display: inline-flex; align-items: center;">
+    <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
     <span style="color: red; font-size: 24px;">AI prototypes for desktop and mobile apps</span>
     </div>
     <p>Got an idea for an AI powered app? Have an existing app or project and want to add an AI piece?<br><b>We can help</b></p>
@@ -93,41 +93,21 @@ with tab1:
     col1, col2 = st.columns([8, 4], gap="large")
 
     with col1:
+        st.markdown('''
+            <div style="display: inline-flex; align-items: center;">
+            <span style="color: red; font-size: 24px;">Bulk Fuel Mobile</span>
+            </div>
+            <p>Full featured mobile bulk fuel delivery with Geotab integration & OCR for Bill of Lading and Scale</p>
+            ''', unsafe_allow_html=True)
+        st.link_button("Bulk Fuel Mobile - Visit our site", "https://bulkfuelmobile.brockai.com")
 
-        cola, colb = st.columns([6, 6], gap="large")
+        st.markdown('''
+            <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
+            <div><a href="https://bmel.ca/" target="_blank">
+                <img src="app/static/bmellogo.jpg" alt="Birch Mountain Enterprisesr" height="75">
+            </a></div>
+            ''', unsafe_allow_html=True)
 
-        with cola:
-            st.markdown('''
-                <div style="display: inline-flex; align-items: center;">
-                <span style="color: red; font-size: 24px;">Mobile Fuel Delivery</span>
-                </div>
-                <p>Full featured mobile bulk fuel delivery with geotab integration</p>
-                ''', unsafe_allow_html=True)
-            st.link_button("Mobile Fuel Delivery - Learn More", "https://github.com/brockai#apps")
-
-            st.markdown('''
-                <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
-                <div><a href="https://bmel.ca/" target="_blank">
-                    <img src="app/static/bmellogo.jpg" alt="Birch Mountain Enterprisesr" height="75">
-                </a></div>
-                ''', unsafe_allow_html=True)
-            
-        with colb:  
-            st.markdown('''
-                <div style="display: inline-flex; align-items: center;">
-                <span style="color: red; font-size: 24px;">BOM Check AI</span>
-                </div>
-                <p>AI mobile/desktop app to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
-                ''', unsafe_allow_html=True)
-            st.link_button("BOM Check AI - Learn More", "https://bomai.brockai.com")
-        
-            st.markdown('''
-                <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
-                <div><a href="https://rumzer.com" target="_blank">
-                    <img src="app/static/rumzerlogo.png" alt="Rumzer" height="55">
-                </a></div>
-                ''', unsafe_allow_html=True)
-            
     with col2:
         st.markdown('<h5>Powered by</h5>', unsafe_allow_html=True)
         st.markdown('''
@@ -165,6 +145,28 @@ with tab3:
 #     if 'tenant_id' not in st.session_state:
 #         st.text('Please Sign In')
 
+
+ # cola, colb = st.columns([6, 6], gap="large")
+
+        # with cola:
+           
+            
+        # with colb:  
+            # st.markdown('''
+            #     <div style="display: inline-flex; align-items: center;">
+            #     <span style="color: red; font-size: 24px;">BOM Check AI</span>
+            #     </div>
+            #     <p>AI mobile/desktop app to assist in checking Bill of Materials (BOM) for regulatory compliance</p>
+            #     ''', unsafe_allow_html=True)
+            # st.link_button("BOM Check AI - Learn More", "https://bomai.brockai.com")
+        
+            # st.markdown('''
+            #     <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
+            #     <div><a href="https://rumzer.com" target="_blank">
+            #         <img src="app/static/rumzerlogo.png" alt="Rumzer" height="55">
+            #     </a></div>
+            #     ''', unsafe_allow_html=True)
+            
 
 
 
