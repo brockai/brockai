@@ -1,9 +1,5 @@
 [server]
-enableCORS = false
-enableXsrfProtection = false
-enableStaticServing = true
-runOnSave = false
-debug = false
+headless = true
 
 [browser]
 gatherUsageStats = false
@@ -12,7 +8,9 @@ gatherUsageStats = false
 base = "dark"
 
 [client]
-showErrorDetails = false
+client.showErrorDetails = false
+client.showWarningDetails = false
+client.displayEnabled = false
 
 [runner]
 installTracer = false
