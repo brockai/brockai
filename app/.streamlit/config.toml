@@ -3,6 +3,7 @@ enableCORS = false
 enableXsrfProtection = false
 enableStaticServing = true
 runOnSave = false
+debug = false
 
 [browser]
 gatherUsageStats = false
@@ -12,3 +13,6 @@ base = "dark"
 
 [client]
 showErrorDetails = false
+
+[runner]
+installTracer = false
