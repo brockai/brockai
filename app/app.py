@@ -97,14 +97,14 @@ with tab1:
             <div style="display: inline-flex; align-items: center;">
             <span style="color: red; font-size: 24px;">Bulk Fuel Mobile</span>
             </div>
-            <p>Full featured mobile bulk fuel delivery with Geotab integration & OCR for Bill of Lading and Scale</p>
+            <p>Full featured mobile bulk fuel delivery with Geotab integration & AI OCR for Bill of Lading and Scale</p>
             ''', unsafe_allow_html=True)
         st.link_button("Bulk Fuel Mobile - Visit our site", "https://bulkfuelmobile.brockai.com")
 
         st.markdown('''
             <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
             <div><a href="https://bmel.ca/" target="_blank">
-                <img src="app/static/bmellogo.jpg" alt="Birch Mountain Enterprisesr" height="75">
+                <img src="app/static/bmellogo.jpg" alt="Birch Mountain Enterprises" height="75">
             </a></div>
             ''', unsafe_allow_html=True)
 

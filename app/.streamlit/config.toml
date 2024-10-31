@@ -9,3 +9,6 @@ gatherUsageStats = false
 
 [theme]
 base = "dark"
+
+[client]
+showErrorDetails = false
