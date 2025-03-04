@@ -38,23 +38,6 @@ if len(params) > 0:
                 st.session_state['tenant_doc'] = tenant_doc['hits']['hits'][0]['_source']['mappings']['properties']
                 set_tenant_role()
 
-st.markdown(f'''
-    <style>
-    .stApp .main .block-container{{
-        padding:30px 50px
-    }}
-    .stApp [data-testid='stSidebar']>div:nth-child(1)>div:nth-child(2){{
-        padding-top:50px
-    }}
-    iframe{{
-        display:block;
-    }}
-    .stRadio div[role='radiogroup']>label{{
-        margin-right:5px
-    }}
-    </style>
-    ''', unsafe_allow_html=True)
-
 cookie = cookie_manager.get(auth0_cookie_name)
 if cookie:
     cookie_values = cookie.split('|')
@@ -65,17 +48,12 @@ health, version = check_opensearch_health()
 # col1, col2 = st.columns([9, 3], gap="medium")
 # with col1:
 with open('styles.css') as f:
-    st.markdown(
-        f'<style>{f.read()}</style>'
-        +"""<img src="app/static/brockailogo.png" height="65" alt="brockai">"""
-        , unsafe_allow_html=True
-    ) 
+    st.image("static/brockailogo.png", width=250)
 
 st.markdown('''
     <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
     <span style="color: red; font-size: 24px;">AI prototypes for desktop and mobile apps</span>
     </div>
-    <p>Got an idea for an AI powered app? Have an existing app or project and want to add an AI piece?<br><b>We can help</b></p>
     ''', unsafe_allow_html=True)
 
 # with col2:
@@ -87,12 +65,13 @@ st.markdown('''
 pageCol = st.columns([12])
 
 # tab1, tab2, tab3, tab4 = st.tabs(["📱 Apps", "💬 Chat", "👥 Contact", "☁️ Platform"])
-tab1, tab2, tab3 = st.tabs(["📱 Apps", "💬 Chat", "👥 Contact"])
+tab1, tab2 = st.tabs(["📱 Apps", "👥 Contact"])
 
 with tab1:
     col1, col2 = st.columns([8, 4], gap="large")
 
     with col1:
+       
         st.markdown('''
             <div style="display: inline-flex; align-items: center;">
             <span style="color: red; font-size: 24px;">Bulk Fuel Mobile</span>
@@ -100,13 +79,11 @@ with tab1:
             <p>Full featured mobile bulk fuel delivery with Geotab integration & AI OCR for Bill of Lading and Scale</p>
             ''', unsafe_allow_html=True)
         st.link_button("Bulk Fuel Mobile - Visit our site", "https://bulkfuelmobile.brockai.com")
-
+        
         st.markdown('''
             <span style="font-size: 24px; color: white;">🏆 Sponsor</span>
-            <div><a href="https://bmel.ca/" target="_blank">
-                <img src="app/static/bmellogo.jpg" alt="Birch Mountain Enterprises" height="75">
-            </a></div>
             ''', unsafe_allow_html=True)
+        st.image("static/bmellogo.jpg", width=200)
 
     with col2:
         st.markdown('<h5>Powered by</h5>', unsafe_allow_html=True)
@@ -122,12 +99,12 @@ with tab1:
 
         st.link_button("Visit our Wiki - Learn More", "https://github.com/brockai/brockai/wiki")
 
-        st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+        # st.markdown(opensearch_platform_button, unsafe_allow_html=True)
+# 
+# with tab2:
+#     chat()
 
 with tab2:
-    chat()
-
-with tab3:
     st.subheader('Contact')
     platform_signup()
 
