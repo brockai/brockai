@@ -65,12 +65,12 @@ st.markdown('''
 pageCol = st.columns([12])
 
 # tab1, tab2, tab3, tab4 = st.tabs(["📱 Apps", "💬 Chat", "👥 Contact", "☁️ Platform"])
-tab1, tab2 = st.tabs(["📱 Apps", "👥 Contact"])
+# tab1, tab2 = st.tabs(["📱 Apps", "👥 Contact"])
 
-with tab1:
-    col1, col2 = st.columns([8, 4], gap="large")
+# with tab1:
+col1, col2 = st.columns([8, 4], gap="large")
 
-    with col1:
+with col1:
        
         st.markdown('''
             <div style="display: inline-flex; align-items: center;">
@@ -85,7 +85,7 @@ with tab1:
             ''', unsafe_allow_html=True)
         st.image("static/bmellogo.jpg", width=200)
 
-    with col2:
+with col2:
         st.markdown('<h5>Powered by</h5>', unsafe_allow_html=True)
         st.markdown('''
             - **Frontends:** Streamlit/React/NextJS
@@ -104,9 +104,9 @@ with tab1:
 # with tab2:
 #     chat()
 
-with tab2:
-    st.subheader('Contact')
-    platform_signup()
+# with tab2:
+#     st.subheader('Contact')
+#     platform_signup()
 
 # with tab4:
 #     col1, col2 = st.columns([10, 2], gap="medium")
